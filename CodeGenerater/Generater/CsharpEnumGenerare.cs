@@ -34,7 +34,6 @@ namespace CodeGenerater
             if (mDbSchemas.Count > 0)
             {
                 StringBuilder sb = new StringBuilder();
-
                 sb.AppendLine("using System;");
                 sb.AppendLine("using System.Collections.Generic;");
                 sb.AppendLine("using System.Linq;");
@@ -113,7 +112,6 @@ namespace CodeGenerater
             else
             {
                 mDbSchemas = new MyHelper.SQLiteHelper(connstr).getAllTableSchema();
-
             }
         }
         public string getcomment(string comment)

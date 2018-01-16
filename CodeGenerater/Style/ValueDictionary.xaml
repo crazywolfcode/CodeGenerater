@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                   
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:CodeGenerater">
+
+    <SolidColorBrush x:Key="E4" Color="#e4e4e4"></SolidColorBrush>
+    <SolidColorBrush x:Key="F9" Color="#f9f9f9"></SolidColorBrush>
+    <SolidColorBrush x:Key="69" Color="#696969"></SolidColorBrush>
+
+    <!--scroll bar-->
+    <sys:Double x:Key="ScrollBarSize">8</sys:Double>
+
+    <!--Effect -->
+    <DropShadowEffect x:Key="WindowDropShadow" Color="#F472F4" BlurRadius="8" ShadowDepth="0" Direction="0" Opacity="0.7" />
+    <!--边框：Menu-->
+    <DropShadowEffect x:Key="DefaultDropShadow" Color="Black" BlurRadius="5" ShadowDepth="2" Direction="315" Opacity="0.6" />
+    <!--Menu-->
+    <SolidColorBrush x:Key="MenuForeground" Color="#676765"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuBackground" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuBorderBrush" Color="RoyalBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuMouseOverBackground" Color="#0D3CD2"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuMouseOverForeground" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuPressedBackground" Color="#082CA0"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuPressedForeground" Color="White"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="myBlue" Color="#3ca9fe"/>
+    <sys:Int32 x:Key="ControlBorderThickness">1</sys:Int32>
+
+    <FontFamily x:Key="FontFamily" >Microsoft YaHei</FontFamily>
+    <sys:Double x:Key="FontSize">14</sys:Double>
+    <sys:Double x:Key="DisableOpacity">0.5</sys:Double>
+    <sys:Double x:Key="ReadonlyOpacity">0.88</sys:Double>
+    <sys:Double x:Key="WatermarkOpacity">0.4</sys:Double>
+    <sys:String x:Key="DateFormat">yyyy年MM月dd日</sys:String>
+    <sys:String x:Key="DateTimeFormat">yyyy-MM-dd HH:mm:ss</sys:String>
+
+
+    <!--普通无背景按钮-->
+    <SolidColorBrush x:Key="CheckedForeground" Color="White"></SolidColorBrush>
+    <SolidColorBrush x:Key="MouseOverForeground" Color="#333"></SolidColorBrush>
+    <SolidColorBrush x:Key="PressedForeground" Color="RoyalBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="LinkForeground" Color="#0816BB"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="ScrollBarForeround" Color="#877F7F"></SolidColorBrush>
+    <SolidColorBrush x:Key="ScrollBarBackground" Color="#3E3E42"></SolidColorBrush>
+
+</ResourceDictionary>

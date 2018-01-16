@@ -1,0 +1,234 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CodeGenerater">
+
+    <!--IconButton 默认样式-->
+    <!--FButton模板-->
+    <ControlTemplate x:Key="IconButtonTemplate" TargetType="{x:Type local:IconButton}">
+        <Border x:Name="border" 
+               Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Height="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Height}"
+                Width="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Width}"
+                CornerRadius="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=CornerRadius}">
+            <StackPanel                 
+                Orientation="Horizontal" VerticalAlignment="Center" 
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                Margin="{TemplateBinding Padding}">
+                <TextBlock x:Name="icon"           
+                           Style="{DynamicResource IFontStyle }"
+                           Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}"
+                           FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IconSize}"
+                           Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Icon}"
+                           RenderTransformOrigin="0.5,0.5"
+                           Margin="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IconMargin}">
+                    <TextBlock.RenderTransform>
+                        <RotateTransform x:Name="transIcon" Angle="0"></RotateTransform>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock x:Name="txt" 
+                           TextDecorations="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ContentDecorations}"
+                           Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Content}"
+                           FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=FontSize}"
+                           Foreground="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}"
+                           HorizontalAlignment="Center"                      
+                           VerticalAlignment="Center">
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <!--触发器-->
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},  Path=MouseOverBackground}" TargetName="border" />
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},   Path=MouseOverForeground}" TargetName="icon"/>
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},   Path=MouseOverForeground}" TargetName="txt"/>
+            </Trigger>
+            <Trigger Property="IsShowIcon" Value="false">
+                <Setter Property="Visibility" Value="Collapsed" TargetName="icon"></Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="true"></Condition>
+                    <Condition Property="AllowsAnimation" Value="true"></Condition>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="transIcon"
+                                             Storyboard.TargetProperty="Angle"
+                                             To="180"
+                                             Duration="0:0:0.2">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="transIcon"
+                                             Storyboard.TargetProperty="Angle"
+                                             To="0"
+                                             Duration="0:0:0.2">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.ExitActions>
+            </MultiTrigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},  Path=PressedBackground}" TargetName="border" />
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},  Path=PressedForground}" TargetName="icon"/>
+                <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},   Path=PressedForground}" TargetName="txt"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.5" TargetName="border"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!--默认样式-->
+    <Style  x:Key="IconButtonStyle" TargetType="{x:Type local:IconButton}">
+        <Setter Property="Background" Value="#eee" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="MouseOverBackground" Value="White" />
+        <Setter Property="MouseOverForeground" Value="Black" />
+        <Setter Property="PressedBackground"  Value="White" />
+        <Setter Property="PressedForeground"  Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="IconSize" Value="22" />
+        <Setter Property="Template" Value="{StaticResource IconButtonTemplate}" />
+        <Setter Property="Padding" Value="3,1,3,1" />
+        <Setter Property="Content" Value="{x:Null}" />
+        <Setter Property="IconMargin" Value="0,0,5,0" />
+        <Setter Property="AllowsAnimation" Value="False" />
+    </Style>
+    <!--背景透明的FButton样式-->
+    <Style x:Key="IconButtonTransparencyStyle" TargetType="{x:Type local:IconButton}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MouseOverBackground" Value="Transparent" />
+        <Setter Property="PressedBackground" Value="Transparent" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="MouseOverBackground" Value="Transparent" />
+        <Setter Property="MouseOverForeground" Value="Green" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="CornerRadius" Value="0" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="IconSize" Value="20" />
+        <Setter Property="Template" Value="{StaticResource IconButtonTemplate}"/>
+        <Setter Property="Padding" Value="3,1,3,1" />
+        <Setter Property="Content" Value="{x:Null}" />
+        <Setter Property="IconMargin" Value="0,0,2,0" />
+        <Setter Property="AllowsAnimation" Value="False" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <!--Image Button-->
+    <Style TargetType="Button" x:Key="ImageButtonStyleTwo">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/IntentConnectWeighing;component/Themes/Img/Button/add_nomal.png"></ImageBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        CornerRadius="{TemplateBinding local:ControlAttachProperty.CornerRadius}"
+                        BorderThickness="{TemplateBinding Border.BorderThickness}"
+        BorderBrush="{TemplateBinding Border.BorderBrush}"
+        Background="{TemplateBinding Panel.Background}"
+        Name="border"
+        SnapsToDevicePixels="True">
+                        <ContentPresenter
+            RecognizesAccessKey="True"
+            Content="{TemplateBinding ContentControl.Content}"
+            ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+            ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+            Name="contentPresenter"
+            Margin="{TemplateBinding Control.Padding}"
+            HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+            VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+            SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+            Focusable="False" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/IntentConnectWeighing;component/Themes/Img/Button/add_mover.png"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/IntentConnectWeighing;component/Themes/Img/Button/add_nomal.png"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/IntentConnectWeighing;component/Themes/Img/Button/add_enter.png"></ImageBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Image Button-->
+    <Style TargetType="Button" x:Key="ImageButtonStyle">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/IntentConnectWeighing;component/Themes/Img/Button/add_nomal.png"></ImageBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        CornerRadius="{TemplateBinding local:ControlAttachProperty.CornerRadius}"
+                        BorderThickness="{TemplateBinding Border.BorderThickness}"
+        BorderBrush="{TemplateBinding Border.BorderBrush}"
+        Background="{TemplateBinding Panel.Background}"
+        Name="border"
+        SnapsToDevicePixels="True">
+                        <ContentPresenter
+            RecognizesAccessKey="True"
+            Content="{TemplateBinding ContentControl.Content}"
+            ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+            ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+            Name="contentPresenter"
+            Margin="{TemplateBinding Control.Padding}"
+            HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+            VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+            SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
+            Focusable="False" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=local:ControlAttachProperty.MouseOverBackground}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Background}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=local:ControlAttachProperty.MouseOverBackground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

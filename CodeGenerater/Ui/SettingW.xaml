@@ -1,0 +1,137 @@
+﻿<Window x:Class="CodeGenerater.SettingW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeGenerater" 
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"  WindowStyle="None" Style="{StaticResource  WindowStyle}"
+        Title="设置" Height="430" Width="560">
+    <Window.Resources>
+        <local:CheckedToVisibleConverter x:Key="CheckedToVisibleConverter"></local:CheckedToVisibleConverter>
+    </Window.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="#e4e4e4" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
+            <StackPanel x:Name="ConfigItemPanel" >
+                <TextBlock Style="{DynamicResource IFontStyle}" Width="80" Height="80" Text="&#xe74c;" Foreground="{StaticResource myBlue}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                <RadioButton x:Name="BaseSetting"  Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"    >基本</RadioButton>
+                <RadioButton x:Name="ScaleSetting" Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   >磅秤</RadioButton>
+                <RadioButton x:Name="cameraSetting" Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969" IsChecked="True" >视频</RadioButton>
+                <RadioButton x:Name="BalanceSetting" Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   >平衡</RadioButton>
+                <RadioButton x:Name="HighSetting" Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   >高级</RadioButton>
+                <RadioButton x:Name="OtherSetting" Style="{DynamicResource menuRadioButtonStyle}" Foreground="#696969"   >其它</RadioButton>
+
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" CornerRadius="0,4,4,0" Padding="0,4,4,4" Background="#f9f9f9">
+            <DockPanel Grid.Column="1" LastChildFill="True" >
+                <StackPanel DockPanel.Dock="Top" Height="25" Cursor="Hand" x:Name="windowTitle" Background="#f9f9f9" MouseMove="WindowTitle_MouseMove">
+                    <!--关闭按钮-->
+                    <local:WindowButton  BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,0,2,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right"  Click="CloseBtn_Click">
+                        <local:WindowButton.MyMoverBrush>
+                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xm.png"></ImageBrush>
+                        </local:WindowButton.MyMoverBrush>
+                        <local:WindowButton.MyEnterBrush>
+                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xe.png"></ImageBrush>
+                        </local:WindowButton.MyEnterBrush>
+                        <local:WindowButton.Background>
+                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xn.png"></ImageBrush>
+                        </local:WindowButton.Background>
+                    </local:WindowButton >
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+                    <local:IconButton 
+                            Margin="10"
+                            Padding="1"
+                            x:Name="SaveBtn" 
+                            Click="SaveBtn_Click"
+                            Style="{StaticResource IconButtonStyle}"  
+                            Background="#f9f9f9f9" 
+                            BorderBrush="#e0e0e0" 
+                            Foreground="#666"
+                            BorderThickness="1" 
+                            Width="60"
+                            Height="25"                 
+                            CornerRadius="4"                                      
+                            FontWeight="Bold" 
+                            IsShowIcon="False"                 
+                            HorizontalAlignment="Center"   
+                            MouseOverForeground="Black"
+                            MouseOverBackground="White" Content="确 定" />
+                </StackPanel>
+                <!--Main content area-->
+                <StackPanel >
+                    <StackPanel HorizontalAlignment="Center" Visibility="{Binding ElementName=BaseSetting,Path=IsChecked ,Converter={StaticResource CheckedToVisibleConverter}}">
+                        <TextBlock  FontSize="25"> Center</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel  HorizontalAlignment="Center" Visibility="{Binding ElementName=ScaleSetting,Path=IsChecked ,Converter={StaticResource CheckedToVisibleConverter}}">
+                        <TextBlock  FontSize="25"> Scale setting</TextBlock>
+                    </StackPanel>
+                    <!--cameraSetting-->
+                    <Grid Visibility="{Binding ElementName=cameraSetting,Path=IsChecked ,Converter={StaticResource CheckedToVisibleConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <local:IconButton ToolTip="添加摄像头"
+                                x:Name="AddCameraBtn" 
+                                Click="AddCameraBtn_Click"                                
+                                Padding="2"
+                                Icon="&#xe50d;" FontWeight="Bold"
+                                IsShowIcon="True"
+                                Margin="0,0,10,0"    
+                                Style="{StaticResource IconButtonTransparencyStyle}" 
+                                Foreground="{StaticResource myBlue}"                                
+                                Width="25"
+                                Height="25"                 
+                                CornerRadius="13"   
+                                MouseOverForeground="White"
+                                MouseOverBackground="{StaticResource myBlue}" />
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="1" GridLinesVisibility="None" ColumnHeaderHeight="30" Style="{x:Null}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="*" Header="Ip地址" Binding="{Binding ip}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="端口" Binding="{Binding port}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="登陆名称" Binding="{Binding userName}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="密码" Binding="{Binding password}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="位置" Binding="{Binding }"></DataGridTextColumn>
+                                <DataGridTemplateColumn Width="50" Header="操作" >
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <local:IconButton x:Name="updateBtn" Tag="{Binding id}" Icon="&#xe6f0;" Style="{DynamicResource IconButtonTransparencyStyle}" Click="updateBtn_Click"/>
+                                                <local:IconButton x:Name="deleteBtn" Tag="{Binding id}" Icon="&#xe615;" Style="{DynamicResource IconButtonTransparencyStyle}" Click="deleteBtn_Click"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+
+                    <StackPanel HorizontalAlignment="Center" Visibility="{Binding ElementName=BalanceSetting,Path=IsChecked ,Converter={StaticResource CheckedToVisibleConverter}}">
+                        <TextBlock  FontSize="25"> BalanceSetting</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Visibility="{Binding ElementName=HighSetting,Path=IsChecked ,Converter={StaticResource CheckedToVisibleConverter}}">
+                        <TextBlock  FontSize="25"> HighSetting</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Center" Visibility="{Binding ElementName=OtherSetting,Path=IsChecked ,Converter={StaticResource CheckedToVisibleConverter}}">
+                        <TextBlock  FontSize="25"> OtherSetting</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+
+</Window>
