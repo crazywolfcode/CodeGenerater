@@ -15,15 +15,13 @@ namespace CodeGenerater
         public static Window mainWindow;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            new MainWindow().Show();
+            new WelcomeW().Show();
         }
 
         public static void showMainWindow() {
             if (mainWindow != null) {
-                mainWindow.Show();
-                mainWindow.ShowActivated = true;                
+                mainWindow.Show();       
             }
-
         }
     }
 }

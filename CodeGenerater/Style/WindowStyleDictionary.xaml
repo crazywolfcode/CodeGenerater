@@ -80,4 +80,32 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="{x:Type  local:WindowButton}" TargetType="{x:Type  local:WindowButton}">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type  local:WindowButton}">
+                    <Border Name="border" BorderBrush="{TemplateBinding Control.BorderBrush}" 
+                            BorderThickness="{TemplateBinding Control.BorderThickness}" SnapsToDevicePixels="True" Width="{TemplateBinding FrameworkElement.Width}" 
+                            Height="{TemplateBinding FrameworkElement.Height}" Background="{TemplateBinding Control.Background}">
+                        <ContentPresenter Name="contentPresenter" 
+                                          ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                          ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" Focusable="False" 
+                                          RecognizesAccessKey="True" 
+                                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" 
+                                          Content="{TemplateBinding ContentControl.Content}" 
+                                          HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="True">
+                            <Setter TargetName="border" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=MyMoverBrush}" Property="Border.Background" />
+                        </Trigger>
+                        <Trigger Property="ButtonBase.IsPressed" Value="True">
+                            <Setter TargetName="border" Value="{Binding  RelativeSource={RelativeSource Mode=TemplatedParent},Path=MyEnterBrush}" Property="Border.Background" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

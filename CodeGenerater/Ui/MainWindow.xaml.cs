@@ -111,6 +111,9 @@ namespace CodeGenerater
                 case "about":
                     new AboutW().ShowDialog();
                     break;
+                case "reward":
+                    new RewardW().ShowDialog();
+                    break;
                 case "quit":
                     this.Close();
                     break;
@@ -131,6 +134,8 @@ namespace CodeGenerater
             getListConn();
             changedAlertIngo();
             bindingElements();
+
+            App.mainWindow = this;
         }
 
         private void bindingElements()
@@ -169,7 +174,8 @@ namespace CodeGenerater
             int index = Convert.ToInt32(grid.Tag.ToString());
             GeneraterW gw = new GeneraterW(conns[index]);
             this.Hide();
-            gw.Show();
+            gw.ShowDialog();
+            this.Show();
         }
 
         private void Element_MouseLeave(object sender, MouseEventArgs e)
@@ -279,5 +285,5 @@ namespace CodeGenerater
             changedAlertIngo();
             bindingElements();
         }
-    }
+     }
 }

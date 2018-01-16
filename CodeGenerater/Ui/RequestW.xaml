@@ -11,21 +11,34 @@
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}"
         Title="问题反馈" Height="550" Width="650">
-    <Grid Margin="2">       
+    <Grid Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition Height="64"/>
             <RowDefinition/>
             <RowDefinition Height="6"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" CornerRadius="4,4,0,0" x:Name="headerBorder" MouseMove="headerBorder_MouseMove"  Background="{StaticResource F9}" Grid.ColumnSpan="2">
+        <Border Grid.Row="0" CornerRadius="4,4,0,0" x:Name="headerBorder" MouseMove="headerBorder_MouseMove"  Background="{StaticResource F9}">
             <StackPanel Orientation="Horizontal" Background="Transparent" MouseMove="headerBorder_MouseMove">
-                <Image  Source="/CodeGenerater;component/logo.ico" Width="48" Height="48" HorizontalAlignment="Left" Margin="10" Stretch="UniformToFill" />
-                <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="问题反馈" VerticalAlignment="Center" FontSize="20" FontWeight="Black" Foreground="#787972"/>
-            </StackPanel>           
+                <Image  Source="/CodeGenerater;component/logo.ico" Width="48" Height="48" HorizontalAlignment="Left" Margin="10" Stretch="UniformToFill" ></Image>
+                <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="问题反馈" VerticalAlignment="Center" FontSize="20" FontWeight="Black" Foreground="#787972"></TextBlock>
+            </StackPanel>
         </Border>
-      
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,3,3,0">
+            <!--关闭按钮-->
+            <local:WindowButton BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,4,4,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right" VerticalAlignment="Top"   Click="CloseBtn_Click">
+                <local:WindowButton.MyMoverBrush>
+                    <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xm.png"/>
+                </local:WindowButton.MyMoverBrush>
+                <local:WindowButton.MyEnterBrush>
+                    <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xe.png"/>
+                </local:WindowButton.MyEnterBrush>
+                <local:WindowButton.Background>
+                    <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xn.png" TileMode="FlipXY"/>
+                </local:WindowButton.Background>
+            </local:WindowButton>
+        </StackPanel>
 
-        <Border Grid.Row="1" Background="{StaticResource E4}" Grid.ColumnSpan="2">
+        <Border Grid.Row="1" Background="{StaticResource E4}">
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" >
                 <Image Width="200" Height="280" Margin="0,10,0,0" Source="/CodeGenerater;component/logo.png" Stretch="UniformToFill"></Image>
                 <StackPanel Orientation="Horizontal">
@@ -41,18 +54,8 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        <local:WindowButton Grid.Row="1" BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,4,4,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right" VerticalAlignment="Top"   Click="CloseBtn_Click">
-            <local:WindowButton.MyMoverBrush>
-                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xm.png"/>
-            </local:WindowButton.MyMoverBrush>
-            <local:WindowButton.MyEnterBrush>
-                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xe.png"/>
-            </local:WindowButton.MyEnterBrush>
-            <local:WindowButton.Background>
-                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xn.png" TileMode="FlipXY"/>
-            </local:WindowButton.Background>
-        </local:WindowButton>
-        <Border Grid.Row="2" CornerRadius="0,0,4,4"   Background="{StaticResource E4}" Grid.ColumnSpan="2">
+
+        <Border Grid.Row="2" CornerRadius="0,0,4,4"   Background="{StaticResource E4}">
 
         </Border>
     </Grid>

@@ -17,10 +17,10 @@
     <!--Menu-->
     <SolidColorBrush x:Key="MenuForeground" Color="#676765"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuBackground" Color="White"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuBorderBrush" Color="RoyalBlue"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuMouseOverBackground" Color="#0D3CD2"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuBorderBrush" Color="#e4e4e4"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuMouseOverBackground" Color="#696969"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuMouseOverForeground" Color="White"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuPressedBackground" Color="#082CA0"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuPressedBackground" Color="#e4e4e4"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuPressedForeground" Color="White"></SolidColorBrush>
 
     <SolidColorBrush x:Key="myBlue" Color="#3ca9fe"/>
@@ -38,7 +38,7 @@
     <!--普通无背景按钮-->
     <SolidColorBrush x:Key="CheckedForeground" Color="White"></SolidColorBrush>
     <SolidColorBrush x:Key="MouseOverForeground" Color="#333"></SolidColorBrush>
-    <SolidColorBrush x:Key="PressedForeground" Color="RoyalBlue"></SolidColorBrush>
+    <SolidColorBrush x:Key="PressedForeground" Color="White"></SolidColorBrush>
     <SolidColorBrush x:Key="LinkForeground" Color="#0816BB"></SolidColorBrush>
 
     <SolidColorBrush x:Key="ScrollBarForeround" Color="#877F7F"></SolidColorBrush>

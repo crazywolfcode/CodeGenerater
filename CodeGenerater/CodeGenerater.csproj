@@ -114,11 +114,14 @@
     <Compile Include="Ui\AddW.xaml.cs">
       <DependentUpon>AddW.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SettingW.xaml.cs">
-      <DependentUpon>SettingW.xaml</DependentUpon>
+    <Compile Include="Ui\RewardW.xaml.cs">
+      <DependentUpon>RewardW.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\TabButton.cs" />
     <Compile Include="Control\WindowButton.cs" />
+    <Compile Include="Ui\WelcomeW.xaml.cs">
+      <DependentUpon>WelcomeW.xaml</DependentUpon>
+    </Compile>
     <Page Include="Lang\DefaultLanguage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -193,9 +196,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ui\SettingW.xaml">
+    <Page Include="Ui\RewardW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\WelcomeW.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -223,18 +230,69 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Themes\Font\iconfont.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Helper\" />
-    <Folder Include="Themes\Font\" />
-    <Folder Include="Themes\Img\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\Background\background_main.png" />
+    <Resource Include="Themes\Img\Background\bd.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_center.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_center_2.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_last.png" />
+    <Resource Include="Themes\Img\Background\bd_blue_pre.png" />
+    <Resource Include="Themes\Img\Background\enter.png" />
+    <Resource Include="Themes\Img\Background\mover.png" />
+    <Resource Include="Themes\Img\Button\add_enter.png" />
+    <Resource Include="Themes\Img\Button\add_mover.png" />
+    <Resource Include="Themes\Img\Button\add_nomal.png" />
+    <Resource Include="Themes\Img\Button\mie.png" />
+    <Resource Include="Themes\Img\Button\mim.png" />
+    <Resource Include="Themes\Img\Button\min.png" />
+    <Resource Include="Themes\Img\Button\mme.png" />
+    <Resource Include="Themes\Img\Button\mmm.png" />
+    <Resource Include="Themes\Img\Button\mmn.png" />
+    <Resource Include="Themes\Img\Button\mse.png" />
+    <Resource Include="Themes\Img\Button\msm.png" />
+    <Resource Include="Themes\Img\Button\msn.png" />
+    <Resource Include="Themes\Img\Button\mxe.png" />
+    <Resource Include="Themes\Img\Button\mxm.png" />
+    <Resource Include="Themes\Img\Button\mxn.png" />
+    <Resource Include="Themes\Img\Button\ske.png" />
+    <Resource Include="Themes\Img\Button\skm.png" />
+    <Resource Include="Themes\Img\Button\skn.png" />
+    <Resource Include="Themes\Img\Button\xe.png" />
+    <Resource Include="Themes\Img\Button\xm.png" />
+    <Resource Include="Themes\Img\Button\xn.png" />
+    <Resource Include="Themes\Img\Icon\favicon.ico" />
+    <Resource Include="Themes\Img\Icon\favicon128.ico" />
+    <Resource Include="Themes\Img\Icon\favicon32.ico" />
+    <Resource Include="Themes\Img\Icon\favicon48.ico" />
+    <Resource Include="Themes\Img\Icon\favicon64.ico" />
+    <Resource Include="Themes\Img\Icon\icon.png" />
+    <Resource Include="Themes\Img\Icon\setting-ico.png" />
+    <Resource Include="Themes\Img\Icon\transportIcon.png" />
+    <Resource Include="Themes\Img\Icon\yjtp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\wxRevard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\cfbReward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\rewardTwo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\banner03.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" />

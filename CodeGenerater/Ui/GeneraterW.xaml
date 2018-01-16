@@ -17,7 +17,7 @@
             <ColumnDefinition Width="140"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="#e4e4e4" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
+        <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="{StaticResource E4}" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
             <StackPanel x:Name="ConfigItemPanel" >
                 <StackPanel x:Name="topHeader">
                     <TextBlock Style="{DynamicResource IFontStyle}" Width="80" Height="80" Text="&#xe66c;" Foreground="{StaticResource myBlue}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -33,7 +33,7 @@
                 </ScrollViewer>
             </StackPanel>
         </Border>
-        <Border Grid.Column="1" CornerRadius="0,4,4,0" Padding="0,4,4,4" Background="#f9f9f9">
+        <Border Grid.Column="1" CornerRadius="0,4,4,0" Padding="0,4,4,4" Background="{StaticResource F9}">
             <Grid Grid.Column="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" MouseMove="WindowTitle_MouseMove"></RowDefinition>
@@ -96,7 +96,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
                     <!--最小化按钮-->
-                    <local:WindowButton Content=""  Width="27" Height="22"  Margin="0,0,2,0" x:Name="MinBtn" Click="MinBtn_Click">
+                    <local:WindowButton Content=""  Width="27" Height="22"  Margin="0,0,2,0" x:Name="MinBtn" Click="MinBtn_Click" >
                         <local:WindowButton.MyMoverBrush>
                             <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mim.png"></ImageBrush>
                         </local:WindowButton.MyMoverBrush>
@@ -108,7 +108,7 @@
                         </local:WindowButton.Background>
                     </local:WindowButton>
                     <!--最大化按钮-->
-                    <local:WindowButton  BorderBrush="{x:Null}" Content="max"  Width="27" Height="22"  Margin="0,0,2,0"  x:Name="MaxBtn" Click="MaxBtn_Click" >
+                    <local:WindowButton  BorderBrush="{x:Null}" Content=""  Width="27" Height="22"  Margin="0,0,2,0"  x:Name="MaxBtn" Click="MaxBtn_Click" >
                         <local:WindowButton.MyMoverBrush>
                             <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxm.png"></ImageBrush>
                         </local:WindowButton.MyMoverBrush>

@@ -16,8 +16,8 @@ namespace CodeGenerater
 
         static WindowButton()
         {
-            WindowButton.MyMoverBrushProperty = DependencyProperty.Register("MyMoverBrush", typeof(Brush), typeof(WindowButton), new PropertyMetadata(null));
-            WindowButton.MyEnterBrushProperty = DependencyProperty.Register("MyEnterBrush", typeof(Brush), typeof(WindowButton), new PropertyMetadata(null));
+            WindowButton.MyMoverBrushProperty = DependencyProperty.Register("MyMoverBrush", typeof(Brush), typeof(WindowButton), new PropertyMetadata(Brushes.Black));
+            WindowButton.MyEnterBrushProperty = DependencyProperty.Register("MyEnterBrush", typeof(Brush), typeof(WindowButton), new PropertyMetadata(Brushes.White));
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowButton), new FrameworkPropertyMetadata(typeof(WindowButton)));
         }
 

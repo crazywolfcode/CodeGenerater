@@ -17,7 +17,7 @@
             <RowDefinition/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" CornerRadius="4,4,0,0" x:Name="headerBorder" MouseMove="headerBorder_MouseMove"  Background="#f9f9f9">
+        <Border Grid.Row="0" CornerRadius="4,4,0,0" x:Name="headerBorder" MouseMove="headerBorder_MouseMove"  Background="{StaticResource E4}">
             <StackPanel Orientation="Horizontal" Background="Transparent" MouseMove="headerBorder_MouseMove">
                 <Image Source="/CodeGenerater;component/logo.ico" Width="48" Height="48" HorizontalAlignment="Left" Margin="10" Stretch="UniformToFill" MouseLeftButtonUp="userHeaderImage_MouseLeftButtonUp"></Image>
                 <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" Text="代码生成器" VerticalAlignment="Center" FontSize="20" FontWeight="Black" Foreground="#787972"></TextBlock>
@@ -32,19 +32,21 @@
                         <StackPanel Background="White">
                             <MenuItem Header="设置" Icon="&#xe74c;" Tag="setting" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
                             <MenuItem Icon="&#xe782;" Header="在线更新" Tag="update"  Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
-                            <Border Height="1" Background="#666" Opacity="0.8"></Border>
+                            <Border Height="1"  Background="{StaticResource E4}" Opacity="0.8"></Border>
                             <MenuItem Icon="&#xe657;" Header="问题反馈" Tag="request" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click" />
-                            <MenuItem Icon="&#xe61e;" Header="技术支持" Tag="support" Style="{DynamicResource IconMenuItem}" Click="MenuItem_Click"/>
-                            <MenuItem Icon="&#xe60e;" Header="关于" Tag="about" Style="{DynamicResource IconMenuItem}" Click="MenuItem_Click"/>
-                            <MenuItem Icon="&#xe635;" Header="{StaticResource OptionQuit}" Tag="quit" Style="{DynamicResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <MenuItem Icon="&#xe61e;" Header="技术支持" Tag="support" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <MenuItem Icon="&#xe60e;" Header="关于" Tag="about" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <MenuItem Icon="&#xe635;" Header="{StaticResource OptionQuit}" Tag="quit" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <Border Height="1" Background="{StaticResource E4}" Opacity="0.8"></Border>
+                            <MenuItem Icon="&#xe8a6;" local:ControlAttachProperty.IconSize="20"  Header="打赏" Tag="reward" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click" />
                         </StackPanel>
                     </Border>
                 </Popup>
             </StackPanel>
         </Border>
-        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,3,3,0">
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="0,3,3,0" >
             <!--最小化按钮-->
-            <local:WindowButton Content=""  Width="27" Height="22"  Margin="0,0,2,0" x:Name="MinBtn" Click="MinBtn_Click" >
+            <local:WindowButton Content=""  Width="27" Height="22"  Margin="0,0,2,0" x:Name="MinBtn" Click="MinBtn_Click">
                 <local:WindowButton.MyMoverBrush>
                     <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mim.png"></ImageBrush>
                 </local:WindowButton.MyMoverBrush>
@@ -56,7 +58,7 @@
                 </local:WindowButton.Background>
             </local:WindowButton>
             <!--最大化按钮-->
-            <local:WindowButton  BorderBrush="{x:Null}" Content="max"  Width="27" Height="22"  Margin="0,0,2,0"  x:Name="MaxBtn" Click="MaxBtn_Click" >
+            <local:WindowButton  BorderBrush="{x:Null}" Content=""  Width="27" Height="22"  Margin="0,0,2,0"  x:Name="MaxBtn" Click="MaxBtn_Click"  Visibility="Visible">
                 <local:WindowButton.MyMoverBrush>
                     <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxm.png"></ImageBrush>
                 </local:WindowButton.MyMoverBrush>
@@ -89,7 +91,7 @@
             </ScrollViewer>
         </Border>
 
-        <Border Grid.Row="2" CornerRadius="0,0,4,4"   Background="{StaticResource E4}">
+        <Border Grid.Row="2" CornerRadius="0,0,4,4"   Background="{StaticResource F9}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
                 <TextBlock x:Name="alertTb" Margin="0,0,20,0" VerticalAlignment="Center" >
                      还没有数据库连接
