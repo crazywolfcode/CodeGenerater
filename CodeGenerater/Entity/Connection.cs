@@ -23,5 +23,13 @@ namespace CodeGenerater
         public string password { get; set; }
         public string addTime { get; set; }
         public string connStr { get; set; }
+        public string pakeage { get; set; }
+        public string javaClassPath { get; set; }
+        public string javaEnumPath { get; set; }
+        public string nameSpace { get; set; }
+        public string cSharpClassPath { get; set; }
+        public string cSharpEnumPath { get; set; }
+        public string sqlPath { get; set; }
+        public string auto { get; set; }
     }
 }

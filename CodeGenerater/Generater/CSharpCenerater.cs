@@ -6,25 +6,14 @@ using System.Threading.Tasks;
 
 namespace CodeGenerater
 {
-    class CSharpCenerater
+    class CSharpCenerater:BaseGenerater
     {
-        string codeNameSpace;
-        string ClassNmae;
-        string ClassComment;
-        string mConnstring;
-        string mTableName;
-        string mDbType;
-        string mDbName;
-        string tab = "\t";
-
-        public CSharpCenerater(string nspace, string comment, string dbname, string tableName, string conn, string dbtype)
+        public CSharpCenerater( string comment, string tableName, Connection connection)
         {
-            codeNameSpace = nspace;
+       
             ClassComment = comment;
-            mConnstring = conn;
             mTableName = tableName;
-            mDbType = dbtype;
-            mDbName = dbname;
+            mConnection = connection;    
             ClassNmae = MyHelper.StringHelper.dbNameToClassName(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
         }
         private string getHeader()
@@ -35,7 +24,7 @@ namespace CodeGenerater
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine("using System.Text;");
             sb.AppendLine("");
-            sb.AppendLine(string.Format(" namespace {0}", codeNameSpace));
+            sb.AppendLine(string.Format(" namespace {0}", mConnection.nameSpace));
             sb.AppendLine("{");
             sb.AppendLine("");
             sb.AppendLine(getClassComment(ClassComment));
@@ -89,8 +78,8 @@ namespace CodeGenerater
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(getHeader());
-            if (mDbType == DbType.mysql.ToString()) {
-                List<MyHelper.MysqlTableColumnSchema> schemas = new MyHelper.MySqlHelper(mConnstring).getTableColumnSchema(mDbName,mTableName);
+            if (mConnection.type == DbType.mysql.ToString()) {
+                List<MyHelper.MysqlTableColumnSchema> schemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableColumnSchema(mConnection.dbName,mTableName);
                 for (int i = 0; i < schemas.Count; i++)
                 {
                     MyHelper.MysqlTableColumnSchema schema = schemas[i];
@@ -99,7 +88,7 @@ namespace CodeGenerater
                     sb.AppendLine();
                 }
             } else {
-                List<MyHelper.SqliteTableSchema> schemas = new MyHelper.SQLiteHelper(mConnstring).getTableSchema(mTableName);
+                List<MyHelper.SqliteTableSchema> schemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(mTableName);
                 for (int i = 0; i < schemas.Count; i++)
                 {
                     MyHelper.SqliteTableSchema schema = schemas[i];

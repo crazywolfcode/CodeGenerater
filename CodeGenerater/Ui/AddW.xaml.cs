@@ -137,6 +137,9 @@ namespace CodeGenerater
                 if (MyHelper.SQLiteHelper.CheckConn(conn.connStr))
                 {
                     conn.addTime = MyHelper.DateTimeHelper.getCurrentDateTime();
+                    conn.auto = Auto.no.ToString();
+                    conn.nameSpace = "你的名称空间";
+                    conn.pakeage = "你的包名";
                     //保存
                     if (saveToFile(conn))
                     {

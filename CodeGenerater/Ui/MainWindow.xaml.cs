@@ -277,13 +277,12 @@ namespace CodeGenerater
             FrameworkElement element = XamlReader.Load(reader) as FrameworkElement;
             return element;
         }
-
-
+        
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
-        {
+        {           
             getListConn();
             changedAlertIngo();
             bindingElements();
         }
-     }
+    }
 }

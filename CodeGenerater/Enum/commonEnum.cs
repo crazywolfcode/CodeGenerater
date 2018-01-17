@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CodeGenerater
 {
+    public enum Auto {
+        yes,no
+    }
 
     public enum ConfigItemName
     {

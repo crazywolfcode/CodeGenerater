@@ -24,6 +24,7 @@ namespace CodeGenerater
         private Connection mConnection;
         private string[] mTables = new string[] { };
         private List<MyHelper.DbSchema> mDbSchemas;
+        private string sufix;
         public GeneraterW(Connection conn)
         {
             InitializeComponent();
@@ -65,7 +66,7 @@ namespace CodeGenerater
         {
             if (mConnection.type == DbType.mysql.ToString())
             {
-                mDbSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema();
+                mDbSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
             }
             else
             {
@@ -78,7 +79,7 @@ namespace CodeGenerater
         {
             if (mConnection.type == DbType.mysql.ToString())
             {
-                mTables = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableName();
+                mTables = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableName(mConnection.dbName);
             }
             else if (mConnection.type == DbType.sqlite.ToString())
             {
@@ -147,22 +148,22 @@ namespace CodeGenerater
             string doc = string.Empty;
             if (javaRb.IsChecked == true)
             {
-                JavaGenerater jg = new JavaGenerater("com.main.txmy", commend, mConnection.dbName, tablename, mConnection.connStr, mConnection.type);
+                JavaGenerater jg = new JavaGenerater(currentCommend,currentTableName,mConnection);
                 doc = jg.CeneraterClass();
             }
             else if (csharpRb.IsChecked == true)
             {
-                CSharpCenerater generater = new CSharpCenerater("codeGenerater", commend, mConnection.dbName, tablename, mConnection.connStr, mConnection.type);
+                CSharpCenerater generater = new CSharpCenerater(currentCommend,currentTableName,mConnection);
                 doc = generater.CeneraterClass();
             }
             else if (javaEnumRb.IsChecked == true)
             {
-                JavaEnumGenerare generater = new JavaEnumGenerare("com.main.txmy", mConnection.connStr, mConnection.type);
+                JavaEnumGenerare generater = new JavaEnumGenerare(mConnection);
                 doc = generater.tableEnumGenerater(currentTableName, currentCommend);
             }
             else if (csharpEnumRb.IsChecked == true)
             {
-                CsharpEnumGenerare generater = new CsharpEnumGenerare("codeGenerater", mConnection.connStr, mConnection.type);
+                CsharpEnumGenerare generater = new CsharpEnumGenerare(mConnection);
                 doc = generater.tableEnumGenerater(currentTableName, currentCommend);
             }
             else if (createSqlb.IsChecked == true)
@@ -216,7 +217,7 @@ namespace CodeGenerater
         }
 
         #endregion
-
+            
         /// <summary>
         /// save code to file
         /// </summary>
@@ -224,7 +225,31 @@ namespace CodeGenerater
         /// <param name="e"></param>
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            
+            string doc = this.CodeTb.Text;
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sufix != ".sql")
+            {
+                sfd.FileName = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(currentTableName));
+            }
+            else
+            {
+                sfd.FileName = currentTableName;
+            }          
+            sfd.DefaultExt = sufix;
+        
+            if (sfd.ShowDialog() == true) {               
+                try
+                {
+                    MyHelper.FileHelper.Write(sfd.FileName, doc);
+                    MessageBox.Show("保存成功！");
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("保存失败!原因："+exc.Message);
+                }
+               
+            }
         }
 
         #region set scrollviewer height
@@ -249,24 +274,29 @@ namespace CodeGenerater
 
         private void javaRb_Checked(object sender, RoutedEventArgs e)
         {
+            sufix = ".java";
             changed();
         }
 
         private void csharpRb_Checked(object sender, RoutedEventArgs e)
         {
+            sufix = ".cs";
             changed();
         }
         private void javaEnumRb_Checked(object sender, RoutedEventArgs e)
         {
+            sufix = ".java";
             changed();
         }
 
         private void csharpEnumRb_Checked(object sender, RoutedEventArgs e)
         {
+            sufix = ".cs";
             changed();
         }
         private void createSqlb_Checked(object sender, RoutedEventArgs e)
         {
+            sufix = ".sql";
             changed();
         }
         private void changed()
@@ -280,7 +310,7 @@ namespace CodeGenerater
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-              
+
         }
 
 

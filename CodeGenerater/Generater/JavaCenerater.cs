@@ -6,26 +6,17 @@ using System.Threading.Tasks;
 
 namespace CodeGenerater
 {
-    class JavaGenerater
-    {
-        string packageName;
-        string ClassNmae; 
-        string mDBName;
-        string mTableName;
-        string ClassComment;
-        string mConnString;
-        private string mDbType;
+    class JavaGenerater:BaseGenerater
+    {    
         private List<MyHelper.MysqlTableColumnSchema> mMysqlTableColumnSchema;
         private List<MyHelper.SqliteTableSchema> mSqliteTableSchemas;
-        string PropertyT = "public {0} {1};";        
-        string tab = "\t ";
-
+        string PropertyT = "public {0} {1};";     
         public string getGet(string type, string property)
         {
             StringBuilder sb = new StringBuilder();
             //sb.AppendLine(tab + string.Format("public {0} get{1}() {", type, MyHelper.StringHelper.upperCaseFirstLetter(property)));
             sb.AppendLine(tab + $"public {type} get{MyHelper.StringHelper.upperCaseFirstLetter(property)}()" + "{");
-            sb.AppendLine(tab + tab +$"return {property};");
+            sb.AppendLine(tab + tab + $"return {property};");
             sb.AppendLine(tab + "}");
             return sb.ToString();
         }
@@ -34,25 +25,23 @@ namespace CodeGenerater
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(tab + $"public void set{MyHelper.StringHelper.upperCaseFirstLetter(property)}({type} {property})" + "{");
-            sb.AppendLine(tab+tab+$" this.{property} = {property};");
-            sb.AppendLine(tab+"}");
+            sb.AppendLine(tab + tab + $" this.{property} = {property};");
+            sb.AppendLine(tab + "}");
             return sb.ToString();
         }
 
-        public JavaGenerater(string package, string comment,string dbname, string tableName, string conn, string dbtype)
-        {
-            packageName = package;
+        public JavaGenerater(string comment, string tableName, Connection connection)
+        {          
             ClassComment = comment;
             mTableName = tableName;
-            mDBName = dbname;
+            mConnection = connection;
             ClassNmae = MyHelper.StringHelper.dbNameToClassName(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
-            mDbType = dbtype;
-            mConnString = conn;
+
         }
         private string getHeader()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(string.Format("package {0};", packageName));
+            sb.AppendLine(string.Format("package {0};", mConnection.pakeage));
             sb.AppendLine();
             sb.AppendLine("import java.util.Date;");
             sb.AppendLine("");
@@ -88,14 +77,15 @@ namespace CodeGenerater
         }
 
         public string getMethodComment(string comment)
-        {  if (string.IsNullOrEmpty(comment))
+        {
+            if (string.IsNullOrEmpty(comment))
                 return null;
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(tab + "/**");
             if (!string.IsNullOrWhiteSpace(comment))
             {
                 sb.AppendLine(tab + "* " + comment);
-            }          
+            }
             sb.AppendLine(tab + "*/");
             return sb.ToString();
         }
@@ -119,8 +109,9 @@ namespace CodeGenerater
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(getHeader());
-            if (mDbType == DbType.mysql.ToString()) {
-                mMysqlTableColumnSchema = new MyHelper.MySqlHelper(mConnString).getTableColumnSchema(mDBName,mTableName);
+            if (mConnection.type == DbType.mysql.ToString())
+            {
+                mMysqlTableColumnSchema = new MyHelper.MySqlHelper(mConnection.connStr).getTableColumnSchema(mConnection.dbName, mTableName);
                 for (int i = 0; i < mMysqlTableColumnSchema.Count; i++)
                 {
                     MyHelper.MysqlTableColumnSchema schema = mMysqlTableColumnSchema[i];
@@ -138,23 +129,25 @@ namespace CodeGenerater
                     sb.AppendLine(metodstr);
                     sb.AppendLine(getSet(MyHelper.StringHelper.DBNamingToCamelCase(schema.columnName), JavaDbTypeMap.FindType(schema.type)));
                 }
-            } else {
-                mSqliteTableSchemas =new MyHelper.SQLiteHelper(mConnString).getTableSchema(mTableName);
+            }
+            else
+            {
+                mSqliteTableSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(mTableName);
                 for (int i = 0; i < mSqliteTableSchemas.Count; i++)
                 {
                     MyHelper.SqliteTableSchema schema = mSqliteTableSchemas[i];
                     sb.AppendLine(getcomment(null, schema.notnull, schema.dflt_value));
-                    sb.AppendLine(tab+getProerty(JavaDbTypeMap.FindType(schema.type), schema.name));
+                    sb.AppendLine(tab + getProerty(JavaDbTypeMap.FindType(schema.type), schema.name));
                     sb.AppendLine();
                 }
                 for (int i = 0; i < mSqliteTableSchemas.Count; i++)
                 {
-                    MyHelper.SqliteTableSchema schema = mSqliteTableSchemas[i];                   
+                    MyHelper.SqliteTableSchema schema = mSqliteTableSchemas[i];
                     sb.AppendLine(getGet(JavaDbTypeMap.FindType(schema.type), MyHelper.StringHelper.DBNamingToCamelCase(schema.name)));
                     sb.AppendLine();
                     sb.AppendLine(getSet(MyHelper.StringHelper.DBNamingToCamelCase(schema.name), JavaDbTypeMap.FindType(schema.type)));
                 }
-            }          
+            }
             sb.AppendLine("}");
             return sb.ToString();
         }

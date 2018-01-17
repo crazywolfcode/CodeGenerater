@@ -93,7 +93,7 @@
 
         <Border Grid.Row="2" CornerRadius="0,0,4,4"   Background="{StaticResource F9}">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-                <TextBlock x:Name="alertTb" Margin="0,0,20,0" VerticalAlignment="Center" >
+                <TextBlock x:Name="alertTb" Margin="0,0,20,0" VerticalAlignment="Center">
                      还没有数据库连接
                 </TextBlock>
                 <local:IconButton 
@@ -115,7 +115,7 @@
                     MouseOverBackground="{StaticResource myBlue}" />
                 <local:IconButton 
                     x:Name="refreshBtn"  Click="refreshBtn_Click" Margin="12,0,10,0"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Center" IconSize="16" IconMargin="3"
                     VerticalContentAlignment="Center"
                     Padding="2"
                     Icon="&#xe607;"

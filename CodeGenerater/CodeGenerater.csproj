@@ -95,6 +95,8 @@
     <Compile Include="Enum\commonEnum.cs" />
     <Compile Include="Control\IconButton.cs" />
     <Compile Include="Control\ImageButton.cs" />
+    <Compile Include="Generater\AutoGenerater.cs" />
+    <Compile Include="Generater\BaseGenerater.cs" />
     <Compile Include="Generater\CSharpCenerater.cs" />
     <Compile Include="Generater\JavaDbTypeMap.cs" />
     <Compile Include="Generater\JavaEnumGenerare.cs" />

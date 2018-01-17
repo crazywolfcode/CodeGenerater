@@ -6,19 +6,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerater
 {
-    class JavaEnumGenerare
-    {
-        private string mpacename;
-        private string connstr;
-        private string mDbtype;
-        private string tab = "\t";
-        private string comma = ",";
+    class JavaEnumGenerare : BaseGenerater { 
         private List<MyHelper.DbSchema> mDbSchemas;
-        public JavaEnumGenerare(string pacename, string mysqlconn = null, string dbtype = null)
-        {
-            mpacename = pacename;
-            connstr = mysqlconn;
-            mDbtype = dbtype;
+        public JavaEnumGenerare( Connection connection)
+        {           
+            mConnection = connection;
         }
 
         public string dbEnumGenerater()
@@ -40,9 +32,9 @@ namespace CodeGenerater
             }
             string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
             sb.AppendLine(tab + $"public enum {name}" + "{");
-            if (mDbtype == DbType.mysql.ToString())
+            if (mConnection.type == DbType.mysql.ToString())
             {
-                List<MyHelper.MysqlTabeSchema> myschemas = new MyHelper.MySqlHelper(connstr).getTableSchema(tableName);
+                List<MyHelper.MysqlTabeSchema> myschemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableSchema(tableName);
                 for (int i = 0; i < myschemas.Count; i++)
                 {
                     sb.AppendLine(tab + tab + myschemas[i].Field + comma);
@@ -50,7 +42,7 @@ namespace CodeGenerater
             }
             else
             {
-                List<MyHelper.SqliteTableSchema> myschemas = new MyHelper.SQLiteHelper(connstr).getTableSchema(tableName);
+                List<MyHelper.SqliteTableSchema> myschemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(tableName);
                 for (int i = 0; i < myschemas.Count; i++)
                 {
                     sb.AppendLine(tab + tab + myschemas[i].name + comma);
@@ -62,7 +54,7 @@ namespace CodeGenerater
 
         private void getDbSchema()
         {
-            mDbSchemas = new MyHelper.MySqlHelper(connstr).getAllTableSchema();
+            mDbSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
         }
         public string getcomment(string comment)
         {
