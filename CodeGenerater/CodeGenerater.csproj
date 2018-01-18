@@ -104,6 +104,7 @@
     <Compile Include="Generater\CsharpEnumGenerare.cs" />
     <Compile Include="Generater\JavaCenerater.cs" />
     <Compile Include="Generater\SqlGenerater.cs" />
+    <Compile Include="Helper\TemplateHelper.cs" />
     <Compile Include="Ui\GeneraterW.xaml.cs">
       <DependentUpon>GeneraterW.xaml</DependentUpon>
     </Compile>
@@ -121,6 +122,9 @@
     </Compile>
     <Compile Include="Control\TabButton.cs" />
     <Compile Include="Control\WindowButton.cs" />
+    <Compile Include="Ui\SettingW.xaml.cs">
+      <DependentUpon>SettingW.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\WelcomeW.xaml.cs">
       <DependentUpon>WelcomeW.xaml</DependentUpon>
     </Compile>
@@ -202,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Ui\SettingW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Ui\WelcomeW.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\" />
-    <Folder Include="Helper\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />

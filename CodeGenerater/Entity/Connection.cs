@@ -29,6 +29,10 @@ namespace CodeGenerater
         public string nameSpace { get; set; }
         public string cSharpClassPath { get; set; }
         public string cSharpEnumPath { get; set; }
+        /// <summary>
+        /// 将整个数据库的表和表的列，保存到一个C#文件中
+        /// </summary>
+        public string cSharpEnumAllPath { get; set; }
         public string sqlPath { get; set; }
         public string auto { get; set; }
     }

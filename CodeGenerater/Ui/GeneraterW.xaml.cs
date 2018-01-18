@@ -19,8 +19,7 @@ namespace CodeGenerater
     /// </summary>
     public partial class GeneraterW : Window
     {
-        private string currentTableName = string.Empty;
-        private string currentCommend = string.Empty;
+        private MyHelper.DbSchema currDbschema;
         private Connection mConnection;
         private string[] mTables = new string[] { };
         private List<MyHelper.DbSchema> mDbSchemas;
@@ -115,7 +114,7 @@ namespace CodeGenerater
             tb.Style = App.Current.Resources["menuRadioButtonStyle"] as Style;
             tb.Height = 28;
             Foreground = App.Current.Resources["69"] as Brush;
-            tb.Tag = schema.TableName;
+            tb.Tag = schema;
             tb.Content = schema.TableName;
             if (!string.IsNullOrEmpty(schema.TableComment))
             {
@@ -129,46 +128,39 @@ namespace CodeGenerater
         private void TabButton_Click(object sender, RoutedEventArgs e)
         {
             RadioButton tabbtn = sender as RadioButton;
-            currentTableName = tabbtn.Tag.ToString();
-            if (tabbtn.ToolTip != null && !string.IsNullOrEmpty(tabbtn.ToolTip.ToString()))
-            {
-                currentCommend = tabbtn.ToolTip.ToString();
-            }
-            else
-            {
-                currentCommend = string.Empty;
-            }
-            startCeneraterCode(currentTableName, currentCommend);
+            currDbschema = (MyHelper.DbSchema)tabbtn.Tag;
+
+            startCeneraterCode();
         }
         #endregion
 
         #region start Cenerater Code
-        private void startCeneraterCode(string tablename, string commend)
+        private void startCeneraterCode()
         {
             string doc = string.Empty;
             if (javaRb.IsChecked == true)
             {
-                JavaGenerater jg = new JavaGenerater(currentCommend,currentTableName,mConnection);
+                JavaGenerater jg = new JavaGenerater(currDbschema, mConnection);
                 doc = jg.CeneraterClass();
             }
             else if (csharpRb.IsChecked == true)
             {
-                CSharpCenerater generater = new CSharpCenerater(currentCommend,currentTableName,mConnection);
+                CSharpCenerater generater = new CSharpCenerater(currDbschema, mConnection);
                 doc = generater.CeneraterClass();
             }
             else if (javaEnumRb.IsChecked == true)
             {
                 JavaEnumGenerare generater = new JavaEnumGenerare(mConnection);
-                doc = generater.tableEnumGenerater(currentTableName, currentCommend);
+                doc = generater.tableEnumGenerater(currDbschema);
             }
             else if (csharpEnumRb.IsChecked == true)
             {
                 CsharpEnumGenerare generater = new CsharpEnumGenerare(mConnection);
-                doc = generater.tableEnumGenerater(currentTableName, currentCommend);
+                doc = generater.tableEnumGenerater(currDbschema);
             }
             else if (createSqlb.IsChecked == true)
             {
-                SqlGenerater generater = new SqlGenerater(currentTableName, mConnection.connStr, mConnection.type);
+                SqlGenerater generater = new SqlGenerater(currDbschema.TableName, mConnection.connStr, mConnection.type);
                 doc = generater.GeneraterSql();
             }
             else
@@ -217,7 +209,7 @@ namespace CodeGenerater
         }
 
         #endregion
-            
+
         /// <summary>
         /// save code to file
         /// </summary>
@@ -225,20 +217,21 @@ namespace CodeGenerater
         /// <param name="e"></param>
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            
+
             string doc = this.CodeTb.Text;
             SaveFileDialog sfd = new SaveFileDialog();
             if (sufix != ".sql")
             {
-                sfd.FileName = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(currentTableName));
+                sfd.FileName = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(currDbschema.TableName));
             }
             else
             {
-                sfd.FileName = currentTableName;
-            }          
+                sfd.FileName = currDbschema.TableName;
+            }
             sfd.DefaultExt = sufix;
-        
-            if (sfd.ShowDialog() == true) {               
+
+            if (sfd.ShowDialog() == true)
+            {
                 try
                 {
                     MyHelper.FileHelper.Write(sfd.FileName, doc);
@@ -246,9 +239,9 @@ namespace CodeGenerater
                 }
                 catch (Exception exc)
                 {
-                    MessageBox.Show("保存失败!原因："+exc.Message);
+                    MessageBox.Show("保存失败!原因：" + exc.Message);
                 }
-               
+
             }
         }
 
@@ -301,9 +294,9 @@ namespace CodeGenerater
         }
         private void changed()
         {
-            if (!string.IsNullOrEmpty(currentTableName))
+            if (currDbschema != null)
             {
-                this.startCeneraterCode(currentTableName, currentCommend);
+                this.startCeneraterCode();
             }
         }
         #endregion

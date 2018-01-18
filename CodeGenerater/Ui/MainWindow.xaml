@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeGenerater"
         mc:Ignorable="d"
-        WindowStyle="None"
+        WindowStyle="None" Activated="Window_Activated" Closing="Window_Closing"
         Loaded="Window_Loaded" ContentRendered="Window_ContentRendered"
         Icon="/CodeGenerater;component/logo.ico"
         WindowStartupLocation="CenterScreen"
@@ -84,7 +84,7 @@
         </StackPanel>
 
         <Border Background="White" Margin="0,0,0,0" Grid.Row="1">
-            <ScrollViewer Style="{DynamicResource DefaultScrollViewer}">
+            <ScrollViewer Style="{DynamicResource DefaultScrollViewer}" VerticalScrollBarVisibility="Auto">
                 <StackPanel VerticalAlignment="Top" x:Name="mainBody">
 
                 </StackPanel>
@@ -97,7 +97,7 @@
                      还没有数据库连接
                 </TextBlock>
                 <local:IconButton 
-                    x:Name="nextBtn"  Click="nextBtn_Click"
+                    x:Name="addBtn"  Click="addBtn_Click"
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
                     Padding="2"

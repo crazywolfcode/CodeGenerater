@@ -1,0 +1,251 @@
+﻿<Window x:Class="CodeGenerater.SettingW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodeGenerater" 
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"  WindowStyle="None" Style="{StaticResource WindowStyle}"
+        Title="设置" Height="430" Width="560">
+    <Grid >        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="#e4e4e4" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
+            <StackPanel x:Name="ConfigItemPanel" >
+                <TextBlock Style="{DynamicResource IFontStyle}" Width="80" Height="80" Text="&#xe74c;" Foreground="{StaticResource myBlue}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+                <TextBlock Text="连接名称" x:Name="connNameTb" Foreground="{StaticResource myBlue}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Text="mysql"  x:Name="conntypeTb" Foreground="{StaticResource myBlue}" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <Line Height="1" Fill="{StaticResource myBlue}" Margin="0,10,0,10" ></Line>
+                <StackPanel HorizontalAlignment="Left" Margin="4" >
+                    <TextBlock Foreground="{StaticResource myBlue}" Text=" Description: " FontSize="14"/>
+                    <TextBlock x:Name="desTb" HorizontalAlignment="Right" Text="" Margin="0,0,0,8" TextWrapping="Wrap" Foreground="{StaticResource 69}"></TextBlock>
+                    <TextBlock Foreground="{StaticResource myBlue}" Text=" IP " FontSize="14"/>
+                    <TextBlock x:Name="ipTb" HorizontalAlignment="Right" Text="192.168.88.3" Foreground="{StaticResource 69}"/>
+                    <TextBlock Foreground="{StaticResource myBlue}" Text=" port " FontSize="14"/>
+                    <TextBlock x:Name="portTb" HorizontalAlignment="Right" Text="33069" Foreground="{StaticResource 69}"/>
+                    <TextBlock Foreground="{StaticResource myBlue}" Text=" dbName " FontSize="14"/>
+                    <TextBlock x:Name="dbNmaeTb" HorizontalAlignment="Right" Text="weighing" Foreground="{StaticResource 69}"/>
+                    <TextBlock Foreground="{StaticResource myBlue}" Text=" userId " FontSize="14"/>
+                    <TextBlock x:Name="userIdTb" HorizontalAlignment="Right" Text="admin" Foreground="{StaticResource 69}"/>
+                    <TextBlock Foreground="{StaticResource myBlue}" Text=" pwd " FontSize="14"/>
+                    <TextBlock x:Name="pwdTb" HorizontalAlignment="Right" Text="abcd0071" Foreground="{StaticResource 69}"/>
+                </StackPanel>
+             
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" CornerRadius="0,4,4,0" Padding="0,4,4,4" Background="#f9f9f9">
+            <DockPanel Grid.Column="1" LastChildFill="True" >
+                <StackPanel DockPanel.Dock="Top" Height="25" Cursor="Hand" x:Name="windowTitle" Background="#f9f9f9" MouseMove="WindowTitle_MouseMove">
+                    <!--关闭按钮-->
+                    <local:WindowButton  BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,0,2,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right"  Click="CloseBtn_Click">
+                        <local:WindowButton.MyMoverBrush>
+                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xm.png"></ImageBrush>
+                        </local:WindowButton.MyMoverBrush>
+                        <local:WindowButton.MyEnterBrush>
+                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xe.png"></ImageBrush>
+                        </local:WindowButton.MyEnterBrush>
+                        <local:WindowButton.Background>
+                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xn.png"></ImageBrush>
+                        </local:WindowButton.Background>
+                    </local:WindowButton >
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+                    <local:IconButton 
+                            Margin="0,4,4,4"
+                            Padding="1"
+                            x:Name="SaveBtn" 
+                            Click="SaveBtn_Click"
+                            Style="{StaticResource IconButtonStyle}"  
+                            Background="#f9f9f9f9" 
+                            BorderBrush="#e0e0e0" 
+                            Foreground="#666"
+                            BorderThickness="1" 
+                            Width="60"
+                            Height="25"                 
+                            CornerRadius="4"                                      
+                            FontWeight="Bold" 
+                            IsShowIcon="False"                 
+                            HorizontalAlignment="Center"   
+                            MouseOverForeground="Black"
+                            MouseOverBackground="White" Content="确 定" />
+                </StackPanel>
+                <!--Main content area-->
+                <StackPanel HorizontalAlignment="Center">
+                    <ScrollViewer Height="353" VerticalScrollBarVisibility="Auto">
+                        <StackPanel HorizontalAlignment="Left" Margin="10,0,10,10" >
+                            <WrapPanel VerticalAlignment="Center" Height="25">
+                                <TextBlock Margin="4"><Run Text="开启自动生成："/></TextBlock>
+                                <RadioButton x:Name="onRb" Margin="4" Content="开" Checked="onRb_Checked"/>
+                                <RadioButton x:Name="offRb" Margin="4" Content="关" Checked="offRb_Checked"/>
+                            </WrapPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="4">
+                                <TextBlock ><Run Text="C# 名称空间："/></TextBlock>
+                                <TextBox Margin="4,0,4,2" Height="25" x:Name="nameSpaceTbox" TextChanged="nameSpaceTbox_TextChanged"/>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
+                                <TextBlock Margin="4"><Run Text="C# 类保存路径："/></TextBlock>
+                                <WrapPanel>
+                                    <TextBox Margin="4,0,0,0" x:Name="CsharpClasssSaveTb" Width="320" TextChanged="CsharpClasssSaveTb_TextChanged"/>
+                                    <local:IconButton 
+                    					x:Name="CsharpClassBtn" Click="CsharpClassBtn_Click"
+                    					VerticalAlignment="Center"
+                    					VerticalContentAlignment="Center"
+                    					Padding="1"
+                    					Icon="&#xE8D4;"
+                    					IsShowIcon="True"                
+                    					Style="{StaticResource IconButtonStyle}"                 
+                    					BorderBrush="#999" 
+                    					Foreground="#666"
+                    					BorderThickness="1" 
+                    					Width="60"
+                    					Height="28"                 
+                    					CornerRadius="0"                                      
+                    					FontWeight="Bold" 
+                    					HorizontalAlignment="Center"      
+                    					HorizontalContentAlignment="Center"
+                    					MouseOverForeground="Black"
+                    					MouseOverBackground="White" Content="选择" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
+                                <TextBlock Margin="4"><Run Text="C# 枚举保存路径："/></TextBlock>
+                                <WrapPanel>
+                                    <TextBox Margin="4,0,0,0" x:Name="CsharpEnumSaveTb" Width="320" TextChanged="CsharpEnumSaveTb_TextChanged"/>
+                                    <local:IconButton 
+                    					x:Name="CsharpenumBtn" Click="CsharpenumBtn_Click"
+                    					VerticalAlignment="Center"
+                    					VerticalContentAlignment="Center"
+                    					Padding="1"
+                    					Icon="&#xE8D4;"
+                    					IsShowIcon="True"                
+                    					Style="{StaticResource IconButtonStyle}"                 
+                    					BorderBrush="#999" 
+                    					Foreground="#666"
+                    					BorderThickness="1" 
+                    					Width="60"
+                    					Height="28"                 
+                    					CornerRadius="0"                                      
+                    					FontWeight="Bold" 
+                    					HorizontalAlignment="Center"      
+                    					HorizontalContentAlignment="Center"
+                    					MouseOverForeground="Black"
+                    					MouseOverBackground="White" Content="选择" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
+                                <TextBlock Margin="4"><Run Text="C# 枚举整库保存路径："/></TextBlock>
+                                <WrapPanel>
+                                    <TextBox Margin="4,0,0,0" x:Name="CsharpEnumAllSaveTb" Width="320" TextChanged="CsharpEnumAllSaveTb_TextChanged"/>
+                                    <local:IconButton 
+                    					x:Name="CsharpenumAllBtn" Click="CsharpenumAllBtn_Click"
+                    					VerticalAlignment="Center"
+                    					VerticalContentAlignment="Center"
+                    					Padding="1"
+                    					Icon="&#xE8D4;"
+                    					IsShowIcon="True"                
+                    					Style="{StaticResource IconButtonStyle}"                 
+                    					BorderBrush="#999" 
+                    					Foreground="#666"
+                    					BorderThickness="1" 
+                    					Width="60"
+                    					Height="28"                 
+                    					CornerRadius="0"                                      
+                    					FontWeight="Bold" 
+                    					HorizontalAlignment="Center"      
+                    					HorizontalContentAlignment="Center"
+                    					MouseOverForeground="Black"
+                    					MouseOverBackground="White" Content="选择" />
+                                </WrapPanel>
+                            </StackPanel>
+
+                            <StackPanel VerticalAlignment="Center" Margin="4">
+                                <TextBlock ><Run Text="Java 包名："/></TextBlock>
+                                <TextBox Margin="4,0,4,2" Height="25" x:Name="javaPakeageTbox" TextChanged="javaPakeageTbox_TextChanged"/>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
+                                <TextBlock Margin="4"><Run Text="Java 类保存路径："/></TextBlock>
+                                <WrapPanel>
+                                    <TextBox Margin="4,0,0,0" x:Name="JavaClasssSaveTb" Width="320" TextChanged="JavaClasssSaveTb_TextChanged"/>
+                                    <local:IconButton 
+                    					x:Name="JavaClassBtn" Click="JavaClassBtn_Click"
+                    					VerticalAlignment="Center"
+                    					VerticalContentAlignment="Center"
+                    					Padding="1"
+                    					Icon="&#xE8D4;"
+                    					IsShowIcon="True"                
+                    					Style="{StaticResource IconButtonStyle}"                 
+                    					BorderBrush="#999" 
+                    					Foreground="#666"
+                    					BorderThickness="1" 
+                    					Width="60"
+                    					Height="28"                 
+                    					CornerRadius="0"                                      
+                    					FontWeight="Bold" 
+                    					HorizontalAlignment="Center"      
+                    					HorizontalContentAlignment="Center"
+                    					MouseOverForeground="Black"
+                    					MouseOverBackground="White" Content="选择" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
+                                <TextBlock Margin="4"><Run Text="Java 枚举保存路径："/></TextBlock>
+                                <WrapPanel>
+                                    <TextBox Margin="4,0,0,0" x:Name="JavaEnumSaveTb" Width="320" TextChanged="JavaEnumSaveTb_TextChanged"/>
+                                    <local:IconButton 
+                    					x:Name="JavaenumBtn" Click="JavaenumBtn_Click"
+                    					VerticalAlignment="Center"
+                    					VerticalContentAlignment="Center"
+                    					Padding="1"
+                    					Icon="&#xE8D4;"
+                    					IsShowIcon="True"                
+                    					Style="{StaticResource IconButtonStyle}"                 
+                    					BorderBrush="#999" 
+                    					Foreground="#666"
+                    					BorderThickness="1" 
+                    					Width="60"
+                    					Height="28"                 
+                    					CornerRadius="0"                                      
+                    					FontWeight="Bold" 
+                    					HorizontalAlignment="Center"      
+                    					HorizontalContentAlignment="Center"
+                    					MouseOverForeground="Black"
+                    					MouseOverBackground="White" Content="选择" />
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
+                                <TextBlock Margin="4"><Run Text="SQl 创建语句保存路径："/></TextBlock>
+                                <WrapPanel>
+                                    <TextBox Margin="4,0,0,0" x:Name="SqlSaveTb" Width="320" TextChanged="SqlSaveTb_TextChanged"/>
+                                    <local:IconButton 
+                    					x:Name="SqlBtn" Click="SqlBtn_Click"
+                    					VerticalAlignment="Center"
+                    					VerticalContentAlignment="Center"
+                    					Padding="1"
+                    					Icon="&#xE8D4;"
+                    					IsShowIcon="True"                
+                    					Style="{StaticResource IconButtonStyle}"                 
+                    					BorderBrush="#999" 
+                    					Foreground="#666"
+                    					BorderThickness="1" 
+                    					Width="60"
+                    					Height="28"                 
+                    					CornerRadius="0"                                      
+                    					FontWeight="Bold" 
+                    					HorizontalAlignment="Center"      
+                    					HorizontalContentAlignment="Center"
+                    					MouseOverForeground="Black"
+                    					MouseOverBackground="White" Content="选择" />
+                                </WrapPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </Grid>
+   
+</Window>

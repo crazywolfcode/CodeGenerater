@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Animation;
 using System.Xml;
 using System.Windows.Markup;
+using System.Windows.Threading;
 namespace CodeGenerater
 {
     /// <summary>
@@ -21,14 +22,29 @@ namespace CodeGenerater
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<Connection> conns = null;
+        List<Connection> mConnections = null;
+        List<System.Threading.Thread> mThreads = new List<System.Threading.Thread>();
+        private DispatcherTimer mDispatcherTimer;
+        private bool needRefresh = false;
         public MainWindow()
         {
             InitializeComponent();
             new WindowBehavior(this).RepairWindowDefaultBehavior();
         }
 
-
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            if (this.IsLoaded == true)
+            {
+                if (needRefresh == true)
+                {
+                    needRefresh = false;
+                    getListConn();
+                    changedAlertIngo();
+                    bindingElements();
+                }
+            }
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -41,11 +57,11 @@ namespace CodeGenerater
             string filePath = Constract.ConnFilePath;
             if (MyHelper.FileHelper.Exists(filePath))
             {
-                conns = (List<Connection>)MyHelper.XmlHelper.Deserialize(typeof(List<Connection>), MyHelper.FileHelper.Reader(filePath, Encoding.UTF8));
+                mConnections = (List<Connection>)MyHelper.XmlHelper.Deserialize(typeof(List<Connection>), MyHelper.FileHelper.Reader(filePath, Encoding.UTF8));
             }
             else
             {
-                conns = new List<Connection>();
+                mConnections = new List<Connection>();
             }
         }
         private void userHeaderImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -56,7 +72,6 @@ namespace CodeGenerater
             }
             else { this.userMenuPopup.IsOpen = false; }
         }
-
 
         #region max min close mover
         private void headerBorder_MouseMove(object sender, MouseEventArgs e)
@@ -124,9 +139,10 @@ namespace CodeGenerater
 
         #endregion
 
-        private void nextBtn_Click(object sender, RoutedEventArgs e)
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             new AddW().Show();
+            needRefresh = true;
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
@@ -135,20 +151,52 @@ namespace CodeGenerater
             changedAlertIngo();
             bindingElements();
 
-            App.mainWindow = this;
+            StartThreadGenerate();
+        }
+
+        private void StartThreadGenerate()
+        {
+            if (mConnections == null || mConnections.Count <= 0)
+            {
+                return;
+            }
+            mDispatcherTimer = new DispatcherTimer();
+            mDispatcherTimer.Interval = new TimeSpan(0, 0, 60);
+            mDispatcherTimer.Tick += delegate
+            {
+                for (int i = 0; i < mConnections.Count; i++)
+                {
+                    new AutoGenerater(mConnections[i]).generater();
+                }
+            };
+            startDispatcherTime();
+        }
+        private void startDispatcherTime()
+        {
+            if (mDispatcherTimer != null)
+            {
+                mDispatcherTimer.Start();
+            }
+        }
+        private void stopDispatcherTime()
+        {
+            if (mDispatcherTimer != null)
+            {
+                mDispatcherTimer.Stop();
+            }
         }
 
         private void bindingElements()
         {
-            if (conns == null || conns.Count <= 0)
+            if (mConnections == null || mConnections.Count <= 0)
             {
                 return;
             }
             this.mainBody.Children.Clear();
             string path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connItem.xaml";
-            for (int i = 0; i < conns.Count; i++)
+            for (int i = 0; i < mConnections.Count; i++)
             {
-                FrameworkElement element = getFrameworkElementFromXaml(path);
+                Grid element = (Grid)getFrameworkElementFromXaml(path);
                 element.MouseMove += Element_MouseMove;
                 element.MouseLeave += Element_MouseLeave;
                 element.Tag = i;
@@ -157,24 +205,55 @@ namespace CodeGenerater
                 TextBlock connDesTb = element.FindName("connDes") as TextBlock;
                 TextBlock connTypeTb = element.FindName("conntype") as TextBlock;
                 TextBlock connStrTb = element.FindName("connstr") as TextBlock;
+                Button autoRb = element.FindName("AutoBtn") as Button;               
                 Button deleteBtn = element.FindName("deleteBtn") as Button;
+                if (mConnections[i].auto == Auto.yes.ToString())
+                {
+                    autoRb.Foreground = Brushes.Green;
+                    autoRb.ToolTip = "自动生成中";                   
+                }
+                else
+                {
+                    autoRb.Foreground = Brushes.Black;
+                    autoRb.ToolTip = "设置项目跟踪生成";               
+                }
+                autoRb.Tag = i;
+                autoRb.Click += AutoRb_Click;
                 deleteBtn.Tag = i;
-                connNameTb.Text = conns[i].name;
-                connDesTb.Text = conns[i].description;
-                connTypeTb.Text = conns[i].type;
-                connStrTb.Text = conns[i].connStr;
+                connNameTb.Text = mConnections[i].name;
+                connDesTb.Text = mConnections[i].description;
+                connTypeTb.Text = mConnections[i].type;
+                connStrTb.Text = mConnections[i].connStr;
                 deleteBtn.Click += DeleteBtn_Click;
                 this.mainBody.Children.Add(element);
             }
         }
 
+        private void AutoRb_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            int index = Convert.ToInt32(btn.Tag.ToString());
+            Connection conn = mConnections[index];
+            SettingW setting = new SettingW(conn,index);
+            setting.changeParent = new Action<Connection, int>(updateConns);
+            setting.ShowDialog();
+        }
+
+        public void updateConns(Connection conn,int index) {
+            if (index > -1 && conn !=null) {
+                mConnections.RemoveAt(index);
+                mConnections.Insert(index, conn);
+                saveConnections();
+            }            
+        }
         private void Element_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Grid grid = sender as Grid;
             int index = Convert.ToInt32(grid.Tag.ToString());
-            GeneraterW gw = new GeneraterW(conns[index]);
+            GeneraterW gw = new GeneraterW(mConnections[index]);
             this.Hide();
             gw.ShowDialog();
+            needRefresh = true;
             this.Show();
         }
 
@@ -184,7 +263,9 @@ namespace CodeGenerater
             Border mainBorder = grid.FindName("main") as Border;
             mainBorder.Background = (Brush)App.Current.Resources["F9"];
             Button deleteBtn = ((FrameworkElement)sender).FindName("deleteBtn") as Button;
+            Button autoBtn = ((FrameworkElement)sender).FindName("AutoBtn") as Button;
             deleteBtn.Visibility = Visibility.Hidden;
+            autoBtn.Visibility = Visibility.Hidden;
         }
 
         private void Element_MouseMove(object sender, MouseEventArgs e)
@@ -193,7 +274,9 @@ namespace CodeGenerater
             Border mainBorder = grid.FindName("main") as Border;
             mainBorder.Background = Brushes.White;
             Button deleteBtn = ((FrameworkElement)sender).FindName("deleteBtn") as Button;
+            Button autoBtn = ((FrameworkElement)sender).FindName("AutoBtn") as Button;
             deleteBtn.Visibility = Visibility.Visible;
+            autoBtn.Visibility = Visibility.Visible;
         }
         private string deleteTag;
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
@@ -214,7 +297,7 @@ namespace CodeGenerater
             da1.Completed += delegate
             {
                 this.mainBody.Children.Remove(element);
-                conns.RemoveAt(Convert.ToInt32(this.deleteTag));
+                mConnections.RemoveAt(Convert.ToInt32(this.deleteTag));
                 this.bindingElements();
                 changedAlertIngo();
                 new System.Threading.Thread(new System.Threading.ThreadStart(updateConnXmlFile)).Start();
@@ -227,7 +310,7 @@ namespace CodeGenerater
         /// </summary>
         private void updateConnXmlFile()
         {
-            string xml = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), conns);
+            string xml = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), mConnections);
             try
             {
                 MyHelper.FileHelper.Write(Constract.ConnFilePath, xml);
@@ -242,13 +325,13 @@ namespace CodeGenerater
         private void changedAlertIngo()
         {
             string msg = "还没有数据库连接";
-            if (this.conns == null)
+            if (this.mConnections == null)
             {
                 return;
             }
-            if (this.conns.Count > 0)
+            if (this.mConnections.Count > 0)
             {
-                msg = string.Format("共有 {0} 条连接 ", this.conns.Count);
+                msg = string.Format("共有 {0} 条连接 ", this.mConnections.Count);
             }
             this.alertTb.Text = msg;
         }
@@ -277,12 +360,32 @@ namespace CodeGenerater
             FrameworkElement element = XamlReader.Load(reader) as FrameworkElement;
             return element;
         }
-        
+
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
         {           
             getListConn();
             changedAlertIngo();
             bindingElements();
+            needRefresh = false;
+        }
+
+        private void saveConnections() {
+            if (mConnections != null) {
+                string xml = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), mConnections);
+                try
+                {
+                    MyHelper.FileHelper.Write(Constract.ConnFilePath, xml);
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.saveConnections();
         }
     }
 }

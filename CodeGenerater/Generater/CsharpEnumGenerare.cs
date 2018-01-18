@@ -52,7 +52,7 @@ namespace CodeGenerater
             return null;
         }
 
-        public string tableEnumGenerater(string tableName, string commend = null)
+        public string tableEnumGenerater(MyHelper.DbSchema schema)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("using System;");
@@ -63,20 +63,20 @@ namespace CodeGenerater
             sb.AppendLine();
             sb.AppendLine(string.Format("namespace {0}", mNameSpace));
             sb.AppendLine("{");
-            if (!string.IsNullOrEmpty(commend))
+            if (!string.IsNullOrEmpty(schema.TableComment))
             {
-                sb.AppendLine(getcomment(commend));
+                sb.AppendLine(getcomment(schema.TableComment));
             }
-            string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
+            string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName));
             sb.AppendLine(tab + $"public enum {name}" + "{");
             if (mConnection.type == DbType.mysql.ToString()) {
-                mMysqlTabeSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableSchema(tableName);
+                mMysqlTabeSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableSchema(schema.TableName);
                 for (int i = 0; i < mMysqlTabeSchemas.Count; i++)
                 {
                     sb.AppendLine(tab + tab + mMysqlTabeSchemas[i].Field + comma);
                 }
             } else {
-                mSqliteTableSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(tableName);
+                mSqliteTableSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(schema.TableName);
                 for (int i = 0; i < mSqliteTableSchemas.Count; i++)
                 {
                     sb.AppendLine(tab + tab + mSqliteTableSchemas[i].name + comma);

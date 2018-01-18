@@ -18,16 +18,34 @@
                 <TextBlock x:Name="connDes" Text="本地数据库连接，稳重系统。" FontSize="12" FontWeight="Black" Foreground="#999"/>
                 <TextBlock x:Name="connstr" TextWrapping="Wrap" Width="400" Text="Database=weighing;Data Source=192.168.88.3;User Id=admin;Password=Txmy0071;pooling=false;CharSet=utf8;port=33069" FontSize="12" FontWeight="Black" Foreground="#999"/>
             </StackPanel>
-
         </StackPanel>
-
     </Border>
     <StackPanel Grid.Row="1">
+        <Button  HorizontalAlignment="Right" Width="30" Height="30" Visibility="Hidden" x:Name="AutoBtn"  BorderBrush="Transparent" Foreground="Black" Background="Transparent" Style="{x:Null}" Margin="4">
+            <Button.Template>
+                <ControlTemplate>
+                    <Border CornerRadius="15"  Background="White" BorderBrush="White">
+                        <TextBlock Style="{StaticResource IFontStyle}" x:Name="transIcon"  Text="&#xe901;" Cursor="Hand" TextAlignment="Center"></TextBlock>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Green"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Green"/>
+                        </Trigger>
+                                     
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <Button HorizontalAlignment="Right" Width="30" Height="30" Visibility="Hidden" x:Name="deleteBtn"  BorderBrush="Transparent" Foreground="Red" Background="Transparent" Style="{x:Null}" Margin="4">
             <Button.Template>
                 <ControlTemplate>
                     <Border CornerRadius="15"  Background="White" BorderBrush="White">
-                        <TextBlock Style="{StaticResource IFontStyle}" Text="&#xe615;" ToolTip="删除"  Cursor="Hand" TextAlignment="Center"></TextBlock>
+                        <TextBlock Style="{StaticResource IFontStyle}" Text="&#xe615;" ToolTip="删除"  Cursor="Hand" TextAlignment="Center" x:Name="dd"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="true">
@@ -41,6 +59,6 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-        </Button>
+        </Button>       
     </StackPanel>
 </Grid>        

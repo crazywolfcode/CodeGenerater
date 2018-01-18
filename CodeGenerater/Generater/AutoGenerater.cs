@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeGenerater
 {
-   public class AutoGenerater
+    public class AutoGenerater
     {
         private Connection mConnection;
         public delegate void showMsg(string msg);
         private List<MyHelper.DbSchema> mHostoryDbSchemas = null;
         private List<MyHelper.DbSchema> mNowSchemas = null;
-        private List<MyHelper.DbSchema> temps = new List<MyHelper.DbSchema>();
+        private List<MyHelper.DbSchema> needThreadGeneraters = new List<MyHelper.DbSchema>();
         private showMsg DelegateShowMsg;
-        public AutoGenerater(Connection conn, List<MyHelper.DbSchema> schemas) {
+        public AutoGenerater(Connection conn)
+        {
             mConnection = conn;
-            mNowSchemas = schemas;
         }
 
-    
         public void showmessage(string msg)
         {
             MyHelper.ConsoleHelper.writeLine(msg);
@@ -27,80 +25,112 @@ namespace CodeGenerater
 
         public void generater()
         {
-           
             DelegateShowMsg = new showMsg(showmessage);
+            getNowDbSchemas();
+            if (mNowSchemas == null || mNowSchemas.Count <= 0)
+            {
+                return;
+            }
             getHostoryDbSchemas();
             if (mHostoryDbSchemas != null && mHostoryDbSchemas.Count > 0)
             {
                 //marger
                 mHostoryDbSchemas.Distinct();
-                temps = mNowSchemas.Except(mHostoryDbSchemas).ToList();
+                needThreadGeneraters = mNowSchemas.Except(mHostoryDbSchemas).ToList();
             }
             else
             {
-                temps = mNowSchemas;
+                needThreadGeneraters = mNowSchemas;
             }
-            generaterCode(temps);
+            generaterCode(needThreadGeneraters);
+            // save the new to History ;
+            saveDbSchemasToFile();
         }
 
         private void generaterCode(List<MyHelper.DbSchema> list)
         {
             if (list == null || list.Count <= 0) { return; }
             string fileName = string.Empty;
-            for (int i = 0; i < temps.Count; i++)
+            for (int i = 0; i < needThreadGeneraters.Count; i++)
             {
                 //java class              
-                MyHelper.DbSchema schema = temps[i];
-                if (mConnection.javaClassPath != null) {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaClassPath)) {
-                        string javaClass = new JavaGenerater(schema.TableComment, schema.TableName, mConnection).CeneraterClass();
+                MyHelper.DbSchema schema = needThreadGeneraters[i];
+                if (!string.IsNullOrEmpty(mConnection.javaClassPath))
+                {
+                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaClassPath))
+                    {
+                        string javaClass = new JavaGenerater(schema, mConnection).CeneraterClass();
                         fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".java";
                         MyHelper.FileHelper.Write(mConnection.javaClassPath + fileName, javaClass);
                     }
                 }
 
                 //java enum
-                if (mConnection.javaEnumPath != null)
+                if (!string.IsNullOrEmpty(mConnection.javaEnumPath))
                 {
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaEnumPath))
                     {
-                        string javaEnum = new JavaEnumGenerare(mConnection).tableEnumGenerater(schema.TableName,schema.TableComment);
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName))+".java";
-                        MyHelper.FileHelper.Write(mConnection.javaEnumPath +  fileName, javaEnum);
+                        string javaEnum = new JavaEnumGenerare(mConnection).tableEnumGenerater(schema);
+                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".java";
+                        MyHelper.FileHelper.Write(mConnection.javaEnumPath + fileName, javaEnum);
                     }
                 }
 
                 //Csharp class
-                if (mConnection.cSharpClassPath != null)
+                if (!string.IsNullOrEmpty(mConnection.cSharpClassPath))
                 {
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpClassPath))
                     {
-                        string csharpClass = new CSharpCenerater(schema.TableComment,schema.TableName, mConnection).CeneraterClass();
+                        string csharpClass = new CSharpCenerater(schema,mConnection).CeneraterClass();
                         fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".cs";
                         MyHelper.FileHelper.Write(mConnection.cSharpClassPath + fileName, csharpClass);
                     }
                 }
 
                 //Csharp enum
-                if (mConnection.cSharpEnumPath != null)
+                if (!string.IsNullOrEmpty(mConnection.cSharpEnumPath))
                 {
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumPath))
                     {
-                        string csharpEnum = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema.TableName,schema.TableComment);
+                        string csharpEnum = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema);
                         fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".cs";
                         MyHelper.FileHelper.Write(mConnection.cSharpEnumPath + fileName, csharpEnum);
                     }
                 }
-
+                //Csharp all enum
+                if (!string.IsNullOrEmpty(mConnection.cSharpEnumAllPath))
+                {                   
+                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumPath))
+                    {
+                        string csharpEnum = new CsharpEnumGenerare(mConnection).dbEnumGenerater();
+                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(mConnection.dbName)) + ".cs";
+                        MyHelper.FileHelper.Write(mConnection.cSharpEnumPath + fileName, csharpEnum);
+                    }
+                }
                 //crete sql 
-                if (mConnection.sqlPath != null)
+                if (!string.IsNullOrEmpty(mConnection.sqlPath))
                 {
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.sqlPath))
                     {
-                        string createSQl = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema.TableName, schema.TableComment);
-                        fileName = "\\" + schema.TableName+ ".sql";
+                        string createSQl = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema);
+                        fileName = "\\" + schema.TableName + ".sql";
                         MyHelper.FileHelper.Write(mConnection.sqlPath + fileName, createSQl);
                     }
+                }
+            }
+        }
+
+        private void getNowDbSchemas()
+        {
+            if (mConnection != null)
+            {
+                if (mConnection.type == DbType.mysql.ToString())
+                {
+                    mNowSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
+                }
+                else if (mConnection.type == DbType.sqlite.ToString())
+                {
+                    mNowSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getAllTableSchema();
                 }
             }
         }
@@ -108,14 +138,14 @@ namespace CodeGenerater
         {
             if (MyHelper.FileHelper.FolderExistsCreater(Constract.dBschemasPath))
             {
-                if (!MyHelper.FileHelper.Exists(Constract.dBschemasFileName))
+                if (!MyHelper.FileHelper.Exists(Constract.getDbdBschemasPath(mConnection.name)))
                 {
-                    MyHelper.FileHelper.createFile(Constract.dBschemasFileName);
+                    MyHelper.FileHelper.createFile(Constract.getDbdBschemasPath(mConnection.name));
                     return;
                 }
                 else
                 {
-                    string xml = MyHelper.FileHelper.Reader(Constract.dBschemasFileName, Encoding.UTF8);
+                    string xml = MyHelper.FileHelper.Reader(Constract.getDbdBschemasPath(mConnection.name), Encoding.UTF8);
                     if (string.IsNullOrEmpty(xml))
                     {
                         return;
@@ -143,17 +173,17 @@ namespace CodeGenerater
             {
                 if (MyHelper.FileHelper.FolderExistsCreater(Constract.dBschemasPath))
                 {
-                    if (!MyHelper.FileHelper.Exists(Constract.dBschemasFileName))
+                    if (!MyHelper.FileHelper.Exists(Constract.getDbdBschemasPath(mConnection.name)))
                     {
-                        if (!MyHelper.FileHelper.createFile(Constract.dBschemasFileName))
+                        if (!MyHelper.FileHelper.createFile(Constract.getDbdBschemasPath(mConnection.name)))
                         {
-                            DelegateShowMsg("创建文件失败：" + Constract.dBschemasFileName);
+                            DelegateShowMsg("创建文件失败：" + Constract.getDbdBschemasPath(mConnection.name));
                         }
                     }
                     string xml = MyHelper.XmlHelper.Serialize(typeof(List<MyHelper.DbSchema>), mNowSchemas);
                     try
                     {
-                        MyHelper.FileHelper.Write(Constract.dBschemasFileName, xml);
+                        MyHelper.FileHelper.Write(Constract.getDbdBschemasPath(mConnection.name), xml);
                     }
                     catch (Exception)
                     {

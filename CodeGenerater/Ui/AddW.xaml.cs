@@ -81,6 +81,8 @@ namespace CodeGenerater
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             Connection conn = new Connection();
+            conn.nameSpace = "你的名称空间";
+            conn.pakeage = "你的包名";
             string connName = string.Empty, connDes = string.Empty;
             if (mysqlBtn.IsChecked == true)
             {
@@ -138,8 +140,7 @@ namespace CodeGenerater
                 {
                     conn.addTime = MyHelper.DateTimeHelper.getCurrentDateTime();
                     conn.auto = Auto.no.ToString();
-                    conn.nameSpace = "你的名称空间";
-                    conn.pakeage = "你的包名";
+                  
                     //保存
                     if (saveToFile(conn))
                     {

@@ -30,12 +30,12 @@ namespace CodeGenerater
             return sb.ToString();
         }
 
-        public JavaGenerater(string comment, string tableName, Connection connection)
+        public JavaGenerater(MyHelper.DbSchema schema, Connection connection)
         {          
-            ClassComment = comment;
-            mTableName = tableName;
+            mDbSchema = schema;
+            mTableName = schema.TableName;
             mConnection = connection;
-            ClassNmae = MyHelper.StringHelper.dbNameToClassName(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
+            ClassNmae = MyHelper.StringHelper.dbNameToClassName(MyHelper.StringHelper.DBNamingToCamelCase(mTableName));
 
         }
         private string getHeader()
@@ -45,7 +45,7 @@ namespace CodeGenerater
             sb.AppendLine();
             sb.AppendLine("import java.util.Date;");
             sb.AppendLine("");
-            sb.AppendLine(getClassComment(ClassComment));
+            sb.AppendLine(getClassComment());
             sb.AppendLine(string.Format("public class {0}", ClassNmae) + "{");
             sb.AppendLine("");
             return sb.ToString();
@@ -90,17 +90,25 @@ namespace CodeGenerater
             return sb.ToString();
         }
 
-        public string getClassComment(string comment)
+        public string getClassComment()
         {
             StringBuilder sb = new StringBuilder();
-            if (string.IsNullOrEmpty(comment))
+            if (mDbSchema == null)
             {
                 return null;
             }
             sb.AppendLine("/**");
-            if (!string.IsNullOrWhiteSpace(comment))
+            if (!string.IsNullOrWhiteSpace(mDbSchema.TableComment))
             {
-                sb.AppendLine("* " + comment);
+                sb.AppendLine("* " + mDbSchema.TableComment);
+            }
+            if (!string.IsNullOrWhiteSpace(mDbSchema.tableRows))
+            {
+                sb.AppendLine("* 数据条数:" + mDbSchema.tableRows);
+            }
+            if (!string.IsNullOrWhiteSpace(mDbSchema.dataLength))
+            {
+                sb.AppendLine("* 数据大小:" + MyHelper.FileHelper.ConverterFileSizeUnit(Convert.ToInt64(mDbSchema.dataLength)));
             }
             sb.AppendLine("*/ ");
             return sb.ToString();

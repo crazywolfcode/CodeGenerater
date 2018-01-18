@@ -8,7 +8,7 @@ namespace CodeGenerater
 {
     class JavaEnumGenerare : BaseGenerater { 
         private List<MyHelper.DbSchema> mDbSchemas;
-        public JavaEnumGenerare( Connection connection)
+        public JavaEnumGenerare(Connection connection)
         {           
             mConnection = connection;
         }
@@ -22,19 +22,19 @@ namespace CodeGenerater
             return null;
         }
 
-        public string tableEnumGenerater(string tableName, string commend = null)
+        public string tableEnumGenerater(MyHelper.DbSchema schema)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine();
-            if (!string.IsNullOrEmpty(commend))
+            if (!string.IsNullOrEmpty(schema.TableComment))
             {
-                sb.AppendLine(getcomment(commend));
+                sb.AppendLine(getcomment(schema.TableComment));
             }
-            string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
+            string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName));
             sb.AppendLine(tab + $"public enum {name}" + "{");
             if (mConnection.type == DbType.mysql.ToString())
             {
-                List<MyHelper.MysqlTabeSchema> myschemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableSchema(tableName);
+                List<MyHelper.MysqlTabeSchema> myschemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableSchema(schema.TableName);
                 for (int i = 0; i < myschemas.Count; i++)
                 {
                     sb.AppendLine(tab + tab + myschemas[i].Field + comma);
@@ -42,7 +42,7 @@ namespace CodeGenerater
             }
             else
             {
-                List<MyHelper.SqliteTableSchema> myschemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(tableName);
+                List<MyHelper.SqliteTableSchema> myschemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(schema.TableName);
                 for (int i = 0; i < myschemas.Count; i++)
                 {
                     sb.AppendLine(tab + tab + myschemas[i].name + comma);
