@@ -39,7 +39,7 @@ namespace CodeGenerater
                 if (needRefresh == true)
                 {
                     needRefresh = false;
-                    getListConn();
+                    mConnections = mConnections = CommonFunction.getListConn();
                     changedAlertIngo();
                     bindingElements();
                 }
@@ -51,19 +51,6 @@ namespace CodeGenerater
 
         }
 
-        private void getListConn()
-        {
-            string path = Constract.ConnPath;
-            string filePath = Constract.ConnFilePath;
-            if (MyHelper.FileHelper.Exists(filePath))
-            {
-                mConnections = (List<Connection>)MyHelper.XmlHelper.Deserialize(typeof(List<Connection>), MyHelper.FileHelper.Reader(filePath, Encoding.UTF8));
-            }
-            else
-            {
-                mConnections = new List<Connection>();
-            }
-        }
         private void userHeaderImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (this.userMenuPopup.IsOpen == false)
@@ -121,7 +108,7 @@ namespace CodeGenerater
                     new RequestW().ShowDialog();
                     break;
                 case "support":
-                    MessageBox.Show("暂不支持！");
+                    new HelpW().Show();
                     break;
                 case "about":
                     new AboutW().ShowDialog();
@@ -133,10 +120,8 @@ namespace CodeGenerater
                     this.Close();
                     break;
             }
+            this.userMenuPopup.IsOpen = false;
         }
-
-
-
         #endregion
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
@@ -147,10 +132,9 @@ namespace CodeGenerater
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            getListConn();
+            mConnections = CommonFunction.getListConn();
             changedAlertIngo();
             bindingElements();
-
             StartThreadGenerate();
         }
 
@@ -196,7 +180,7 @@ namespace CodeGenerater
             string path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connItem.xaml";
             for (int i = 0; i < mConnections.Count; i++)
             {
-                Grid element = (Grid)getFrameworkElementFromXaml(path);
+                Grid element = (Grid)CommonFunction.getFrameworkElementFromXaml(path);
                 element.MouseMove += Element_MouseMove;
                 element.MouseLeave += Element_MouseLeave;
                 element.Tag = i;
@@ -205,17 +189,17 @@ namespace CodeGenerater
                 TextBlock connDesTb = element.FindName("connDes") as TextBlock;
                 TextBlock connTypeTb = element.FindName("conntype") as TextBlock;
                 TextBlock connStrTb = element.FindName("connstr") as TextBlock;
-                Button autoRb = element.FindName("AutoBtn") as Button;               
+                Button autoRb = element.FindName("AutoBtn") as Button;
                 Button deleteBtn = element.FindName("deleteBtn") as Button;
                 if (mConnections[i].auto == Auto.yes.ToString())
                 {
                     autoRb.Foreground = Brushes.Green;
-                    autoRb.ToolTip = "自动生成中";                   
+                    autoRb.ToolTip = "自动生成中";
                 }
                 else
                 {
                     autoRb.Foreground = Brushes.Black;
-                    autoRb.ToolTip = "设置项目跟踪生成";               
+                    autoRb.ToolTip = "设置项目跟踪生成";
                 }
                 autoRb.Tag = i;
                 autoRb.Click += AutoRb_Click;
@@ -234,17 +218,19 @@ namespace CodeGenerater
             Button btn = sender as Button;
             int index = Convert.ToInt32(btn.Tag.ToString());
             Connection conn = mConnections[index];
-            SettingW setting = new SettingW(conn,index);
+            SettingW setting = new SettingW(conn, index);
             setting.changeParent = new Action<Connection, int>(updateConns);
             setting.ShowDialog();
         }
 
-        public void updateConns(Connection conn,int index) {
-            if (index > -1 && conn !=null) {
+        public void updateConns(Connection conn, int index)
+        {
+            if (index > -1 && conn != null)
+            {
                 mConnections.RemoveAt(index);
                 mConnections.Insert(index, conn);
                 saveConnections();
-            }            
+            }
         }
         private void Element_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -301,7 +287,6 @@ namespace CodeGenerater
                 this.bindingElements();
                 changedAlertIngo();
                 new System.Threading.Thread(new System.Threading.ThreadStart(updateConnXmlFile)).Start();
-
             };
             element.BeginAnimation(OpacityProperty, da1);
         }
@@ -354,23 +339,20 @@ namespace CodeGenerater
             return sb;
         }
 
-        public static FrameworkElement getFrameworkElementFromXaml(string path)
-        {
-            XmlTextReader reader = new XmlTextReader(path);
-            FrameworkElement element = XamlReader.Load(reader) as FrameworkElement;
-            return element;
-        }
+  
 
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
-        {           
-            getListConn();
+        {
+            mConnections = CommonFunction.getListConn();
             changedAlertIngo();
             bindingElements();
             needRefresh = false;
         }
 
-        private void saveConnections() {
-            if (mConnections != null) {
+        private void saveConnections()
+        {
+            if (mConnections != null)
+            {
                 string xml = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), mConnections);
                 try
                 {
@@ -380,12 +362,13 @@ namespace CodeGenerater
                 {
                 }
             }
-
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            this.stopDispatcherTime();
             this.saveConnections();
         }
+
     }
 }

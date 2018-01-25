@@ -233,8 +233,12 @@ namespace CodeGenerater
             mConnection.auto = Auto.no.ToString();
         }
 
+
         #endregion
 
-     
+        private void helpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new HelpW().Show();
+        }
     }
 }

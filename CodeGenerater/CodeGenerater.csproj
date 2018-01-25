@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -89,6 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\CommonFunction.cs" />
     <Compile Include="Common\Constract.cs" />
     <Compile Include="Control\ControlAttachProperty.cs" />
     <Compile Include="Entity\Connection.cs" />
@@ -105,6 +109,15 @@
     <Compile Include="Generater\JavaCenerater.cs" />
     <Compile Include="Generater\SqlGenerater.cs" />
     <Compile Include="Helper\TemplateHelper.cs" />
+    <Compile Include="Ui\DataMoveDialog.xaml.cs">
+      <DependentUpon>DataMoveDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\DataMoveW.xaml.cs">
+      <DependentUpon>DataMoveW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\DataMoveDesW.xaml.cs">
+      <DependentUpon>DataMoveDesW.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\GeneraterW.xaml.cs">
       <DependentUpon>GeneraterW.xaml</DependentUpon>
     </Compile>
@@ -122,6 +135,9 @@
     </Compile>
     <Compile Include="Control\TabButton.cs" />
     <Compile Include="Control\WindowButton.cs" />
+    <Compile Include="Ui\HelpW.xaml.cs">
+      <DependentUpon>HelpW.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\SettingW.xaml.cs">
       <DependentUpon>SettingW.xaml</DependentUpon>
     </Compile>
@@ -168,6 +184,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Ui\ConnMoveItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\DataMoveDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\DataMoveW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\DataMoveDesW.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\GeneraterW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,6 +235,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\RewardW.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\HelpW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -53,8 +53,20 @@
                         </local:WindowButton.Background>
                     </local:WindowButton >
                 </StackPanel>
-                <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right">
-                    <local:IconButton 
+                <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <local:IconButton x:Name="helpBtn" Click="helpBtn_Click"
+                        Grid.Row="2" 
+                        Height="25"
+                        Width="80" 
+                        Content="帮助" 
+                        HorizontalAlignment="Right"
+                        Icon="&#xe8e9;" 
+                        IsShowIcon="True" FontSize="14" Margin="0,0,20,0"
+                        Foreground="{StaticResource myBlue}" 
+                        AllowsAnimation="True"                          
+                        Style="{DynamicResource IconButtonTransparencyStyle}"
+                        />
+                    <local:IconButton Visibility="Hidden"
                             Margin="0,4,4,4"
                             Padding="1"
                             x:Name="SaveBtn" 

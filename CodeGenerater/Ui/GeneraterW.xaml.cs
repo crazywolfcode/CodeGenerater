@@ -306,6 +306,12 @@ namespace CodeGenerater
 
         }
 
-
+        private void DataMoveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currDbschema != null)
+            {
+                new DataMoveDesW(mConnection, currDbschema, this.CodeTb.Text).ShowDialog();
+            }            
+        }
     }
 }

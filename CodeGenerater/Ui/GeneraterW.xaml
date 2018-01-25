@@ -141,7 +141,24 @@
                     </ScrollViewer>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" HorizontalAlignment="Right">
+                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <local:IconButton Margin="0,5,20,0"                        
+                            Padding="1"  Visibility="{Binding Path=IsChecked,ElementName=createSqlb,Converter={StaticResource CheckedToVisibleConverter}}"
+                            x:Name="DataMoveBtn" 
+                            Click="DataMoveBtn_Click"
+                            Style="{StaticResource IconButtonStyle}"  
+                            Background="#f9f9f9f9" 
+                            BorderBrush="#e0e0e0" 
+                            Foreground="#666"
+                            BorderThickness="1" 
+                            Width="80"
+                            Height="25"                 
+                            CornerRadius="4"                                      
+                            FontWeight="Bold" 
+                            IsShowIcon="False"                 
+                            HorizontalAlignment="Center"   
+                            MouseOverForeground="Black"
+                            MouseOverBackground="White" Content="数据搬家" />
                     <local:IconButton Margin="0,5,0,0"                        
                             Padding="1"
                             x:Name="SaveBtn" 

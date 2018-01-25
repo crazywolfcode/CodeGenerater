@@ -34,9 +34,9 @@
                             <MenuItem Icon="&#xe782;" Header="在线更新" Tag="update"  Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
                             <Border Height="1"  Background="{StaticResource E4}" Opacity="0.8"></Border>
                             <MenuItem Icon="&#xe657;" Header="问题反馈" Tag="request" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click" />
-                            <MenuItem Icon="&#xe61e;" Header="技术支持" Tag="support" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
-                            <MenuItem Icon="&#xe60e;" Header="关于" Tag="about" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
-                            <MenuItem Icon="&#xe635;" Header="{StaticResource OptionQuit}" Tag="quit" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <MenuItem Icon="&#xe8e9;" Header="帮助" Tag="support" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <MenuItem Icon="&#xe870;" Header="关于" Tag="about" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
+                            <MenuItem Icon="&#xe652;" Header="{StaticResource OptionQuit}" Tag="quit" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click"/>
                             <Border Height="1" Background="{StaticResource E4}" Opacity="0.8"></Border>
                             <MenuItem Icon="&#xe8a6;" local:ControlAttachProperty.IconSize="20"  Header="打赏" Tag="reward" Style="{StaticResource IconMenuItem}" Click="MenuItem_Click" />
                         </StackPanel>

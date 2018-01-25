@@ -36,8 +36,7 @@
             </local:WindowButton.Background>
         </local:WindowButton>
 
-        <Border Background="White" Margin="0,0,0,0" Grid.Row="1">
-           
+        <Border Background="White" Margin="0,0,0,0" Grid.Row="1">           
                 <StackPanel VerticalAlignment="Center" x:Name="mainBody">
                     <StackPanel Height="40" VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="#777" Margin="0,7,0,0">
@@ -47,8 +46,7 @@
                     <StackPanel >
                         <Image Stretch="Fill" MaxHeight="200" Source="/CodeGenerater;component/Themes/banner03.png"  />
                     </StackPanel>            
-                </StackPanel>
-        
+                </StackPanel>        
         </Border>
         <Border Grid.Row="2" CornerRadius="0,0,4,4" Background="White">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,10,0">

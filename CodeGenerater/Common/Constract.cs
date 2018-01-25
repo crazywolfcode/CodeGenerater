@@ -10,11 +10,11 @@ namespace CodeGenerater
     {
         public static string ConnPath = System.IO.Path.Combine(MyHelper.FileHelper.GetRunTimeRootPath(), "temp");
         public static string ConnFilePath = ConnPath + "\\" + "connection.xml";
-
+        public static string ConnFilePath1 = ConnPath + "\\" + "connection1.xml";
         public static string dBschemasPath= System.IO.Path.Combine(MyHelper.FileHelper.GetRunTimeRootPath(), "temp");       
-        public static string getDbdBschemasPath(string connName)
+        public static string getDbdBschemasPath(string guid)
         {
-            return dBschemasPath + "\\" + connName + "_" + "DbSchemas.xml";
+            return dBschemasPath + "\\" + guid.Replace("-","") + ".xml";
         }
     }
 }

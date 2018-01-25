@@ -29,4 +29,10 @@ namespace CodeGenerater
         mysql,
         sqlite
     }
+
+    public enum DataMoveType {
+        Schema,
+        Data,
+        SchemaAndData,
+    }
 }
