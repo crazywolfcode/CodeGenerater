@@ -18,20 +18,20 @@ namespace CodeGenerater
     /// SettingW.xaml 的交互逻辑
     /// </summary>
     public partial class HelpW : Window
-    {     
-        private int mIndex;    
-        public HelpW(int index=-1)
+    {
+        private int mIndex;
+        public HelpW(int index = -1)
         {
-            InitializeComponent();           
+            InitializeComponent();
             mIndex = index;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-         
+            this.mainBody.Content = new MainFunctionP();
         }
 
- 
+
         private void WindowTitle_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -41,7 +41,7 @@ namespace CodeGenerater
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             this.Close();
         }
 
@@ -52,6 +52,21 @@ namespace CodeGenerater
                 this.DragMove();
             }
         }
-  
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            System.Windows.Controls.RadioButton rb = (System.Windows.Controls.RadioButton)sender;
+            if (rb == null)
+                return;
+            string tag = rb.Tag.ToString();
+            if (tag == "intruder") {
+                this.mainBody.Content = new MainFunctionP();
+            } else if (tag == "use") {
+                this.mainBody.Content = new FunctionUse();
+            } else if (tag == "quest") {
+                this.mainBody.Content = new QuestionP();
+            }
+        }
     }
 }

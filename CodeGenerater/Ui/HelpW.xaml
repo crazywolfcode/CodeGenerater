@@ -10,7 +10,7 @@
         Title="帮助" Height="500" Width="660">
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="140"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="#e4e4e4" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
@@ -20,7 +20,9 @@
                 <Line Height="1" Fill="{StaticResource myBlue}" Margin="0,10,0,10" ></Line>
                 <ScrollViewer Style="{DynamicResource DefaultScrollViewer}" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="helperItemPanel">
-
+                        <RadioButton Click ="RadioButton_Click" Tag="intruder" Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969"  IsChecked="True" >软件介绍</RadioButton>
+                        <RadioButton Click="RadioButton_Click"  Tag="use" Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969"   >功能使用</RadioButton>
+                        <RadioButton Click="RadioButton_Click"  Tag="quest" Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969" >常见问题</RadioButton>
                     </StackPanel>
                 </ScrollViewer>                
             </StackPanel>
@@ -44,9 +46,9 @@
                 <!--Main content area-->
                 <StackPanel>
                     <ScrollViewer Height="450" VerticalScrollBarVisibility="Auto" Style="{DynamicResource DefaultScrollViewer}">
-                        <StackPanel  Margin="10,0,10,10" >
-
-                        </StackPanel>
+                        <Frame NavigationUIVisibility="Hidden" x:Name="mainBody">
+                            
+                        </Frame>
                     </ScrollViewer>
                 </StackPanel>
             </DockPanel>

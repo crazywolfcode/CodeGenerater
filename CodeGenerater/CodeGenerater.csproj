@@ -118,8 +118,17 @@
     <Compile Include="Ui\DataMoveDesW.xaml.cs">
       <DependentUpon>DataMoveDesW.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\QuestionP.xaml.cs">
+      <DependentUpon>QuestionP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\FunctionUse.xaml.cs">
+      <DependentUpon>FunctionUse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\GeneraterW.xaml.cs">
       <DependentUpon>GeneraterW.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\MainFunctionP.xaml.cs">
+      <DependentUpon>MainFunctionP.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\RequestW.xaml.cs">
       <DependentUpon>RequestW.xaml</DependentUpon>
@@ -200,11 +209,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\QuestionP.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\FunctionUse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\GeneraterW.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\connItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\MainFunctionP.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,6 +359,31 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\banner03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\helper\a1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\helper\add1.png" />
+    <Resource Include="Themes\Img\helper\add2-1.png" />
+    <Resource Include="Themes\Img\helper\add3.png" />
+    <Resource Include="Themes\Img\helper\m1.png" />
+    <Resource Include="Themes\Img\helper\m2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\helper\d1.png" />
+    <Resource Include="Themes\Img\helper\d2.png" />
+    <Resource Include="Themes\Img\helper\d3.png" />
+    <Resource Include="Themes\Img\helper\d4.png" />
+    <Resource Include="Themes\Img\helper\l1.png" />
+    <Resource Include="Themes\Img\helper\l2.png" />
+    <Resource Include="Themes\Img\helper\l3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\helper\g2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Img\helper\g1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net45\System.Data.SQLite.Core.targets')" />
