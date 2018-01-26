@@ -71,7 +71,15 @@ namespace CodeGenerater
                 return;
             }
             this.mainBody.Children.Clear();
-            string path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connMoveItem.xaml";
+            string path = string.Empty;
+            if (App.DEBUG == true)
+            {
+                path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connMoveItem.xaml";
+            }
+            else
+            {
+                path = MyHelper.FileHelper.GetRunTimeRootPath() + "/connMoveItem.xaml";
+            }
             for (int i = 0; i < mConnections.Count; i++)
             {
                 Grid element = (Grid)CommonFunction.getFrameworkElementFromXaml(path);

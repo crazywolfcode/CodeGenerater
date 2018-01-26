@@ -13,6 +13,7 @@ namespace CodeGenerater
     public partial class App : Application
     {
         public static Window mainWindow;
+        public const bool DEBUG = false;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             new WelcomeW().Show();

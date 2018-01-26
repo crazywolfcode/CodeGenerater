@@ -177,9 +177,18 @@ namespace CodeGenerater
                 return;
             }
             this.mainBody.Children.Clear();
-            string path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connItem.xaml";
-            for (int i = 0; i < mConnections.Count; i++)
+
+            string path = string.Empty;
+            if (App.DEBUG == true)
             {
+                path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connItem.xaml";
+            }
+            else {
+                path = MyHelper.FileHelper.GetRunTimeRootPath() + "/connItem.xaml";
+            }
+            
+            for (int i = 0; i < mConnections.Count; i++)
+            {                
                 Grid element = (Grid)CommonFunction.getFrameworkElementFromXaml(path);
                 element.MouseMove += Element_MouseMove;
                 element.MouseLeave += Element_MouseLeave;
@@ -339,7 +348,7 @@ namespace CodeGenerater
             return sb;
         }
 
-  
+
 
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
         {

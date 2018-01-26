@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CodeGenerater"
       mc:Ignorable="d" 
-      d:DesignHeight="1000" d:DesignWidth="300"
+      d:DesignHeight="300" d:DesignWidth="300"
       Title="FunctionUse">
 
     <Grid>
@@ -16,11 +16,8 @@
                     <TextBlock FontSize="16" Foreground="#666">一、获取该软件</TextBlock>
                     <TextBlock FontSize="14" Margin="24,2,4,0" Foreground="#797979" TextWrapping="Wrap"> 
                     ① 百度网盘 下载地址：www.baidu.com
-                    </TextBlock>
-                 
-
+                    </TextBlock>                 
                 </StackPanel>
-
             </StackPanel>
 
             <!--安装-->

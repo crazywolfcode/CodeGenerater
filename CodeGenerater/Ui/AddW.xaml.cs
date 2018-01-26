@@ -174,9 +174,9 @@ namespace CodeGenerater
                     {
                         MyHelper.FileHelper.createFile(filePath);
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        MessageBox.Show("保存失败,文件创建失败：" + filePath);
+                        MessageBox.Show("保存失败,文件创建失败：" + filePath+" msg:"+ex.Message);
                         return false;
                     }
                 }
@@ -197,9 +197,9 @@ namespace CodeGenerater
                 {
                     MyHelper.FileHelper.Write(filePath, connStrings);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("保存连接失败");
+                    MessageBox.Show("保存连接失败"+"msg:"+ex.Message);
                     return false;
                 }
             }
