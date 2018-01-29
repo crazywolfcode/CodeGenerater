@@ -63,7 +63,7 @@ namespace CodeGenerater
 
             if (mConnections == null || mConnections.Count <= 0)
             {
-                MessageBox.Show("连接信息出错！");
+                MessageBox.Show("没有可以移动的连接！");
                 TextBlock tb = new TextBlock();
                 tb.HorizontalAlignment = HorizontalAlignment.Center;
                 tb.VerticalAlignment = VerticalAlignment.Center;

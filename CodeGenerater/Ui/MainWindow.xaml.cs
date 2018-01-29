@@ -282,8 +282,6 @@ namespace CodeGenerater
                 return;
             }
             Grid element = this.mainBody.Children[Convert.ToInt32(deleteTag)] as Grid;
-            //Storyboard sb = getStoryboard(element);
-            //sb.Completed += Sb_Completed;  
             DoubleAnimation da1 = new DoubleAnimation();
             da1.From = 1;
             da1.Duration = new Duration(TimeSpan.Parse("0:0:0.5"));
