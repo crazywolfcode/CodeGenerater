@@ -177,7 +177,6 @@ namespace CodeGenerater
                 return;
             }
             this.mainBody.Children.Clear();
-
             string path = string.Empty;
             if (App.DEBUG == true)
             {

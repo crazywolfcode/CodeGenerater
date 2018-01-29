@@ -19,6 +19,7 @@ namespace CodeGenerater
 
         public string dbEnumGenerater()
         {
+            getDbSchema();
             if (mDbSchemas.Count > 0)
             {
                 StringBuilder sb = new StringBuilder();

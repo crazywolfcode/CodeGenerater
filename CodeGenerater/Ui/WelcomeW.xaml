@@ -44,7 +44,8 @@
                         </TextBlock>
                     </StackPanel>
                     <StackPanel >
-                        <Image Stretch="Fill" MaxHeight="200" Source="/CodeGenerater;component/Themes/banner03.png"  />
+                        <!--<Image Stretch="Fill" MaxHeight="200" Source="/CodeGenerater;component/Themes/banner03.png"  />-->
+                        
                     </StackPanel>            
                 </StackPanel>        
         </Border>

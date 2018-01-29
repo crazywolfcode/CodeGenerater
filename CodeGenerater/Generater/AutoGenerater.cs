@@ -101,9 +101,10 @@ namespace CodeGenerater
                 //Csharp all enum
                 if (!string.IsNullOrEmpty(mConnection.cSharpEnumAllPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumPath))
+                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumAllPath))
                     {
                         string csharpEnum = new CsharpEnumGenerare(mConnection).dbEnumGenerater();
+                        MyHelper.ConsoleHelper.writeLine(csharpEnum);
                         fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(mConnection.dbName)) + ".cs";
                         MyHelper.FileHelper.Write(mConnection.cSharpEnumAllPath + fileName, csharpEnum);
                     }
