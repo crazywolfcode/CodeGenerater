@@ -14,11 +14,7 @@
             <StackPanel Margin="4">
                 <StackPanel Margin="0">
                     <TextBlock FontSize="16" Foreground="#666">一、获取该软件</TextBlock>
-                    <TextBlock FontSize="14" Margin="24,2,4,0" Foreground="#797979" TextWrapping="Wrap"> 
-                    ① 百度网盘 下载地址：
-                        链接: https://pan.baidu.com/s/1o9ruuXc 
-                        密码: v2gd
-                    </TextBlock>
+                    <TextBlock FontSize="14" Margin="24,2,4,0" Foreground="#797979" TextWrapping="Wrap" Text="① 百度网盘 下载地址: https://pan.baidu.com/s/1nw7B3gl 密码: vfez"/>
                     <TextBlock FontSize="14" Margin="24,2,4,0" Foreground="#797979" TextWrapping="Wrap"> 
                     ② 微软应用商店
                     </TextBlock>
