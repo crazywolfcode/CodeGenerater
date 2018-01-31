@@ -29,7 +29,7 @@ namespace CodeGenerater
                 sb.AppendLine("using System.Text;");
                 sb.AppendLine("using System.Threading.Tasks;");
                 sb.AppendLine();
-                sb.AppendLine(string.Format("namespace {0}", mNameSpace));
+                sb.AppendLine(string.Format("namespace {0}", mConnection.nameSpace));
                 sb.AppendLine("{");
                 sb.AppendLine();
                 sb.AppendLine(getcomment("数据库中的所有表名称"));
@@ -62,7 +62,7 @@ namespace CodeGenerater
             sb.AppendLine("using System.Text;");
             sb.AppendLine("using System.Threading.Tasks;");
             sb.AppendLine();
-            sb.AppendLine(string.Format("namespace {0}", mNameSpace));
+            sb.AppendLine(string.Format("namespace {0}", mConnection.nameSpace));
             sb.AppendLine("{");
             if (!string.IsNullOrEmpty(schema.TableComment))
             {
