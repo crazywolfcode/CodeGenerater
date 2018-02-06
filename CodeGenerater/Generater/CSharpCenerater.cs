@@ -28,6 +28,10 @@ namespace CodeGenerater
             sb.AppendLine("");
             sb.AppendLine(getClassComment());
             sb.AppendLine("");
+            if (!string.IsNullOrEmpty(mConnection.classSuffix))
+            {
+                ClassNmae = ClassNmae + MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+            }
             sb.AppendLine(tab + string.Format(" public  class {0}", ClassNmae));
             sb.AppendLine(tab + "{");
             return sb.ToString();

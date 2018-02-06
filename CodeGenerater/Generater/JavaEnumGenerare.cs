@@ -31,6 +31,10 @@ namespace CodeGenerater
                 sb.AppendLine(getcomment(schema.TableComment));
             }
             string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName));
+            if (!string.IsNullOrEmpty(mConnection.enumSuffi))
+            {
+                name = name + MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
+            }
             sb.AppendLine(tab + $"public enum {name}" + "{");
             if (mConnection.type == DbType.mysql.ToString())
             {

@@ -69,6 +69,9 @@ namespace CodeGenerater
                 sb.AppendLine(getcomment(schema.TableComment));
             }
             string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName));
+            if (!string.IsNullOrEmpty(mConnection.enumSuffi)) {
+                name = name + mConnection.enumSuffi;
+            }
             sb.AppendLine(tab + $"public enum {name}" + "{");
             if (mConnection.type == DbType.mysql.ToString()) {
                 mMysqlTabeSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableSchema(schema.TableName);
@@ -97,6 +100,10 @@ namespace CodeGenerater
                 sb.AppendLine(getcomment(commend));
             }
             string name = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(tableName));
+            if (!string.IsNullOrEmpty(mConnection.enumSuffi))
+            {
+                ClassNmae = ClassNmae + MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
+            }
             sb.AppendLine(tab + $"public enum {name}" + "{");
             if (mConnection.type == DbType.mysql.ToString())
             {
@@ -124,9 +131,12 @@ namespace CodeGenerater
             {
                 mDbSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
             }
-            else {
+            else if (mConnection.type == DbType.sqlite.ToString())
+            {
                 mDbSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getAllTableSchema();
-
+            }
+            else {
+                throw new Exception("不支持的数据库类型：" +mConnection.type.ToString());
             }
         }
 

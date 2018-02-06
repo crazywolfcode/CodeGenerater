@@ -46,6 +46,9 @@ namespace CodeGenerater
             sb.AppendLine("import java.util.Date;");
             sb.AppendLine("");
             sb.AppendLine(getClassComment());
+            if (!string.IsNullOrEmpty(mConnection.classSuffix)) {
+                ClassNmae = ClassNmae + MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+            }
             sb.AppendLine(string.Format("public class {0}", ClassNmae) + "{");
             sb.AppendLine("");
             return sb.ToString();

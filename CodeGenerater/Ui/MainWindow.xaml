@@ -92,45 +92,61 @@
         </Border>
 
         <Border Grid.Row="2" CornerRadius="0,0,4,4"   Background="{StaticResource F9}">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-                <TextBlock x:Name="alertTb" Margin="0,0,20,0" VerticalAlignment="Center">
-                     还没有数据库连接
-                </TextBlock>
-                <local:IconButton 
-                    x:Name="addBtn"  Click="addBtn_Click"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Padding="2"
-                    Icon="&#xe50d;"
-                    IsShowIcon="True"                
-                    Style="{StaticResource IconButtonStyle}"                 
-                    BorderBrush="White" 
-                    Foreground="#666"
-                    BorderThickness="1" 
-                    Width="28"
-                    Height="28"                 
-                    CornerRadius="14"                                      
-                    FontWeight="Bold"               
-                    MouseOverForeground="White"
-                    MouseOverBackground="{StaticResource myBlue}" />
-                <local:IconButton 
-                    x:Name="refreshBtn"  Click="refreshBtn_Click" Margin="12,0,10,0"
-                    VerticalAlignment="Center" IconSize="16" IconMargin="3"
-                    VerticalContentAlignment="Center"
-                    Padding="2"
-                    Icon="&#xe607;"
-                    IsShowIcon="True"                
-                    Style="{StaticResource IconButtonStyle}"                 
-                    BorderBrush="White" 
-                    Foreground="#666"
-                    BorderThickness="1" 
-                    Width="28"
-                    Height="28"                 
-                    CornerRadius="14"                                      
-                    FontWeight="Bold"               
-                    MouseOverForeground="White"
-                    MouseOverBackground="{StaticResource myBlue}" />
-            </StackPanel>
+            <DockPanel  LastChildFill="True">
+                <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                     <local:IconButton x:Name="RewardBtn" Click="RewardBtn_Click"
+                        Grid.Row="2" 
+                        Height="25"
+                        Width="80" 
+                        Content="打赏" 
+                        HorizontalAlignment="Right"
+                        Icon="&#xe8a6;" 
+                        IsShowIcon="True" FontSize="14" Margin="0,0,0,0"
+                        Foreground="{StaticResource myBlue}" 
+                        AllowsAnimation="True"                          
+                        Style="{DynamicResource IconButtonTransparencyStyle}"
+                        />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock x:Name="alertTb" Margin="0,0,20,0" VerticalAlignment="Center">
+                         还没有数据库连接
+                    </TextBlock>
+                    <local:IconButton 
+                        x:Name="addBtn"  Click="addBtn_Click"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Padding="2"
+                        Icon="&#xe50d;"
+                        IsShowIcon="True"                
+                        Style="{StaticResource IconButtonStyle}"                 
+                        BorderBrush="White" 
+                        Foreground="#666"
+                        BorderThickness="1" 
+                        Width="28"
+                        Height="28"                 
+                        CornerRadius="14"                                      
+                        FontWeight="Bold"               
+                        MouseOverForeground="White"
+                        MouseOverBackground="{StaticResource myBlue}" />
+                    <local:IconButton 
+                        x:Name="refreshBtn"  Click="refreshBtn_Click" Margin="12,0,10,0"
+                        VerticalAlignment="Center" IconSize="16" IconMargin="3"
+                        VerticalContentAlignment="Center"
+                        Padding="2"
+                        Icon="&#xe607;"
+                        IsShowIcon="True"                
+                        Style="{StaticResource IconButtonStyle}"                 
+                        BorderBrush="White" 
+                        Foreground="#666"
+                        BorderThickness="1" 
+                        Width="28"
+                        Height="28"                 
+                        CornerRadius="14"                                      
+                        FontWeight="Bold"               
+                        MouseOverForeground="White"
+                        MouseOverBackground="{StaticResource myBlue}" />
+                </StackPanel>
+            </DockPanel>
         </Border>
     </Grid>
 </Window>

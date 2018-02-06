@@ -104,7 +104,6 @@ namespace CodeGenerater
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumAllPath))
                     {
                         string csharpEnum = new CsharpEnumGenerare(mConnection).dbEnumGenerater();
-                        MyHelper.ConsoleHelper.writeLine(csharpEnum);
                         fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(mConnection.dbName)) + ".cs";
                         MyHelper.FileHelper.Write(mConnection.cSharpEnumAllPath + fileName, csharpEnum);
                     }

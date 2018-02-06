@@ -13,6 +13,8 @@ namespace CodeGenerater
     {
         public string id { get; set; }
         public string name { get; set; }
+        public string classSuffix { get; set; }
+        public string enumSuffi { get; set; }
         public string dbName { get; set; }
         public string description { get; set; }
         public string type { get; set; }

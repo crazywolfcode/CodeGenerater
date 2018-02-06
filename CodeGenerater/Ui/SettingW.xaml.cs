@@ -46,6 +46,8 @@ namespace CodeGenerater
             this.dbNmaeTb.Text = mConnection.dbName;
             this.userIdTb.Text = mConnection.uaerName;
             this.pwdTb.Text = mConnection.password;
+            this.classSuffixTb.Text = mConnection.classSuffix;
+            this.enumSuffixTb.Text = mConnection.enumSuffi;
 
             if (mConnection.auto == Auto.yes.ToString()) {
                 onRb.IsChecked = true;
@@ -239,6 +241,16 @@ namespace CodeGenerater
         private void helpBtn_Click(object sender, RoutedEventArgs e)
         {
             new HelpW().Show();
+        }
+
+        private void classSuffixTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            mConnection.classSuffix = this.classSuffixTb.Text.Trim();
+        }
+
+        private void enumSuffixTb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            mConnection.enumSuffi = this.enumSuffixTb.Text.Trim();
         }
     }
 }

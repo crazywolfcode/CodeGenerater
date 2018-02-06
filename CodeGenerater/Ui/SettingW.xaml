@@ -95,9 +95,17 @@
                                 <RadioButton x:Name="offRb" Margin="4" Content="关" Checked="offRb_Checked"/>
                             </WrapPanel>
                             <StackPanel VerticalAlignment="Center" Margin="4">
+                                <TextBlock ><Run Text=" 类的后辍："/></TextBlock>
+                                <TextBox Margin="4,0,4,2" Height="25" x:Name="classSuffixTb" TextChanged="classSuffixTb_TextChanged"/>
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="4">
+                                <TextBlock ><Run Text="枚举的后辍："/></TextBlock>
+                                <TextBox Margin="4,0,4,2" Height="25" x:Name="enumSuffixTb" TextChanged="enumSuffixTb_TextChanged" />
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center" Margin="4">
                                 <TextBlock ><Run Text="C# 名称空间："/></TextBlock>
                                 <TextBox Margin="4,0,4,2" Height="25" x:Name="nameSpaceTbox" TextChanged="nameSpaceTbox_TextChanged"/>
-                            </StackPanel>
+                            </StackPanel>                       
                             <StackPanel VerticalAlignment="Center" Margin="0,0,0,4">
                                 <TextBlock Margin="4"><Run Text="C# 类保存路径："/></TextBlock>
                                 <WrapPanel>

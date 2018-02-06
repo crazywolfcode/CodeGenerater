@@ -376,5 +376,9 @@ namespace CodeGenerater
             this.saveConnections();
         }
 
+        private void RewardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new RewardW().ShowDialog();
+        }
     }
 }
