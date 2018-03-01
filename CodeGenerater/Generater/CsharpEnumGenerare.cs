@@ -104,6 +104,10 @@ namespace CodeGenerater
             {
                 ClassNmae = ClassNmae + MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
             }
+            String suffix = string.Empty;
+            if (!String.IsNullOrEmpty(mConnection.enumSuffi)) {
+                name = name + mConnection.enumSuffi;
+            }                    
             sb.AppendLine(tab + $"public enum {name}" + "{");
             if (mConnection.type == DbType.mysql.ToString())
             {

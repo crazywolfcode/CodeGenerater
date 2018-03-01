@@ -61,7 +61,11 @@ namespace CodeGenerater
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaClassPath))
                     {
                         string javaClass = new JavaGenerater(schema, mConnection).CeneraterClass();
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".java";
+                        String suffix = string.Empty;
+                        if (!String.IsNullOrEmpty(mConnection.classSuffix)) {
+                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+                        }
+                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) +suffix+ ".java";
                         MyHelper.FileHelper.Write(mConnection.javaClassPath + fileName, javaClass);
                     }
                 }
@@ -72,7 +76,12 @@ namespace CodeGenerater
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaEnumPath))
                     {
                         string javaEnum = new JavaEnumGenerare(mConnection).tableEnumGenerater(schema);
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".java";
+                        String suffix = string.Empty;
+                        if (!String.IsNullOrEmpty(mConnection.enumSuffi))
+                        {
+                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
+                        }
+                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".java";
                         MyHelper.FileHelper.Write(mConnection.javaEnumPath + fileName, javaEnum);
                     }
                 }
@@ -83,7 +92,12 @@ namespace CodeGenerater
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpClassPath))
                     {
                         string csharpClass = new CSharpCenerater(schema, mConnection).CeneraterClass();
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".cs";
+                        String suffix = string.Empty;
+                        if (!String.IsNullOrEmpty(mConnection.classSuffix))
+                        {
+                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+                        }
+                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".cs";
                         MyHelper.FileHelper.Write(mConnection.cSharpClassPath + fileName, csharpClass);
                     }
                 }
@@ -94,7 +108,12 @@ namespace CodeGenerater
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumPath))
                     {
                         string csharpEnum = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema);
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + ".cs";
+                        String suffix = string.Empty;
+                        if (!String.IsNullOrEmpty(mConnection.enumSuffi))
+                        {
+                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
+                        }
+                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".cs";                       
                         MyHelper.FileHelper.Write(mConnection.cSharpEnumPath + fileName, csharpEnum);
                     }
                 }
