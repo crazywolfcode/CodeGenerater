@@ -8,13 +8,13 @@
         Icon="/CodeGenerater;component/logo.ico"
         WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged"
         mc:Ignorable="d"  WindowStyle="None" Style="{StaticResource  WindowStyle}"
-        Title="代码生成器" Height="530" Width="700">
+        Title="代码生成器" Height="530" Width="780">
     <Window.Resources>
         <local:CheckedToVisibleConverter x:Key="CheckedToVisibleConverter"></local:CheckedToVisibleConverter>
     </Window.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="140"/>
+            <ColumnDefinition MinWidth="140" MaxWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" CornerRadius="4,0,0,4" Background="{StaticResource E4}" Padding="0"  MouseMove="ConfigItemPanel_MouseMove">
@@ -27,8 +27,8 @@
                 </StackPanel>
                 <ScrollViewer x:Name="TableSv" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{DynamicResource DefaultScrollViewer}">
                     <StackPanel x:Name="tablePanel" Margin="0,0,0,15">
-                        <!--<RadioButton x:Name="mysqlBtn"  Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969" Margin="0,10,0,0" IsChecked="True">MySql</RadioButton>
-                        <RadioButton x:Name="sqliteBtn" Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969"  IsChecked="False" >Sqlite</RadioButton>-->
+                        <RadioButton x:Name="mysqlBtn"  Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969" Margin="0,10,0,0" IsChecked="True">MySql</RadioButton>
+                        <RadioButton x:Name="sqliteBtn" Style="{DynamicResource menuRadioButtonStyle}" Height="28" Foreground="#696969"  IsChecked="False" >Sqlite</RadioButton>
                     </StackPanel>
                 </ScrollViewer>
             </StackPanel>

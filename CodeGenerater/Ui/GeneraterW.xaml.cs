@@ -96,6 +96,7 @@ namespace CodeGenerater
         {
             if (mDbSchemas.Count > 0)
             {
+                this.tablePanel.Children.Clear();
                 for (int i = 0; i < mDbSchemas.Count; i++)
                 {
                     this.tablePanel.Children.Add(getRadioButton(mDbSchemas[i]));
@@ -113,6 +114,7 @@ namespace CodeGenerater
             RadioButton tb = new RadioButton();
             tb.Style = App.Current.Resources["menuRadioButtonStyle"] as Style;
             tb.Height = 28;
+            tb.Width = this.tablePanel.ActualWidth;
             Foreground = App.Current.Resources["69"] as Brush;
             tb.Tag = schema;
             tb.Content = schema.TableName;
