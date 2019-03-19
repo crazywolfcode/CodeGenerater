@@ -39,7 +39,8 @@ namespace CodeGenerater
 
         private string getProerty(string type, string field)
         {
-            return tab + $"public {type} {MyHelper.StringHelper.DBNamingToCamelCase(field)}" + "{ get; set; }";
+            string fieldName = MyHelper.StringHelper.DBNamingToCamelCase(field);
+            return tab + $"public {type} {MyHelper.StringHelper.upperCaseFirstLetter(fieldName)}" + "{ get; set; }";
         }
 
         public string getcomment(string comment, string isNull, string defaultValue)
