@@ -39,7 +39,7 @@ namespace CodeGenerater
                 if (needRefresh == true)
                 {
                     needRefresh = false;
-                    mConnections = mConnections = CommonFunction.getListConn();
+                    mConnections = CommonFunction.getListConn();
                     changedAlertIngo();
                     bindingElements();
                 }

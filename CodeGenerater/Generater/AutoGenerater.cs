@@ -9,9 +9,9 @@ namespace CodeGenerater
     {
         private Connection mConnection;
         public delegate void showMsg(string msg);
-        private List<MyHelper.DbSchema> mHostoryDbSchemas = null;
-        private List<MyHelper.DbSchema> mNowSchemas = null;
-        private List<MyHelper.DbSchema> needThreadGeneraters = new List<MyHelper.DbSchema>();
+        private List<LocalSchema> mHostoryDbSchemas = null;
+        private List<LocalSchema> mNowSchemas = new List<LocalSchema>();
+        private List<LocalSchema> needThreadGeneraters = new List<LocalSchema>();
         private showMsg DelegateShowMsg;
         public AutoGenerater(Connection conn)
         {
@@ -48,14 +48,14 @@ namespace CodeGenerater
             saveDbSchemasToFile();
         }
 
-        private void generaterCode(List<MyHelper.DbSchema> list)
+        private void generaterCode(List<LocalSchema> list)
         {
             if (list == null || list.Count <= 0) { return; }
             string fileName = string.Empty;
             for (int i = 0; i < needThreadGeneraters.Count; i++)
             {
                 //java class              
-                MyHelper.DbSchema schema = needThreadGeneraters[i];
+                LocalSchema schema = needThreadGeneraters[i];
                 if (!string.IsNullOrEmpty(mConnection.javaClassPath))
                 {
                     if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaClassPath))
@@ -144,11 +144,11 @@ namespace CodeGenerater
         {
             for (int i = 0; i < mNowSchemas.Count; i++)
             {
-                MyHelper.DbSchema schema = mNowSchemas[i];
+                LocalSchema schema = mNowSchemas[i];
                 bool isContains = false;
                 for (int j = 0; j < mHostoryDbSchemas.Count; j++)
                 {
-                    MyHelper.DbSchema historySchema = mHostoryDbSchemas[j];
+                    LocalSchema historySchema = mHostoryDbSchemas[j];
                     if (schema.TableName == historySchema.TableName)
                     {
                         isContains = true;
@@ -176,11 +176,35 @@ namespace CodeGenerater
             {
                 if (mConnection.type == DbType.mysql.ToString())
                 {
-                    mNowSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
+                    List<SqlDao.DbSchema> tempSchemas= DatabaseOPtionHelper.GetInstance(mConnection.connStr).getAllTableSchema8(mConnection.dbName);
+                    foreach (SqlDao.DbSchema schema in tempSchemas)
+                    {
+                        mNowSchemas.Add(new LocalSchema()
+                        {
+                            createTime = schema.createTime,
+                            updateTime = schema.updateTime,
+                            dataLength = schema.dataLength,
+                            TableComment = schema.TableComment,
+                            TableName = schema.TableName,
+                            tableRows = schema.tableRows
+                        });
+                    }
                 }
                 else if (mConnection.type == DbType.sqlite.ToString())
                 {
-                    mNowSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getAllTableSchema();
+                    List<MyHelper.DbSchema> tempSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getAllTableSchema();
+                    foreach (MyHelper.DbSchema schema in tempSchemas)
+                    {
+                        mNowSchemas.Add(new LocalSchema()
+                        {
+                            createTime = schema.createTime,
+                            updateTime = schema.updateTime,
+                            dataLength = schema.dataLength,
+                            TableComment = schema.TableComment,
+                            TableName = schema.TableName,
+                            tableRows = schema.tableRows
+                        });
+                    }
                 }
             }
         }
@@ -202,7 +226,7 @@ namespace CodeGenerater
                     }
                     try
                     {
-                        mHostoryDbSchemas = (List<MyHelper.DbSchema>)MyHelper.XmlHelper.Deserialize(typeof(List<MyHelper.DbSchema>), xml);
+                        mHostoryDbSchemas = (List<LocalSchema>)MyHelper.XmlHelper.Deserialize(typeof(List<LocalSchema>), xml);
                     }
                     catch (Exception)
                     {
@@ -229,7 +253,7 @@ namespace CodeGenerater
                             DelegateShowMsg("创建文件失败：" + Constract.getDbdBschemasPath(mConnection.id));
                         }
                     }
-                    string xml = MyHelper.XmlHelper.Serialize(typeof(List<MyHelper.DbSchema>), mNowSchemas);
+                    string xml = MyHelper.XmlHelper.Serialize(typeof(List<LocalSchema>), mNowSchemas);
                     try
                     {
                         MyHelper.FileHelper.Write(Constract.getDbdBschemasPath(mConnection.id), xml);

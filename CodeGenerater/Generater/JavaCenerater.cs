@@ -32,7 +32,7 @@ namespace CodeGenerater
             return sb.ToString();
         }
 
-        public JavaGenerater(DbSchema schema, Connection connection)
+        public JavaGenerater(LocalSchema schema, Connection connection)
         {          
             mDbSchema = schema;
             mTableName = schema.TableName;

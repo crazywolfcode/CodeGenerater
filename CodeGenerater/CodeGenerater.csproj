@@ -109,17 +109,28 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
     <Reference Include="MyHelperLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\MyHelperLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MySql.Data, Version=8.0.15.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.15\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SqlDao, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\SqlDao.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.107.0\lib\net46\System.Data.SQLite.dll</HintPath>
@@ -130,6 +141,10 @@
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.107.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.107.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -153,6 +168,7 @@
     <Compile Include="Common\Constract.cs" />
     <Compile Include="Control\ControlAttachProperty.cs" />
     <Compile Include="Entity\Connection.cs" />
+    <Compile Include="Entity\LocalSchema.cs" />
     <Compile Include="Enum\commonEnum.cs" />
     <Compile Include="Control\IconButton.cs" />
     <Compile Include="Control\ImageButton.cs" />
@@ -165,6 +181,7 @@
     <Compile Include="Generater\CsharpEnumGenerare.cs" />
     <Compile Include="Generater\JavaCenerater.cs" />
     <Compile Include="Generater\SqlGenerater.cs" />
+    <Compile Include="Helper\DatabaseOPtionHelper.cs" />
     <Compile Include="Helper\TemplateHelper.cs" />
     <Compile Include="Ui\DataMoveDialog.xaml.cs">
       <DependentUpon>DataMoveDialog.xaml</DependentUpon>
@@ -459,7 +476,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dll\MyHelperLibrary.dll" />
-    <Content Include="dll\MyHelperLibrary.pdb" />
+    <Content Include="dll\SqlDao.dll" />
     <Resource Include="Themes\Img\helper\o1.png" />
     <Resource Include="Themes\Img\helper\o2.png" />
     <Resource Include="Themes\Img\helper\i1.png" />

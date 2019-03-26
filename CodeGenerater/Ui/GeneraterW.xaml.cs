@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using SqlDao;
+
 namespace CodeGenerater
 {
     /// <summary>
@@ -19,10 +21,11 @@ namespace CodeGenerater
     /// </summary>
     public partial class GeneraterW : Window
     {
-        private MyHelper.DbSchema currDbschema;
+        private LocalSchema currLocalschma;
         private Connection mConnection;
         private string[] mTables = new string[] { };
-        private List<MyHelper.DbSchema> mDbSchemas;
+        private List<SqlDao.DbSchema> mMysqlDbSchemas;
+        private List<MyHelper.DbSchema> mDbSchemas;     
         private string sufix;
         public GeneraterW(Connection conn)
         {
@@ -65,7 +68,10 @@ namespace CodeGenerater
         {
             if (mConnection.type == DbType.mysql.ToString())
             {
-                mDbSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
+
+                // mDbSchemas = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableSchema(mConnection.dbName);
+
+                mMysqlDbSchemas = DatabaseOPtionHelper.GetInstance(mConnection.connStr).getAllTableSchema8(mConnection.dbName);
             }
             else
             {
@@ -78,7 +84,8 @@ namespace CodeGenerater
         {
             if (mConnection.type == DbType.mysql.ToString())
             {
-                mTables = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableName(mConnection.dbName);
+                //mTables = new MyHelper.MySqlHelper(mConnection.connStr).getAllTableName(mConnection.dbName);
+                mTables = DatabaseOPtionHelper.GetInstance(mConnection.connStr).getAllTableName(mConnection.dbName);
             }
             else if (mConnection.type == DbType.sqlite.ToString())
             {
@@ -90,23 +97,61 @@ namespace CodeGenerater
             }
 
 
+
         }
 
         public void setTableNameList()
-        {
-            if (mDbSchemas.Count > 0)
-            {
-                this.tablePanel.Children.Clear();
-                for (int i = 0; i < mDbSchemas.Count; i++)
+        {          
+
+            if (mConnection.type == DbType.mysql.ToString())
+            {         
+                if (mMysqlDbSchemas.Count > 0)
                 {
-                    this.tablePanel.Children.Add(getRadioButton(mDbSchemas[i]));
+                    this.tablePanel.Children.Clear();
+                    for (int i = 0; i < mMysqlDbSchemas.Count; i++)
+                    {
+                        this.tablePanel.Children.Add(getRadioButton(mMysqlDbSchemas[i]));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("没有获取任何数据表！");
                 }
             }
             else
             {
-                MessageBox.Show("没有获取任何数据表！");
+                if (mDbSchemas.Count > 0)
+                {
+                    this.tablePanel.Children.Clear();
+                    for (int i = 0; i < mDbSchemas.Count; i++)
+                    {
+                        this.tablePanel.Children.Add(getRadioButton(mDbSchemas[i]));
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("没有获取任何数据表！");
+                }
             }
 
+        }
+
+        private UIElement getRadioButton(SqlDao.DbSchema schema)
+        {
+            RadioButton tb = new RadioButton();
+            tb.Style = App.Current.Resources["menuRadioButtonStyle"] as Style;
+            tb.Height = 28;
+            tb.Width = this.tablePanel.ActualWidth;
+            Foreground = App.Current.Resources["69"] as Brush;
+            tb.Tag = schema;
+            tb.Content = schema.TableName;
+            if (!string.IsNullOrEmpty(schema.TableComment))
+            {
+                tb.ToolTip = schema.TableComment;
+            }
+            tb.Margin = new Thickness(0, 10, 0, 0);
+            tb.Click += TabButton_Click;
+            return tb;
         }
 
         public RadioButton getRadioButton(MyHelper.DbSchema schema)
@@ -130,8 +175,32 @@ namespace CodeGenerater
         private void TabButton_Click(object sender, RoutedEventArgs e)
         {
             RadioButton tabbtn = sender as RadioButton;
-            currDbschema = (MyHelper.DbSchema)tabbtn.Tag;
-
+            if (tabbtn.Tag is MyHelper.DbSchema)
+            {
+                MyHelper.DbSchema schema = (MyHelper.DbSchema)tabbtn.Tag;
+                currLocalschma = new LocalSchema()
+                {
+                    createTime = schema.createTime,
+                    updateTime = schema.updateTime,
+                    dataLength = schema.dataLength,
+                    TableComment = schema.TableComment,
+                    TableName = schema.TableName,
+                    tableRows = schema.tableRows
+                };
+            }
+            else
+            {
+                SqlDao.DbSchema schema = (SqlDao.DbSchema)tabbtn.Tag;
+                currLocalschma = new LocalSchema()
+                {
+                    createTime = schema.createTime,
+                    updateTime = schema.updateTime,
+                    dataLength = schema.dataLength,
+                    TableComment = schema.TableComment,
+                    TableName = schema.TableName,
+                    tableRows = schema.tableRows
+                };
+            }               
             startCeneraterCode();
         }
         #endregion
@@ -142,27 +211,27 @@ namespace CodeGenerater
             string doc = string.Empty;
             if (javaRb.IsChecked == true)
             {
-                JavaGenerater jg = new JavaGenerater(currDbschema, mConnection);
+                JavaGenerater jg = new JavaGenerater(currLocalschma, mConnection);
                 doc = jg.CeneraterClass();
             }
             else if (csharpRb.IsChecked == true)
             {
-                CSharpCenerater generater = new CSharpCenerater(currDbschema, mConnection);
+                CSharpCenerater generater = new CSharpCenerater(currLocalschma, mConnection);
                 doc = generater.CeneraterClass();
             }
             else if (javaEnumRb.IsChecked == true)
             {
                 JavaEnumGenerare generater = new JavaEnumGenerare(mConnection);
-                doc = generater.tableEnumGenerater(currDbschema);
+                doc = generater.tableEnumGenerater(currLocalschma);
             }
             else if (csharpEnumRb.IsChecked == true)
             {
                 CsharpEnumGenerare generater = new CsharpEnumGenerare(mConnection);
-                doc = generater.tableEnumGenerater(currDbschema);
+                doc = generater.tableEnumGenerater(currLocalschma);
             }
             else if (createSqlb.IsChecked == true)
             {
-                SqlGenerater generater = new SqlGenerater(currDbschema.TableName, mConnection.connStr, mConnection.type);
+                SqlGenerater generater = new SqlGenerater(currLocalschma.TableName, mConnection.connStr, mConnection.type);
                 doc = generater.GeneraterSql();
             }
             else
@@ -224,11 +293,11 @@ namespace CodeGenerater
             SaveFileDialog sfd = new SaveFileDialog();
             if (sufix != ".sql")
             {
-                sfd.FileName = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(currDbschema.TableName));
+                sfd.FileName = MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(currLocalschma.TableName));
             }
             else
             {
-                sfd.FileName = currDbschema.TableName;
+                sfd.FileName = currLocalschma.TableName;
             }
             sfd.DefaultExt = sufix;
 
@@ -296,7 +365,7 @@ namespace CodeGenerater
         }
         private void changed()
         {
-            if (currDbschema != null)
+            if (currLocalschma != null)
             {
                 this.startCeneraterCode();
             }
@@ -310,9 +379,9 @@ namespace CodeGenerater
 
         private void DataMoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (currDbschema != null)
+            if (currLocalschma != null)
             {
-                new DataMoveDesW(mConnection, currDbschema, this.CodeTb.Text).ShowDialog();
+                new DataMoveDesW(mConnection, currLocalschma, this.CodeTb.Text).ShowDialog();
             }            
         }
     }

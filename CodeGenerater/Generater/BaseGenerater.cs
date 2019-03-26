@@ -9,7 +9,7 @@ namespace CodeGenerater
    public class BaseGenerater
     {
         public Connection mConnection;
-        public MyHelper.DbSchema mDbSchema;
+        public LocalSchema mDbSchema;
         public string mNameSpace;
         public string tab = "\t ";
         public string comma = ",";     

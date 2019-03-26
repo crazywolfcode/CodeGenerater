@@ -21,14 +21,14 @@ namespace CodeGenerater
     {
         private Connection mFromConnection;
         private Connection mToConnection;
-        private MyHelper.DbSchema CurrSchema;
+        private LocalSchema CurrSchema;
         private DispatcherTimer mDispatcherTimer;
         private string currCreateSql;
         public string DataMoverType = string.Empty;  
         private string loadingMsgStr = "执行中";
         private string successMsgStr = "执行成功";
         private string errorMsgStr = "执行失败";
-        public DataMoveDialog(Connection fromConn, Connection toConn, MyHelper.DbSchema schema, string moveType, string createSql = null)
+        public DataMoveDialog(Connection fromConn, Connection toConn, LocalSchema schema, string moveType, string createSql = null)
         {
             InitializeComponent();
             mFromConnection = fromConn;

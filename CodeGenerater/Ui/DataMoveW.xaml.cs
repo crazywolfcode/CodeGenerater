@@ -21,10 +21,10 @@ namespace CodeGenerater
     {
         private List<Connection> mConnections;
         private Connection mConnection;
-        private MyHelper.DbSchema CurrSchema;
+        private LocalSchema CurrSchema;
         private string currCreateSql;
         public string DataMoverType = string.Empty;
-        public DataMoveW(Connection conn, MyHelper.DbSchema schema, string moveType, string createSql = null)
+        public DataMoveW(Connection conn,LocalSchema schema, string moveType, string createSql = null)
         {
             InitializeComponent();
             mConnection = conn;

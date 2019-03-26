@@ -20,10 +20,10 @@ namespace CodeGenerater
     public partial class DataMoveDesW : Window
     {
         private Connection mConnection;
-        private MyHelper.DbSchema CurrSchema;
+        private LocalSchema CurrSchema;
         private string currCreateSql;
         public string type = string.Empty;
-        public DataMoveDesW(Connection conn, MyHelper.DbSchema schema, string createSql = null)
+        public DataMoveDesW(Connection conn, LocalSchema schema, string createSql = null)
         {
             InitializeComponent();
             mConnection = conn;

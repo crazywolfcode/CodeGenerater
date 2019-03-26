@@ -8,7 +8,7 @@ namespace CodeGenerater
 {
     class CSharpCenerater : BaseGenerater
     {
-        public CSharpCenerater(MyHelper.DbSchema schema, Connection connection)
+        public CSharpCenerater(LocalSchema schema, Connection connection)
         {
             mDbSchema = schema;
             mTableName = schema.TableName;

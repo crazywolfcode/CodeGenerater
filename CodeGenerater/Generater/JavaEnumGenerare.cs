@@ -22,7 +22,7 @@ namespace CodeGenerater
             return null;
         }
 
-        public string tableEnumGenerater(MyHelper.DbSchema schema)
+        public string tableEnumGenerater(LocalSchema schema)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine();
