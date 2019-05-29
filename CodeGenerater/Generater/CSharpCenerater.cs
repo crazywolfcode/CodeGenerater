@@ -40,6 +40,13 @@ namespace CodeGenerater
         private string getProerty(string type, string field)
         {
             string fieldName = MyHelper.StringHelper.DBNamingToCamelCase(field);
+            if ("Int32".Equals(type) || "Int64".Equals(type) || "Int16".Equals(type)|| "int".Equals(type)) {
+                type += "?";
+            }
+            if ("Double".Equals(type) || "double".Equals(type) || "float".Equals(type))
+            {
+                type += "?";
+            }
             return tab + $"public {type} {MyHelper.StringHelper.upperCaseFirstLetter(fieldName)}" + "{ get; set; }";
         }
 
