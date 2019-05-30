@@ -47,6 +47,11 @@ namespace CodeGenerater
             {
                 type += "?";
             }
+            if ("DateTime".Equals(type))
+            {
+                type += "?";
+            }
+            
             return tab + $"public {type} {MyHelper.StringHelper.upperCaseFirstLetter(fieldName)}" + "{ get; set; }";
         }
 
