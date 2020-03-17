@@ -8,7 +8,7 @@
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <Border CornerRadius="4,4,0,0" Grid.Row="0" Padding="10" Background="{StaticResource E4}"></Border>
-    <Border Grid.Row="1" CornerRadius="0,0,4,4" x:Name="main" Padding="10" Background="{StaticResource F9}">
+    <Border Grid.Row="1" CornerRadius="0,0,4,4" x:Name="main" Padding="10" Background="{StaticResource F9}" BorderThickness="1 0 1 1" BorderBrush="#E4e4e4">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="connName" Text="本地" FontSize="14" FontWeight="Black" Foreground="#777"/>
@@ -36,7 +36,7 @@
                             <Setter Property="Background" Value="White"/>
                             <Setter Property="Foreground" Value="Green"/>
                         </Trigger>
-                                     
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
@@ -59,6 +59,6 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-        </Button>       
+        </Button>
     </StackPanel>
 </Grid>        

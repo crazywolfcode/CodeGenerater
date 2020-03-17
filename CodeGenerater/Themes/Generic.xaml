@@ -11,7 +11,7 @@
         <ResourceDictionary Source="/CodeGenerater;component/Style/ScrollViewerDictionary.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/CodeGenerater;component/Style/MenuAndTreeViewDictionary.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/CodeGenerater;component/Style/WindowStyleDictionary.xaml"></ResourceDictionary>
-        <ResourceDictionary Source="/CodeGenerater;component/Style/TabButtonStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="/CodeGenerater;component/Style/RadioButtonStyle.xaml"></ResourceDictionary>
        
     </ResourceDictionary.MergedDictionaries>
   

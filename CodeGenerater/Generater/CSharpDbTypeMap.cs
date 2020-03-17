@@ -26,7 +26,7 @@ namespace CodeGenerater
                 {"COUNTER", typeof(Int64)},
                 {"CURRENCY",typeof(decimal)},
                 {"DATE", typeof(DateTime)},
-                {"DATETIME", typeof(DateTime)},
+                {"DATETIME", typeof(DateTime)},               
                 {"DECIMAL", typeof(decimal)},
                 {"DOUBLE", typeof(double)},
                 {"FLOAT", typeof(double)},

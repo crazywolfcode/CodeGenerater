@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SqlDao;
 namespace CodeGenerater
 {
     class CSharpCenerater : BaseGenerater
     {
         public CSharpCenerater(LocalSchema schema, Connection connection)
         {
-            mDbSchema = schema;
+            mDbLocalSchema = schema;
             mTableName = schema.TableName;
             mConnection = connection;
-            ClassNmae = MyHelper.StringHelper.dbNameToClassName(MyHelper.StringHelper.DBNamingToCamelCase(mTableName));
+            ClassNmae = StringHelper.dbNameToClassName(StringHelper.DBNamingToCamelCase(mTableName));
         }
         private string getHeader()
         {
@@ -30,7 +30,7 @@ namespace CodeGenerater
             sb.AppendLine("");
             if (!string.IsNullOrEmpty(mConnection.classSuffix))
             {
-                ClassNmae = ClassNmae + MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+                ClassNmae = ClassNmae + StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
             }
             sb.AppendLine(tab + string.Format(" public  class {0}", ClassNmae));
             sb.AppendLine(tab + "{");
@@ -39,8 +39,8 @@ namespace CodeGenerater
 
         private string getProerty(string type, string field)
         {
-            string fieldName = MyHelper.StringHelper.DBNamingToCamelCase(field);
-            return tab + $"public {type} {MyHelper.StringHelper.upperCaseFirstLetter(fieldName)}" + "{ get; set; }";
+            string fieldName = StringHelper.DBNamingToCamelCase(field);
+            return tab + $"public {type} {StringHelper.upperCaseFirstLetter(fieldName)}" + "{ get; set; }";
         }
 
         public string getcomment(string comment, string isNull, string defaultValue)
@@ -66,22 +66,22 @@ namespace CodeGenerater
         public string getClassComment()
         {
             StringBuilder sb = new StringBuilder();
-            if (mDbSchema == null)
+            if (mDbLocalSchema == null)
             {
                 return null;
             }
             sb.AppendLine(tab + "/// <summary>");
-            if (!string.IsNullOrWhiteSpace(mDbSchema.TableComment))
+            if (!string.IsNullOrWhiteSpace(mDbLocalSchema.TableComment))
             {
-                sb.AppendLine(tab + "/// " + mDbSchema.TableComment);
+                sb.AppendLine(tab + "/// " + mDbLocalSchema.TableComment);
             }
-            if (!string.IsNullOrWhiteSpace(mDbSchema.tableRows))
+            if (!string.IsNullOrWhiteSpace(mDbLocalSchema.tableRows))
             {
-                sb.AppendLine(tab + "/// 数据条数:" + mDbSchema.tableRows);
+                sb.AppendLine(tab + "/// 数据条数:" + mDbLocalSchema.tableRows);
             }
-            if (!string.IsNullOrWhiteSpace(mDbSchema.dataLength))
+            if (!string.IsNullOrWhiteSpace(mDbLocalSchema.dataLength))
             {
-                sb.AppendLine(tab + "/// 数据大小:" + MyHelper.FileHelper.ConverterFileSizeUnit(Convert.ToInt64(mDbSchema.dataLength)));
+                sb.AppendLine(tab + "/// 数据大小:" + FileHelper.ConverterFileSizeUnit(Convert.ToInt64(mDbLocalSchema.dataLength)));
             }
             sb.AppendLine(tab + "/// </summary>");
             return sb.ToString();
@@ -92,23 +92,23 @@ namespace CodeGenerater
             sb.AppendLine(getHeader());
             if (mConnection.type == DbType.mysql.ToString())
             {
-                List<MyHelper.MysqlTableColumnSchema> schemas = new MyHelper.MySqlHelper(mConnection.connStr).getTableColumnSchema(mConnection.dbName, mTableName);
+                List<MysqlTableColumnSchema> schemas = MySqlHelperInstance.GetTableColumnSchema(mConnection.dbName, mTableName);
                 for (int i = 0; i < schemas.Count; i++)
                 {
-                    MyHelper.MysqlTableColumnSchema schema = schemas[i];
-                    sb.AppendLine(getcomment(schema.commentValue, schema.isNullable, schema.defaultValue));
-                    sb.AppendLine(getProerty(CSharpDbTypeMap.FindType(schema.type), schema.columnName));
+                    MysqlTableColumnSchema schema = schemas[i];
+                    sb.AppendLine(getcomment(schema.CommentValue, schema.IsNullable, schema.DefaultValue));
+                    sb.AppendLine(getProerty(CSharpDbTypeMap.FindType(schema.Type), schema.ColumnName));
                     sb.AppendLine();
                 }
             }
             else
             {
-                List<MyHelper.SqliteTableSchema> schemas = new MyHelper.SQLiteHelper(mConnection.connStr).getTableSchema(mTableName);
+                List<SqliteTableSchema> schemas = SQLiteHelperInstance.GetTableSchema<SqliteTableSchema>(mTableName);
                 for (int i = 0; i < schemas.Count; i++)
                 {
-                    MyHelper.SqliteTableSchema schema = schemas[i];
-                    sb.AppendLine(getcomment(null, schema.notnull, schema.dflt_value));
-                    sb.AppendLine(getProerty(CSharpDbTypeMap.FindType(schema.type), schema.name));
+                    SqliteTableSchema schema = schemas[i];
+                    sb.AppendLine(getcomment(null, schema.Notnull, schema.Dflt_value));
+                    sb.AppendLine(getProerty(CSharpDbTypeMap.FindType(schema.Type), schema.Name));
                     sb.AppendLine();
                 }
             }

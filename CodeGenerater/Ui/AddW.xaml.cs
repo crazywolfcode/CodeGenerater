@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using SqlDao;
 namespace CodeGenerater
 {
     /// <summary>
@@ -99,8 +100,8 @@ namespace CodeGenerater
                 string userid = this.usernameTb.Text.Trim();
                 string port = this.portTb.Text.Trim();
                 string pwd = this.pwdTb.Text.Trim();
-                string connstr = MyHelper.MySqlHelper.buildConnectionString(address, dbname, userid, pwd, port);
-                if (MyHelper.MySqlHelper.CheckConn(connstr))
+                string connstr =MysqlConnectionStringBuilder.BuildConnectionString(address, dbname, userid, pwd, port);
+                if (new MySqlHelper(connstr).CheckConn(connstr))
                 {
                     conn.name = connName;
                     conn.description = connDes;
@@ -111,7 +112,7 @@ namespace CodeGenerater
                     conn.uaerName = userid;
                     conn.password = pwd;
                     conn.connStr = connstr;
-                    conn.addTime = MyHelper.DateTimeHelper.getCurrentDateTime();
+                    conn.addTime =DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                     //保存
                     if (saveToFile(conn))
                     {
@@ -136,9 +137,9 @@ namespace CodeGenerater
                 conn.connStr = string.Format(connStrTemplate, filePathTB.Text.Trim());
                 conn.description = sqlite_connDesTB.Text.Trim();
                 conn.name = sqlite_connNameTB.Text.Trim();
-                if (MyHelper.SQLiteHelper.CheckConn(conn.connStr))
+                if (new SQLiteHelper(conn.connStr).CheckConn(conn.connStr))
                 {
-                    conn.addTime = MyHelper.DateTimeHelper.getCurrentDateTime();
+                    conn.addTime = DateTime.Now.ToString(Constract.DateTimeFormart);
                     conn.auto = Auto.no.ToString();
                   
                     //保存
@@ -166,13 +167,13 @@ namespace CodeGenerater
             List<Connection> conns;
             string path = Constract.ConnPath;
             string filePath = Constract.ConnFilePath;
-            if (MyHelper.FileHelper.FolderExistsCreater(path))
+            if (FileHelper.FolderExistsCreater(path))
             {
-                if (!MyHelper.FileHelper.Exists(filePath))
+                if (!FileHelper.Exists(filePath))
                 {
                     try
                     {
-                        MyHelper.FileHelper.createFile(filePath);
+                        FileHelper.CreateFile(filePath);
                     }
                     catch(Exception ex)
                     {
@@ -180,8 +181,8 @@ namespace CodeGenerater
                         return false;
                     }
                 }
-                string xml = MyHelper.FileHelper.Reader(filePath, Encoding.UTF8);
-                conns = (List<Connection>)MyHelper.XmlHelper.Deserialize(typeof(List<Connection>), xml);
+                string xml = FileHelper.Reader(filePath, Encoding.UTF8);
+                conns = (List<Connection>)XmlHelper.Deserialize(typeof(List<Connection>), xml);
                 if (conns == null)
                 {
                     conns = new List<Connection>();
@@ -191,11 +192,11 @@ namespace CodeGenerater
                 {
                     conns.Add(conn);
                 }
-                string connStrings = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), conns);
+                string connStrings = XmlHelper.Serialize(typeof(List<Connection>), conns);
 
                 try
                 {
-                    MyHelper.FileHelper.Write(filePath, connStrings);
+                    FileHelper.Write(filePath, connStrings);
                 }
                 catch (Exception ex)
                 {

@@ -12,6 +12,9 @@ namespace CodeGenerater
     public class Connection
     {
         public string id { get; set; }
+        /// <summary>
+        /// 连接名称
+        /// </summary>
         public string name { get; set; }
         public string classSuffix { get; set; }
         public string enumSuffi { get; set; }

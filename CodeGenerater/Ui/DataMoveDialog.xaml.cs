@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using SqlDao;
 namespace CodeGenerater
 {
     /// <summary>
@@ -114,11 +114,11 @@ namespace CodeGenerater
             tempsql = $"Select * from {CurrSchema.TableName}; ";
             if (mFromConnection.type == DbType.mysql.ToString())
             {
-                dt = new MyHelper.MySqlHelper(mFromConnection.connStr).select(tempsql);
+                dt = new MySqlHelper(mFromConnection.connStr).ExcuteDataTable(tempsql);
             }
             else
             {
-                dt = new MyHelper.SQLiteHelper(mFromConnection.connStr).select(tempsql);
+                dt = new SQLiteHelper(mFromConnection.connStr).ExcuteDataTable(tempsql);
             }
             //INSERT INTO `｛｝` (｛｝) VALUES (｛｝);
             string columSpilt = "`";
@@ -185,12 +185,12 @@ namespace CodeGenerater
         {
             if (mToConnection.type == DbType.mysql.ToString())
             {
-                MyHelper.MySqlHelper tohelper = new MyHelper.MySqlHelper(mToConnection.connStr);
-                return (tohelper.ExcuteNoQuery(sql) > 0);
+                MySqlHelper tohelper = new MySqlHelper(mToConnection.connStr);
+                return (tohelper.ExecuteNonQuery(sql,null) > 0);
             }
             else if (mFromConnection.type == DbType.sqlite.ToString())
             {
-                MyHelper.SQLiteHelper tohelper = new MyHelper.SQLiteHelper(mToConnection.connStr);
+                SQLiteHelper tohelper = new SQLiteHelper(mToConnection.connStr);
                 return (tohelper.ExcuteNoQuery(sql) > 0);
             }
             else

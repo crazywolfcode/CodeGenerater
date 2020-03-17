@@ -27,8 +27,8 @@ namespace CodeGenerater
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            e.Handled = true;
-            MessageBox.Show(sender.ToString() + e.Exception.Message);
+          // e.Handled = true;
+          // MessageBox.Show(sender.ToString() + e.Exception.Message);
         }
     }
 }

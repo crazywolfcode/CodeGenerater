@@ -74,11 +74,11 @@ namespace CodeGenerater
             string path = string.Empty;
             if (App.DEBUG == true)
             {
-                path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connMoveItem.xaml";
+                path = FileHelper.GetProjectRootPath() + "/Ui/connMoveItem.xaml";
             }
             else
             {
-                path = MyHelper.FileHelper.GetRunTimeRootPath() + "/connMoveItem.xaml";
+                path = FileHelper.GetRunTimeRootPath() + "/connMoveItem.xaml";
             }
             for (int i = 0; i < mConnections.Count; i++)
             {

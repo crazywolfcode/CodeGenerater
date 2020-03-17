@@ -178,13 +178,13 @@ namespace CodeGenerater
             }
             this.mainBody.Children.Clear();
             string path = string.Empty;
-            if (App.DEBUG == true)
-            {
-                path = MyHelper.FileHelper.GetProjectRootPath() + "/Ui/connItem.xaml";
-            }
-            else {
-                path = MyHelper.FileHelper.GetRunTimeRootPath() + "/connItem.xaml";
-            }
+            //if (App.DEBUG == true)
+            //{
+            //    path = FileHelper.GetProjectRootPath() + "/Ui/connItem.xaml";
+            //}
+            //else {
+                path = FileHelper.GetRunTimeRootPath() + "/connItem.xaml";              
+            //}
             
             for (int i = 0; i < mConnections.Count; i++)
             {                
@@ -301,14 +301,14 @@ namespace CodeGenerater
         /// </summary>
         private void updateConnXmlFile()
         {
-            string xml = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), mConnections);
+            string xml = XmlHelper.Serialize(typeof(List<Connection>), mConnections);
             try
             {
-                MyHelper.FileHelper.Write(Constract.ConnFilePath, xml);
+                FileHelper.Write(Constract.ConnFilePath, xml);
             }
             catch (Exception)
             {
-                MyHelper.ConsoleHelper.writeLine("update the connection xml file fauilure");
+                Console.WriteLine("update the connection xml file fauilure");
                 throw;
             }
         }
@@ -359,10 +359,10 @@ namespace CodeGenerater
         {
             if (mConnections != null)
             {
-                string xml = MyHelper.XmlHelper.Serialize(typeof(List<Connection>), mConnections);
+                string xml = XmlHelper.Serialize(typeof(List<Connection>), mConnections);
                 try
                 {
-                    MyHelper.FileHelper.Write(Constract.ConnFilePath, xml);
+                    FileHelper.Write(Constract.ConnFilePath, xml);
                 }
                 catch (Exception)
                 {

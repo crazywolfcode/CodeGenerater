@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using SqlDao;
 namespace CodeGenerater
 {
     public class AutoGenerater
@@ -20,13 +20,13 @@ namespace CodeGenerater
 
         public void showmessage(string msg)
         {
-            MyHelper.ConsoleHelper.writeLine(msg);
+            Console.WriteLine(msg);
         }
 
         public void generater()
         {
             DelegateShowMsg = new showMsg(showmessage);
-            getNowDbSchemas();
+            GetNowDbSchemas();
             if (mNowSchemas == null || mNowSchemas.Count <= 0)
             {
                 return;
@@ -58,83 +58,83 @@ namespace CodeGenerater
                 LocalSchema schema = needThreadGeneraters[i];
                 if (!string.IsNullOrEmpty(mConnection.javaClassPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaClassPath))
+                    if (FileHelper.FolderExistsCreater(mConnection.javaClassPath))
                     {
                         string javaClass = new JavaGenerater(schema, mConnection).CeneraterClass();
                         String suffix = string.Empty;
                         if (!String.IsNullOrEmpty(mConnection.classSuffix)) {
-                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+                            suffix = StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
                         }
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) +suffix+ ".java";
-                        MyHelper.FileHelper.Write(mConnection.javaClassPath + fileName, javaClass);
+                        fileName = "\\" + StringHelper.upperCaseFirstLetter(StringHelper.DBNamingToCamelCase(schema.TableName)) +suffix+ ".java";
+                        FileHelper.Write(mConnection.javaClassPath + fileName, javaClass);
                     }
                 }
 
                 //java enum
                 if (!string.IsNullOrEmpty(mConnection.javaEnumPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.javaEnumPath))
+                    if (FileHelper.FolderExistsCreater(mConnection.javaEnumPath))
                     {
                         string javaEnum = new JavaEnumGenerare(mConnection).tableEnumGenerater(schema);
                         String suffix = string.Empty;
                         if (!String.IsNullOrEmpty(mConnection.enumSuffi))
                         {
-                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
+                            suffix = StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
                         }
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".java";
-                        MyHelper.FileHelper.Write(mConnection.javaEnumPath + fileName, javaEnum);
+                        fileName = "\\" + StringHelper.upperCaseFirstLetter(StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".java";
+                        FileHelper.Write(mConnection.javaEnumPath + fileName, javaEnum);
                     }
                 }
 
                 //Csharp class
                 if (!string.IsNullOrEmpty(mConnection.cSharpClassPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpClassPath))
+                    if (FileHelper.FolderExistsCreater(mConnection.cSharpClassPath))
                     {
                         string csharpClass = new CSharpCenerater(schema, mConnection).CeneraterClass();
                         String suffix = string.Empty;
                         if (!String.IsNullOrEmpty(mConnection.classSuffix))
                         {
-                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
+                            suffix = StringHelper.upperCaseFirstLetter(mConnection.classSuffix);
                         }
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".cs";
-                        MyHelper.FileHelper.Write(mConnection.cSharpClassPath + fileName, csharpClass);
+                        fileName = "\\" + StringHelper.upperCaseFirstLetter(StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".cs";
+                        FileHelper.Write(mConnection.cSharpClassPath + fileName, csharpClass);
                     }
                 }
 
                 //Csharp enum
                 if (!string.IsNullOrEmpty(mConnection.cSharpEnumPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumPath))
+                    if (FileHelper.FolderExistsCreater(mConnection.cSharpEnumPath))
                     {
                         string csharpEnum = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema);
                         String suffix = string.Empty;
                         if (!String.IsNullOrEmpty(mConnection.enumSuffi))
                         {
-                            suffix = MyHelper.StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
+                            suffix = StringHelper.upperCaseFirstLetter(mConnection.enumSuffi);
                         }
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".cs";                       
-                        MyHelper.FileHelper.Write(mConnection.cSharpEnumPath + fileName, csharpEnum);
+                        fileName = "\\" + StringHelper.upperCaseFirstLetter(StringHelper.DBNamingToCamelCase(schema.TableName)) + suffix + ".cs";                       
+                        FileHelper.Write(mConnection.cSharpEnumPath + fileName, csharpEnum);
                     }
                 }
                 //Csharp all enum
                 if (!string.IsNullOrEmpty(mConnection.cSharpEnumAllPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.cSharpEnumAllPath))
+                    if (FileHelper.FolderExistsCreater(mConnection.cSharpEnumAllPath))
                     {
                         string csharpEnum = new CsharpEnumGenerare(mConnection).dbEnumGenerater();
-                        fileName = "\\" + MyHelper.StringHelper.upperCaseFirstLetter(MyHelper.StringHelper.DBNamingToCamelCase(mConnection.dbName)) + ".cs";
-                        MyHelper.FileHelper.Write(mConnection.cSharpEnumAllPath + fileName, csharpEnum);
+                        fileName = "\\" + StringHelper.upperCaseFirstLetter(StringHelper.DBNamingToCamelCase(mConnection.dbName)) + ".cs";
+                        FileHelper.Write(mConnection.cSharpEnumAllPath + fileName, csharpEnum);
                     }
                 }
                 //crete sql 
                 if (!string.IsNullOrEmpty(mConnection.sqlPath))
                 {
-                    if (MyHelper.FileHelper.FolderExistsCreater(mConnection.sqlPath))
+                    if (FileHelper.FolderExistsCreater(mConnection.sqlPath))
                     {
                         string createSQl = new CsharpEnumGenerare(mConnection).tableEnumGenerater(schema);
                         fileName = "\\" + schema.TableName + ".sql";
-                        MyHelper.FileHelper.Write(mConnection.sqlPath + fileName, createSQl);
+                        FileHelper.Write(mConnection.sqlPath + fileName, createSQl);
                     }
                 }
             }
@@ -170,63 +170,52 @@ namespace CodeGenerater
             }
         }
 
-        private void getNowDbSchemas()
+        private void GetNowDbSchemas()
         {
             if (mConnection != null)
             {
+                List<DbSchema> tempSchemas = new List<DbSchema>();
                 if (mConnection.type == DbType.mysql.ToString())
                 {
-                    List<SqlDao.DbSchema> tempSchemas= DatabaseOPtionHelper.GetInstance(mConnection.connStr).getAllTableSchema8(mConnection.dbName);
-                    foreach (SqlDao.DbSchema schema in tempSchemas)
-                    {
-                        mNowSchemas.Add(new LocalSchema()
-                        {
-                            createTime = schema.createTime,
-                            updateTime = schema.updateTime,
-                            dataLength = schema.dataLength,
-                            TableComment = schema.TableComment,
-                            TableName = schema.TableName,
-                            tableRows = schema.tableRows
-                        });
-                    }
+                   tempSchemas= DatabaseOPtionHelper.GetInstance(mConnection.connStr).GetAllTableSchema<DbSchema>(mConnection.dbName);
                 }
                 else if (mConnection.type == DbType.sqlite.ToString())
                 {
-                    List<MyHelper.DbSchema> tempSchemas = new MyHelper.SQLiteHelper(mConnection.connStr).getAllTableSchema();
-                    foreach (MyHelper.DbSchema schema in tempSchemas)
+                    tempSchemas = new SQLiteHelper(mConnection.connStr).GetAllTableSchema<DbSchema>();
+                }
+                foreach (DbSchema schema in tempSchemas)
+                {
+                    mNowSchemas.Add(new LocalSchema()
                     {
-                        mNowSchemas.Add(new LocalSchema()
-                        {
-                            createTime = schema.createTime,
-                            updateTime = schema.updateTime,
-                            dataLength = schema.dataLength,
-                            TableComment = schema.TableComment,
-                            TableName = schema.TableName,
-                            tableRows = schema.tableRows
-                        });
-                    }
+                        createTime = schema.CreateTime,
+                        updateTime = schema.UpdateTime,
+                        dataLength = schema.DataLength,
+                        TableComment = schema.TableComment,
+                        TableName = schema.TableName,
+                        tableRows = schema.TableRows
+                    });
                 }
             }
         }
         private void getHostoryDbSchemas()
         {
-            if (MyHelper.FileHelper.FolderExistsCreater(Constract.dBschemasPath))
+            if (FileHelper.FolderExistsCreater(Constract.dBschemasPath))
             {
-                if (!MyHelper.FileHelper.Exists(Constract.getDbdBschemasPath(mConnection.id)))
+                if (!FileHelper.Exists(Constract.getDbdBschemasPath(mConnection.id)))
                 {
-                    MyHelper.FileHelper.createFile(Constract.getDbdBschemasPath(mConnection.id));
+                    FileHelper.CreateFile(Constract.getDbdBschemasPath(mConnection.id));
                     return;
                 }
                 else
                 {
-                    string xml = MyHelper.FileHelper.Reader(Constract.getDbdBschemasPath(mConnection.id), Encoding.UTF8);
+                    string xml = FileHelper.Reader(Constract.getDbdBschemasPath(mConnection.id), Encoding.UTF8);
                     if (string.IsNullOrEmpty(xml))
                     {
                         return;
                     }
                     try
                     {
-                        mHostoryDbSchemas = (List<LocalSchema>)MyHelper.XmlHelper.Deserialize(typeof(List<LocalSchema>), xml);
+                        mHostoryDbSchemas = (List<LocalSchema>)XmlHelper.Deserialize(typeof(List<LocalSchema>), xml);
                     }
                     catch (Exception)
                     {
@@ -244,19 +233,19 @@ namespace CodeGenerater
         {
             if (mNowSchemas != null && mNowSchemas.Count > 0)
             {
-                if (MyHelper.FileHelper.FolderExistsCreater(Constract.dBschemasPath))
+                if (FileHelper.FolderExistsCreater(Constract.dBschemasPath))
                 {
-                    if (!MyHelper.FileHelper.Exists(Constract.getDbdBschemasPath(mConnection.id)))
+                    if (!FileHelper.Exists(Constract.getDbdBschemasPath(mConnection.id)))
                     {
-                        if (!MyHelper.FileHelper.createFile(Constract.getDbdBschemasPath(mConnection.id)))
+                        if (!FileHelper.CreateFile(Constract.getDbdBschemasPath(mConnection.id)))
                         {
                             DelegateShowMsg("创建文件失败：" + Constract.getDbdBschemasPath(mConnection.id));
                         }
                     }
-                    string xml = MyHelper.XmlHelper.Serialize(typeof(List<LocalSchema>), mNowSchemas);
+                    string xml = XmlHelper.Serialize(typeof(List<LocalSchema>), mNowSchemas);
                     try
                     {
-                        MyHelper.FileHelper.Write(Constract.getDbdBschemasPath(mConnection.id), xml);
+                        FileHelper.Write(Constract.getDbdBschemasPath(mConnection.id), xml);
                     }
                     catch (Exception)
                     {

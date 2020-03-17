@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SqlDao;
 namespace CodeGenerater
 {
     public class SqlGenerater
@@ -24,11 +24,11 @@ namespace CodeGenerater
             string res = string.Empty;
             if (mDbType == DbType.mysql.ToString())
             {
-                res = new MyHelper.MySqlHelper(connstr).getCreateSql(mTableName);
+                res = new MySqlHelper(connstr).GetCreateSql(mTableName);
             }
             else
             {
-                res = new MyHelper.SQLiteHelper(connstr).getCreateSql(mTableName);
+                res = new SQLiteHelper(connstr).GetCreateSql(mTableName);
             }
             return res;
         }

@@ -4,11 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeGenerater" 
-        Loaded="Window_Loaded" Closing="Window_Closing"
+        Loaded="Window_Loaded" 
+        Closing="Window_Closing"
         Icon="/CodeGenerater;component/logo.ico"
-        WindowStartupLocation="CenterScreen" SizeChanged="Window_SizeChanged"
-        mc:Ignorable="d"  WindowStyle="None" Style="{StaticResource  WindowStyle}"
-        Title="代码生成器" Height="530" Width="780">
+        WindowStartupLocation="CenterScreen" 
+        SizeChanged="Window_SizeChanged"
+        mc:Ignorable="d"  
+        Style="{StaticResource  WindowStyle}"
+        Title="代码生成器" 
+        Height="530" 
+        Width="880">
     <Window.Resources>
         <local:CheckedToVisibleConverter x:Key="CheckedToVisibleConverter"></local:CheckedToVisibleConverter>
     </Window.Resources>
@@ -33,7 +38,7 @@
                 </ScrollViewer>
             </StackPanel>
         </Border>
-        <Border Grid.Column="1" CornerRadius="0,4,4,0" Padding="0,4,4,4" Background="{StaticResource F9}">
+        <Border Grid.Column="1" CornerRadius="0,4,4,0" Padding="0 0 0 4" Background="{StaticResource E4}">
             <Grid Grid.Column="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" MouseMove="WindowTitle_MouseMove"></RowDefinition>
@@ -41,114 +46,188 @@
                     <RowDefinition Height="30"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" MouseMove="WindowTitle_MouseMove">
-                    <local:RadioButton   x:Name="javaRb" Checked="javaRb_Checked" Width="80"
-                            Height="30"
-                            IsChecked="True"                           
-                            Foreground="#666"
-                            ActiveForground="{StaticResource myBlue}"
-                            IndicatorHeight="3" 
-                            Margin="0,0,4,0"
-                            IconMargin="0,0,3,0"
-                            IconSize="18" Content="Java class"
-                            ActiveIndicatorColor="{StaticResource myBlue}"/>
-
-                    <local:RadioButton x:Name="csharpRb" Checked="csharpRb_Checked" Width="80"
-                            Height="30"
-                            IsChecked="False"
-                            ActiveForground="{StaticResource myBlue}" 
-                            Foreground="#666"
-                            IndicatorHeight="3" 
-                            Margin="0,0,4,0"
-                            IconMargin="0,0,3,0"
-                            IconSize="18"
-                            ActiveIndicatorColor="{StaticResource myBlue}" Content="C# class"/>
-
-                    <local:RadioButton  x:Name="javaEnumRb" Checked="javaEnumRb_Checked" Width="80"
-                            Height="30"
-                            ActiveForground="{StaticResource myBlue}" 
-                            Foreground="#666"
-                            IndicatorHeight="3" 
-                            Margin="0,0,4,0"
-                            IconMargin="0,0,3,0"
-                            IconSize="18"
-                            ActiveIndicatorColor="{StaticResource myBlue}" Content="Java enum" />
-                    <local:RadioButton  x:Name="csharpEnumRb" Checked="csharpEnumRb_Checked" Width="80"
-                            Height="30"
-                            ActiveForground="{StaticResource myBlue}" 
-                            Foreground="#666"
-                            IndicatorHeight="3" 
-                            Margin="0,0,4,0"
-                            IconMargin="0,0,3,0"
-                            IconSize="18"
-                            ActiveIndicatorColor="{StaticResource myBlue}" Content="C# enum" />
-
-                    <local:RadioButton  x:Name="createSqlb" Checked="createSqlb_Checked" Width="80"
-                            Height="30"
-                            ActiveForground="{StaticResource myBlue}" 
-                            Foreground="#666"
-                            IndicatorHeight="3" 
-                            Margin="0,0,4,0"
-                            IconMargin="0,0,3,0"
-                            IconSize="18"
-                            ActiveIndicatorColor="{StaticResource myBlue}" Content="Creater sql"/>
-                </WrapPanel>
-
-                <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right">
-                    <!--最小化按钮-->
-                    <local:WindowButton Content=""  Width="27" Height="22"  Margin="0,0,2,0" x:Name="MinBtn" Click="MinBtn_Click" >
-                        <local:WindowButton.MyMoverBrush>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mim.png"></ImageBrush>
-                        </local:WindowButton.MyMoverBrush>
-                        <local:WindowButton.MyEnterBrush>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mie.png"></ImageBrush>
-                        </local:WindowButton.MyEnterBrush>
-                        <local:WindowButton.Background>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/min.png"></ImageBrush>
-                        </local:WindowButton.Background>
-                    </local:WindowButton>
-                    <!--最大化按钮-->
-                    <local:WindowButton  BorderBrush="{x:Null}" Content=""  Width="27" Height="22"  Margin="0,0,2,0"  x:Name="MaxBtn" Click="MaxBtn_Click" >
-                        <local:WindowButton.MyMoverBrush>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxm.png"></ImageBrush>
-                        </local:WindowButton.MyMoverBrush>
-                        <local:WindowButton.MyEnterBrush>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxe.png"></ImageBrush>
-                        </local:WindowButton.MyEnterBrush>
-                        <local:WindowButton.Background>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxn.png"></ImageBrush>
-                        </local:WindowButton.Background>
-                    </local:WindowButton >
-                    <!--关闭按钮-->
-                    <local:WindowButton  BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,0,2,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right"  Click="CloseBtn_Click">
-                        <local:WindowButton.MyMoverBrush>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xm.png"></ImageBrush>
-                        </local:WindowButton.MyMoverBrush>
-                        <local:WindowButton.MyEnterBrush>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xe.png"></ImageBrush>
-                        </local:WindowButton.MyEnterBrush>
-                        <local:WindowButton.Background>
-                            <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xn.png"></ImageBrush>
-                        </local:WindowButton.Background>
-                    </local:WindowButton >
-                </StackPanel>
-
-
+                <DockPanel Grid.Row="0" LastChildFill="True"   MouseMove="WindowTitle_MouseMove">
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <!--最小化按钮-->
+                        <local:WindowButton Content=""  Width="27" Height="22"  Margin="0,0,2,0" x:Name="MinBtn" Click="MinBtn_Click" >
+                            <local:WindowButton.MyMoverBrush>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mim.png"></ImageBrush>
+                            </local:WindowButton.MyMoverBrush>
+                            <local:WindowButton.MyEnterBrush>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mie.png"></ImageBrush>
+                            </local:WindowButton.MyEnterBrush>
+                            <local:WindowButton.Background>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/min.png"></ImageBrush>
+                            </local:WindowButton.Background>
+                        </local:WindowButton>
+                        <!--最大化按钮-->
+                        <local:WindowButton  BorderBrush="{x:Null}" Content=""  Width="27" Height="22"  Margin="0,0,2,0"  x:Name="MaxBtn" Click="MaxBtn_Click" >
+                            <local:WindowButton.MyMoverBrush>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxm.png"></ImageBrush>
+                            </local:WindowButton.MyMoverBrush>
+                            <local:WindowButton.MyEnterBrush>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxe.png"></ImageBrush>
+                            </local:WindowButton.MyEnterBrush>
+                            <local:WindowButton.Background>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/mxn.png"></ImageBrush>
+                            </local:WindowButton.Background>
+                        </local:WindowButton >
+                        <!--关闭按钮-->
+                        <local:WindowButton  BorderBrush="{x:Null}" Width="27" Height="22"  Margin="0,0,2,0" Content="" x:Name="CloseBtn" HorizontalAlignment="Right"  Click="CloseBtn_Click">
+                            <local:WindowButton.MyMoverBrush>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xm.png"></ImageBrush>
+                            </local:WindowButton.MyMoverBrush>
+                            <local:WindowButton.MyEnterBrush>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xe.png"></ImageBrush>
+                            </local:WindowButton.MyEnterBrush>
+                            <local:WindowButton.Background>
+                                <ImageBrush ImageSource="/CodeGenerater;component/Themes/Img/Button/xn.png"></ImageBrush>
+                            </local:WindowButton.Background>
+                        </local:WindowButton >
+                    </StackPanel>
+                    <ScrollViewer  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" CanContentScroll="True" x:Name="HorizontalScrollViewer" Style="{StaticResource DefaultScrollViewer}">
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
+                            <!--cs-->
+                            <local:RadioButton  
+                                x:Name="csRb"
+                                Checked="RadioButton_Checked"
+                                Tag=".cs"
+                                Height="30"                                                       
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="cs"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="enumcsRb"
+                                Checked="RadioButton_Checked"
+                                Tag="Enum.cs"
+                                Height="30"                          
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="Enum.cs"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <!--java-->
+                            <local:RadioButton  
+                                x:Name="conntrollerRb"
+                                Checked="RadioButton_Checked"
+                                Tag="Controller.java"
+                                Height="30" 
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="Conntroller.java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="serviceRb"
+                                Checked="RadioButton_Checked"
+                                Tag="Service.java"
+                                Height="30" 
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="Service.java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="serviceImplRb"
+                                Checked="RadioButton_Checked"
+                                Tag="ServiceImpl.java"
+                                Height="30" 
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="ServiceImpl.java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="mapperRb"
+                                Checked="RadioButton_Checked"
+                                Tag="Mapper.java"
+                                Height="30" 
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="Mapper.java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="xmlRb"
+                                Checked="RadioButton_Checked"
+                                Tag="Mapper.xml"
+                                Height="30" 
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="Mapper.xml"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="beanRb"
+                                Checked="RadioButton_Checked"
+                                Tag=".java"
+                                Height="30"                                                        
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content=".java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="beanEnumRb"
+                                Checked="RadioButton_Checked"
+                                Tag="Enum.java"
+                                Height="30"                                                     
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="Enum.java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <!--sql-->
+                            <local:RadioButton  
+                                x:Name="sqlRb"
+                                Checked="RadioButton_Checked"
+                                Width="80"
+                                Tag=".sql"
+                                Height="30"
+                                ActiveForground="{StaticResource myBlue}" 
+                                Foreground="#666"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                ActiveIndicatorColor="{StaticResource myBlue}" 
+                                Content="sql"/>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </DockPanel>
                 <!--Main content area-->
                 <StackPanel Grid.Row="1" Background="White" x:Name="codeMainPanel">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="CodeScrollViewer">
-                        <TextBox x:Name="CodeTb" BorderBrush="{x:Null}" BorderThickness="0" TextWrapping="Wrap" Foreground="#676767" FontSize="14"/>
+                        <TextBox x:Name="CodeTb" BorderBrush="{x:Null}" BorderThickness="0" TextWrapping="Wrap" Foreground="#676767" FontSize="14" Padding="8"/>
                     </ScrollViewer>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <local:IconButton Margin="0,5,20,0"                        
-                            Padding="1"  Visibility="{Binding Path=IsChecked,ElementName=createSqlb,Converter={StaticResource CheckedToVisibleConverter}}"
+                <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <local:IconButton Margin="4,4,20,1"                        
+                            Padding="1"  Visibility="{Binding Path=IsChecked,ElementName=sqlRb,Converter={StaticResource CheckedToVisibleConverter}}"
                             x:Name="DataMoveBtn" 
                             Click="DataMoveBtn_Click"
                             Style="{StaticResource IconButtonStyle}"  
-                            Background="#f9f9f9f9" 
-                            BorderBrush="#e0e0e0" 
+                            Background="#e4e4e4" 
+                            BorderBrush="White" 
                             Foreground="#666"
                             BorderThickness="1" 
                             Width="80"
@@ -157,25 +236,25 @@
                             FontWeight="Bold" 
                             IsShowIcon="False"                 
                             HorizontalAlignment="Center"   
-                            MouseOverForeground="Black"
-                            MouseOverBackground="White" Content="数据搬家" />
-                    <local:IconButton Margin="0,5,0,0"                        
+                            MouseOverForeground="White"
+                            MouseOverBackground="{StaticResource myBlue}" Content="数据搬家" />
+                    <local:IconButton Margin="2,4,10,1"                        
                             Padding="1"
                             x:Name="SaveBtn" 
                             Click="SaveBtn_Click"
                             Style="{StaticResource IconButtonStyle}"  
-                            Background="#f9f9f9f9" 
-                            BorderBrush="#e0e0e0" 
+                            Background="#e4e4e4" 
+                            BorderBrush="White" 
                             Foreground="#666"
                             BorderThickness="1" 
-                            Width="60"
+                            Width="100"
                             Height="25"                 
                             CornerRadius="4"                                      
                             FontWeight="Bold" 
                             IsShowIcon="False"                 
                             HorizontalAlignment="Center"   
-                            MouseOverForeground="Black"
-                            MouseOverBackground="White" Content="保 存" />
+                            MouseOverForeground="White"
+                            MouseOverBackground="{StaticResource myBlue}" Content="保存到文件" />
                 </StackPanel>
             </Grid>
         </Border>
