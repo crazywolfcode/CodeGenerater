@@ -125,7 +125,7 @@ namespace CodeGenerater
             string valueSpilt = "'";
             string colums = string.Empty;
             string values = string.Empty;
-            if (dt.Rows.Count > 0)
+            if (dt.Rows.Count > 0)  
             {
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {
@@ -186,7 +186,7 @@ namespace CodeGenerater
             if (mToConnection.type == DbType.mysql.ToString())
             {
                 MySqlHelper tohelper = new MySqlHelper(mToConnection.connStr);
-                return (tohelper.ExecuteNonQuery(sql,null) > 0);
+                return tohelper.ExecuteNonQuery(sql,null) > 0;               
             }
             else if (mFromConnection.type == DbType.sqlite.ToString())
             {
