@@ -70,7 +70,14 @@ namespace CodeGenerater
         {
             if (mConnection.type == DbType.mysql.ToString())
             {
-                mDbSchemas = DatabaseOPtionHelper.GetInstance(mConnection.connStr).GetAllTableSchema<DbSchema>(mConnection.dbName);
+                var instance = (MySqlHelper)DatabaseOPtionHelper.GetInstance(mConnection.connStr);
+                mDbSchemas = instance.GetAllTableSchema<DbSchema>(mConnection.dbName);
+
+                if(mDbSchemas == null || mDbSchemas.Count <= 0)
+                {
+                    //mysql 可以是可能 是 8.0
+                    mDbSchemas = instance.GetAllTableSchema8(mConnection.dbName);
+                }
             }
             else
             {

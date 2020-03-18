@@ -10,9 +10,7 @@ namespace CodeGenerater
     /// Java Controller Generater
     /// </summary>
     class ControllerGenerater : BaseGenerater
-    {
-
-
+    {       
         public ControllerGenerater(LocalSchema schema, Connection connection)
         {
             mDbLocalSchema = schema;
