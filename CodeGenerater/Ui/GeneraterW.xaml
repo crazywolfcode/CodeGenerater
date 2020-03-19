@@ -85,7 +85,7 @@
                             </local:WindowButton.Background>
                         </local:WindowButton >
                     </StackPanel>
-                    <ScrollViewer  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" CanContentScroll="True" x:Name="HorizontalScrollViewer" Style="{StaticResource DefaultScrollViewer}">
+                    <ScrollViewer  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" CanContentScroll="True" x:Name="HorizontalScrollViewer" Style="{StaticResource DefaultScrollViewer}" PreviewMouseWheel="HorizontalScrollViewer_PreviewMouseWheel">
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
                             <!--cs-->
                             <local:RadioButton  

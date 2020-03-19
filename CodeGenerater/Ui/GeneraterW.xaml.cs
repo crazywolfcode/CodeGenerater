@@ -469,5 +469,11 @@ namespace CodeGenerater
                 CodeCache.Add(key, doc);
             }
         }
+
+        private void HorizontalScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var offset = Math.Min(Math.Max(0, HorizontalScrollViewer.HorizontalOffset - e.Delta), HorizontalScrollViewer.ScrollableWidth);
+            HorizontalScrollViewer.ScrollToHorizontalOffset(offset);
+        }
     }
 }
