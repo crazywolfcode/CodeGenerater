@@ -38,12 +38,18 @@ namespace CodeGenerater
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Cursor = Cursors.Wait;            
             setScrollViewHeight();
             setCodeScrollViewHeight();
-            setCurrentConnInfo();
+            setCurrentConnInfo();            
+        }
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
             // logical start
             getDBschemas();
             setTableNameList();
+            this.Cursor = Cursors.Arrow;
         }
         private void setCurrentConnInfo()
         {
@@ -475,5 +481,7 @@ namespace CodeGenerater
             var offset = Math.Min(Math.Max(0, HorizontalScrollViewer.HorizontalOffset - e.Delta), HorizontalScrollViewer.ScrollableWidth);
             HorizontalScrollViewer.ScrollToHorizontalOffset(offset);
         }
+
+     
     }
 }

@@ -5,7 +5,7 @@
     <!--主窗口样式-->
     <!--圆角阴影无按键窗口样式-->
     <ControlTemplate x:Key="BaseComplate" TargetType="{x:Type Window}">
-            <Border  BorderThickness="5" CornerRadius="4" x:Name="border" Background="Transparent">
+            <Border  BorderThickness="1" CornerRadius="4" x:Name="border" Background="Transparent">
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="6"  Color="#777"/>
                 </Border.Effect>
