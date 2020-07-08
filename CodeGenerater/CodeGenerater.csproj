@@ -115,8 +115,7 @@
       <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SqlDaoDemo\packages\MySql.Data.8.0.17\lib\net452\MySql.Data.dll</HintPath>
+      <HintPath>..\packages\MySql.Data.8.0.19\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -189,6 +188,7 @@
     <Compile Include="Helper\DatabaseOPtionHelper.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\TemplateHelper.cs" />
+    <Compile Include="Helper\Win32Helper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Ui\DataMoveDialog.xaml.cs">
       <DependentUpon>DataMoveDialog.xaml</DependentUpon>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeGenerater" 
         Loaded="Window_Loaded" 
+        ContentRendered="Window_ContentRendered"
         Closing="Window_Closing"
         Icon="/CodeGenerater;component/logo.ico"
         WindowStartupLocation="CenterScreen" 
@@ -17,6 +18,9 @@
     <Window.Resources>
         <local:CheckedToVisibleConverter x:Key="CheckedToVisibleConverter"></local:CheckedToVisibleConverter>
     </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CornerRadius="6" CaptionHeight="0"></WindowChrome>
+    </WindowChrome.WindowChrome>
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="140" MaxWidth="200"/>
@@ -85,7 +89,7 @@
                             </local:WindowButton.Background>
                         </local:WindowButton >
                     </StackPanel>
-                    <ScrollViewer  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" CanContentScroll="True" x:Name="HorizontalScrollViewer" Style="{StaticResource DefaultScrollViewer}">
+                    <ScrollViewer  VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" CanContentScroll="True" x:Name="HorizontalScrollViewer" Style="{StaticResource DefaultScrollViewer}" PreviewMouseWheel="HorizontalScrollViewer_PreviewMouseWheel">
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" ScrollViewer.CanContentScroll="True">
                             <!--cs-->
                             <local:RadioButton  
