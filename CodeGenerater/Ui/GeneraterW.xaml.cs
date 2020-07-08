@@ -281,6 +281,27 @@ namespace CodeGenerater
                     Cache(key, doc);
                 }
             }
+            else if (lineBeanRb.IsChecked == true) {
+                var key = currLocalschma.TableName + "java_line_bean";
+                doc = GetCodeFromCache(key);
+
+                if (string.IsNullOrEmpty(doc))
+                {
+                    doc = new JavaLineGenerater(currLocalschma, mConnection).CeneraterClass();
+                    Cache(key, doc);
+                }
+            }
+            else if (showDocRb.IsChecked == true)
+            {
+                var key = currLocalschma.TableName + "show_doc";
+                doc = GetCodeFromCache(key);
+
+                if (string.IsNullOrEmpty(doc))
+                {
+                    doc = new ShowDocCenerater(currLocalschma, mConnection).Generater();
+                    Cache(key, doc);
+                }
+            }
             else
             {
                 doc = "\r\n 请点击左侧的表名或者上面的文件名 \r\n ";

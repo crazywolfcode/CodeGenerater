@@ -186,6 +186,30 @@
                                 Content=".java"
                                 ActiveIndicatorColor="{StaticResource myBlue}"/>
                             <local:RadioButton  
+                                x:Name="lineBeanRb"
+                                Checked="RadioButton_Checked"
+                                Tag="line.java"
+                                Height="30"                                                        
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content=".java"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>
+                            <local:RadioButton  
+                                x:Name="showDocRb"
+                                Checked="RadioButton_Checked"
+                                Tag="doc"
+                                Height="30"                                                        
+                                Foreground="#666"
+                                ActiveForground="{StaticResource myBlue}"
+                                IndicatorHeight="3" 
+                                Margin="0,0,4,0"
+                                Padding="0,0,4,0"
+                                Content="showDoc"
+                                ActiveIndicatorColor="{StaticResource myBlue}"/>                          
+                            <local:RadioButton  
                                 x:Name="beanEnumRb"
                                 Checked="RadioButton_Checked"
                                 Tag="Enum.java"
