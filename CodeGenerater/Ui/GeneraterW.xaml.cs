@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ICSharpCode.AvalonEdit.Highlighting;
 using Microsoft.Win32;
 using SqlDao;
 
@@ -196,6 +197,7 @@ namespace CodeGenerater
                     doc = new JavaGenerater(currLocalschma, mConnection).CeneraterClass();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Java");
             }
             else if (csRb.IsChecked == true)
             {
@@ -208,7 +210,7 @@ namespace CodeGenerater
                     doc = generater.CeneraterClass();
                     Cache(key, doc);
                 }
-
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
             }
             else if (beanEnumRb.IsChecked == true)
             {
@@ -220,6 +222,8 @@ namespace CodeGenerater
                     doc = generater.tableEnumGenerater(currLocalschma);
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Java");
+
             }
             else if (enumcsRb.IsChecked == true)
             {
@@ -231,6 +235,8 @@ namespace CodeGenerater
                     doc = generater.tableEnumGenerater(currLocalschma);
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("C#");
+
             }
             else if (sqlRb.IsChecked == true)
             {
@@ -242,6 +248,8 @@ namespace CodeGenerater
                     doc = generater.GeneraterSql();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Sql");
+
             }
             else if (conntrollerRb.IsChecked == true)
             {
@@ -252,6 +260,8 @@ namespace CodeGenerater
                     doc = new ControllerGenerater(currLocalschma, mConnection).GeneraterCode();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Java");
+
             }
             else if (serviceRb.IsChecked == true)
             {
@@ -262,6 +272,8 @@ namespace CodeGenerater
                     doc = new ServiceGenerater(currLocalschma, mConnection).GeneraterCode();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Java");
+
             }
             else if (serviceImplRb.IsChecked == true)
             {
@@ -272,6 +284,8 @@ namespace CodeGenerater
                     doc = new ServiceImplGenerater(currLocalschma, mConnection).GeneraterCode();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Java");
+
             }
             else if (mapperRb.IsChecked == true)
             {
@@ -286,6 +300,8 @@ namespace CodeGenerater
                     doc = new MapperXmlGenerater(currLocalschma, mConnection).GeneraterCode();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("XML");
+
             }
             else if (lineBeanRb.IsChecked == true) {
                 var key = currLocalschma.TableName + "java_line_bean";
@@ -296,6 +312,8 @@ namespace CodeGenerater
                     doc = new JavaLineGenerater(currLocalschma, mConnection).CeneraterClass();
                     Cache(key, doc);
                 }
+                this.CodeTb.SyntaxHighlighting = HighlightingManager.Instance.GetDefinition("Java");
+
             }
             else if (showDocRb.IsChecked == true)
             {
@@ -503,6 +521,10 @@ namespace CodeGenerater
             HorizontalScrollViewer.ScrollToHorizontalOffset(offset);
         }
 
-     
+        private void CodeScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var offset = Math.Min(Math.Max(0, CodeScrollViewer.VerticalOffset - e.Delta), CodeScrollViewer.ScrollableHeight);
+            CodeScrollViewer.ScrollToVerticalOffset(offset);
+        }
     }
 }

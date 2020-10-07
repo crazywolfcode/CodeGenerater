@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeGenerater" 
+        xmlns:edit="http://icsharpcode.net/sharpdevelop/avalonedit"
         Loaded="Window_Loaded" 
         ContentRendered="Window_ContentRendered"
         Closing="Window_Closing"
@@ -243,11 +244,12 @@
                 </DockPanel>
                 <!--Main content area-->
                 <StackPanel Grid.Row="1" Background="White" x:Name="codeMainPanel">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="CodeScrollViewer">
-                        <TextBox x:Name="CodeTb" BorderBrush="{x:Null}" BorderThickness="0" TextWrapping="Wrap" Foreground="#676767" FontSize="14" Padding="8"/>
+                    
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="CodeScrollViewer" PreviewMouseWheel="CodeScrollViewer_PreviewMouseWheel">
+                        <!--<TextBox x:Name="CodeTb" BorderBrush="{x:Null}" BorderThickness="0" TextWrapping="Wrap" Foreground="#676767" FontSize="14" Padding="8"/>-->
+                        <edit:TextEditor x:Name="CodeTb" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden"  FontSize="14" Padding="8"/>
                     </ScrollViewer>
                 </StackPanel>
-
                 <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center">
                     <local:IconButton Margin="4,4,20,1"                        
                             Padding="1"  Visibility="{Binding Path=IsChecked,ElementName=sqlRb,Converter={StaticResource CheckedToVisibleConverter}}"
